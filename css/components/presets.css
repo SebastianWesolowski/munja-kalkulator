@@ -1,85 +1,237 @@
 /* ==========================================================================
-   Component: Presets Toolbar
+   Component: Strategic Variants & Presets Cards Grid
    ========================================================================== */
 
 .presets-section {
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: 1rem 1.25rem;
+  border-radius: var(--radius-xl);
+  padding: 1.5rem 1.75rem;
   margin-block-end: 2.25rem;
+  box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  box-shadow: var(--shadow-sm);
+  gap: 1.25rem;
 }
 
-@media (min-width: 768px) {
-  .presets-section {
-    flex-direction: row;
-    align-items: center;
+.presets-header {
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 0.85rem;
+}
+
+.presets-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-primary);
+  background-color: var(--color-primary-light);
+  padding: 0.2rem 0.65rem;
+  border-radius: var(--radius-full);
+  margin-bottom: 0.45rem;
+}
+
+.presets-heading {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-text-main);
+  line-height: 1.25;
+}
+
+.presets-subheading {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-top: 0.25rem;
+  line-height: 1.45;
+}
+
+/* 2x2 Grid of Variant Cards */
+.presets-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 860px) {
+  .presets-cards-grid {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
-.presets-label {
+.preset-card {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--color-text-muted);
-  white-space: nowrap;
-}
-
-.presets-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  width: 100%;
-}
-
-.preset-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0.95rem;
+  flex-direction: column;
   background-color: var(--color-surface-muted);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-full);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.15rem 1.25rem;
+  text-align: left;
   font-family: inherit;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--color-text-main);
   cursor: pointer;
   transition: all var(--transition-fast);
+  position: relative;
+  user-select: none;
 }
 
-.preset-pill:hover {
-  background-color: #e2e8f0;
+.preset-card:hover {
+  background-color: #f1f5f9;
   border-color: #cbd5e1;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
-.preset-pill.active {
-  background-color: #0f172a;
-  border-color: #0f172a;
-  color: #ffffff;
-  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.2);
+.preset-card:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
-.preset-pill.active .preset-tag {
-  background-color: rgba(255, 255, 255, 0.18);
-  color: #fff;
+/* Active State */
+.preset-card.active {
+  background-color: #f8fbff;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary), var(--shadow-sm);
 }
 
-.preset-star {
-  color: #fbbf24;
+.preset-card.highlighted-preset.active {
+  background-color: #fffdfa;
+  border-color: #d97706;
+  box-shadow: 0 0 0 1px #d97706, var(--shadow-sm);
 }
 
-.preset-tag {
-  font-size: 0.75rem;
+.preset-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+  border-bottom: 1px dashed var(--color-border);
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.preset-card-title-wrap {
+  flex: 1;
+}
+
+.preset-card-tag {
+  display: inline-block;
+  font-size: 0.7rem;
   font-weight: 700;
-  background-color: #e2e8f0;
-  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
   padding: 0.15rem 0.5rem;
   border-radius: var(--radius-full);
+  background-color: #e2e8f0;
+  color: var(--color-text-muted);
+  margin-bottom: 0.35rem;
+}
+
+.badge-star {
+  background-color: #fef3c7;
+  color: #b45309;
+  border: 1px solid rgba(217, 119, 6, 0.25);
+}
+
+.badge-start-tag {
+  background-color: #eff6ff;
+  color: var(--color-primary);
+}
+
+.preset-card-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--color-text-main);
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+.preset-card-price {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.preset-price-label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.preset-card-price strong {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--color-text-main);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+.preset-card.highlighted-preset .preset-card-price strong {
+  color: #b45309;
+}
+
+.preset-price-evolution {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.preset-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  flex: 1;
+}
+
+.preset-card-target {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  line-height: 1.45;
+}
+
+.preset-card-target strong {
+  color: var(--color-text-main);
+}
+
+/* Timeline steps inside card */
+.preset-path-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: auto;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(226, 232, 240, 0.7);
+}
+
+.path-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  line-height: 1.35;
+}
+
+.path-step strong {
+  color: var(--color-text-main);
+}
+
+.step-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #0f172a;
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
 }

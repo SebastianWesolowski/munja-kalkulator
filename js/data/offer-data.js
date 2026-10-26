@@ -7,11 +7,9 @@ export const OFFER_DATA = {
   // Step 1: Pilot
   pilot: {
     id: 'pilot',
-    hours: 20,
-    priceNet: 3000,
-    effectiveRateNet: 150,
+    priceNet: 4000,
     name: 'Pilotaż Munji (XI/XII 2026)',
-    sub: 'Pakiet 20h · 150 zł/h netto · Naprawa formularza mobilnego i odciążenie wideo'
+    sub: 'Szybkie usprawnienia obecnej strony: formularz rezerwacji na telefonach, odciążenie multimediów, analityka / RODO'
   },
 
   // Step 2: Setup Fee
@@ -88,8 +86,8 @@ export const OFFER_DATA = {
 export const PRESETS = {
   recommended: {
     id: 'recommended',
-    name: 'Rekomendowany (Baza + 20h)',
-    tag: '4 650 zł/m.',
+    name: 'Rekomendowany (Pełna Transformacja)',
+    tag: '4 650 zł/m. (od 4. m-ca: 3 150 zł)',
     pilot: true,
     setupFee: true,
     supervision: true,
@@ -102,7 +100,7 @@ export const PRESETS = {
   },
   balanced: {
     id: 'balanced',
-    name: 'Zrównoważony (Baza + 10h)',
+    name: 'Zrównoważony (Stałe Wsparcie: 10h)',
     tag: '3 150 zł/m.',
     pilot: true,
     setupFee: true,
@@ -131,7 +129,7 @@ export const PRESETS = {
   'pilot-only': {
     id: 'pilot-only',
     name: 'Tylko Pilotaż Munji',
-    tag: '3 000 zł jednorazowo',
+    tag: '4 000 zł jednorazowo',
     pilot: true,
     setupFee: false,
     supervision: false,

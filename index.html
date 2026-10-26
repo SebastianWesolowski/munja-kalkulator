@@ -59,31 +59,154 @@
         </p>
       </section>
 
-      <!-- Preset Scenarios Toolbar -->
-      <section class="presets-section" aria-label="Szybkie scenariusze wyceny">
-        <div class="presets-label">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-          </svg>
-          <span>Szybkie warianty:</span>
+      <!-- Strategic Development Variants & Presets -->
+      <section class="presets-section" aria-label="Strategiczne warianty współpracy i ścieżki rozwoju">
+        <div class="presets-header">
+          <div class="presets-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+            <span>Ścieżki rozwoju grupy</span>
+          </div>
+          <h2 class="presets-heading">Wybierz strategiczny wariant współpracy</h2>
+          <p class="presets-subheading">Kliknij wariant, aby wczytać pełną ścieżkę do symulatora. Każdy profil odpowiada konkretnemu etapowi i dynamice rozwoju grupy.</p>
         </div>
-        <div class="presets-group" role="group">
-          <button type="button" class="preset-pill active" id="preset-recommended" data-preset="recommended">
-            <span class="preset-star">★</span>
-            <span class="preset-name">Rekomendowany (Baza + 20h)</span>
-            <span class="preset-tag">4 650 zł/m.</span>
+
+        <div class="presets-cards-grid" role="group" aria-label="Warianty współpracy">
+          <!-- Wariant 1: Rekomendowany -->
+          <button type="button" class="preset-card active highlighted-preset" id="preset-recommended" data-preset="recommended">
+            <div class="preset-card-header">
+              <div class="preset-card-title-wrap">
+                <span class="preset-card-tag badge-star">★ Rekomendowany</span>
+                <h3 class="preset-card-title">Pełna Transformacja i Skalowanie</h3>
+              </div>
+              <div class="preset-card-price">
+                <span class="preset-price-label">Miesiące 1–3:</span>
+                <strong>4 650 zł/m.</strong>
+                <span class="preset-price-evolution">od 4. m-ca: 3 150 zł/m.</span>
+              </div>
+            </div>
+            <div class="preset-card-body">
+              <p class="preset-card-target">
+                <strong>Dla kogo:</strong> Dla grupy planującej szybki skok jakościowy w pierwszych 3 miesiącach, wdrożenie kluczowych zmian na wszystkich 3 stronach, a następnie obniżenie budżetu do stabilnego rozwoju.
+              </p>
+              <div class="preset-path-steps">
+                <div class="path-step">
+                  <span class="step-dot">1</span>
+                  <span><strong>Start:</strong> Pilotaż Munji (4 000 zł) — naprawa rezerwacji na telefonach, odciążenie wideo, RODO</span>
+                </div>
+                <div class="path-step">
+                  <span class="step-dot">2</span>
+                  <span><strong>Setup:</strong> Przejęcie infrastruktury (3 000 zł) — nowy dedykowany serwer VPS i 5 domen (200 zł/m.)</span>
+                </div>
+                <div class="path-step">
+                  <span class="step-dot">3</span>
+                  <span><strong>Miesiące 1–3:</strong> 20h R&amp;D + Baza (Nadzór 750 + Serwer/Domeny 200 + CMS 500) = 4 650 zł/m.</span>
+                </div>
+                <div class="path-step">
+                  <span class="step-dot">4</span>
+                  <span><strong>Od 4. miesiąca:</strong> Zmniejszenie puli do 10h R&amp;D + Baza = 3 150 zł/m.</span>
+                </div>
+              </div>
+            </div>
           </button>
-          <button type="button" class="preset-pill" id="preset-balanced" data-preset="balanced">
-            <span class="preset-name">Zrównoważony (Baza + 10h)</span>
-            <span class="preset-tag">3 150 zł/m.</span>
+
+          <!-- Wariant 2: Zrównoważony -->
+          <button type="button" class="preset-card" id="preset-balanced" data-preset="balanced">
+            <div class="preset-card-header">
+              <div class="preset-card-title-wrap">
+                <span class="preset-card-tag">Zrównoważony</span>
+                <h3 class="preset-card-title">Stałe Wsparcie i Ewolucja</h3>
+              </div>
+              <div class="preset-card-price">
+                <span class="preset-price-label">Stały abonament:</span>
+                <strong>3 150 zł/m.</strong>
+                <span class="preset-price-evolution">stały budżet od 1. dnia</span>
+              </div>
+            </div>
+            <div class="preset-card-body">
+              <p class="preset-card-target">
+                <strong>Dla kogo:</strong> Dla zarządu oczekującego w 100% równego, przewidywalnego kosztu co miesiąc, ze stałą i bezpieczną pulą 10 godzin na bieżące ulepszenia (godziny przechodzą na kolejny miesiąc).
+              </p>
+              <div class="preset-path-steps">
+                <div class="path-step">
+                  <span class="step-dot">1</span>
+                  <span><strong>Start:</strong> Pilotaż Munji (4 000 zł) — szybkie usunięcie wąskich gardeł</span>
+                </div>
+                <div class="path-step">
+                  <span class="step-dot">2</span>
+                  <span><strong>Setup:</strong> Setup Fee (3 000 zł) — migracja na dedykowany serwer VPS i domeny</span>
+                </div>
+                <div class="path-step">
+                  <span class="step-dot">3</span>
+                  <span><strong>Stała obsługa (od 2027 r.):</strong> Baza (1 450 zł) + 10h R&amp;D (1 700 zł) = 3 150 zł/m.</span>
+                </div>
+              </div>
+            </div>
           </button>
-          <button type="button" class="preset-pill" id="preset-base" data-preset="base">
-            <span class="preset-name">Sama Baza (Nadzór + CMS + VPS + Domeny)</span>
-            <span class="preset-tag">1 450 zł/m.</span>
+
+          <!-- Wariant 3: Sama Baza -->
+          <button type="button" class="preset-card" id="preset-base" data-preset="base">
+            <div class="preset-card-header">
+              <div class="preset-card-title-wrap">
+                <span class="preset-card-tag">Fundament Techniczny</span>
+                <h3 class="preset-card-title">Sama Baza (Bez R&amp;D)</h3>
+              </div>
+              <div class="preset-card-price">
+                <span class="preset-price-label">Stały ryczałt:</span>
+                <strong>1 450 zł/m.</strong>
+                <span class="preset-price-evolution">Nadzór + CMS + Serwer + Domeny</span>
+              </div>
+            </div>
+            <div class="preset-card-body">
+              <p class="preset-card-target">
+                <strong>Dla kogo:</strong> Dla grupy skupionej wyłącznie na bezawaryjności, bezpieczeństwie serwerów i bieżących zmianach w menu/treściach, bez stałego miesięcznego abonamentu na programistę.
+              </p>
+              <div class="preset-path-steps">
+                <div class="path-step">
+                  <span class="step-dot">1</span>
+                  <span><strong>Setup:</strong> Setup Fee (3 000 zł) — uruchomienie dedykowanego serwera i transfer domen</span>
+                </div>
+                <div class="path-step">
+                  <span class="step-dot">2</span>
+                  <span><strong>Stała Baza:</strong> Nadzór 24/7 (750 zł) + CMS (500 zł) + Serwer i Domeny (200 zł) = 1 450 zł/m.</span>
+                </div>
+                <div class="path-step">
+                  <span class="step-dot">3</span>
+                  <span><strong>Prace programistyczne:</strong> Tylko doraźne zlecenia w razie potrzeby (200 zł/h)</span>
+                </div>
+              </div>
+            </div>
           </button>
-          <button type="button" class="preset-pill" id="preset-pilot-only" data-preset="pilot-only">
-            <span class="preset-name">Tylko Pilotaż Munji</span>
-            <span class="preset-tag">3 000 zł jednorazowo</span>
+
+          <!-- Wariant 4: Tylko Pilotaż Munji -->
+          <button type="button" class="preset-card" id="preset-pilot-only" data-preset="pilot-only">
+            <div class="preset-card-header">
+              <div class="preset-card-title-wrap">
+                <span class="preset-card-tag badge-start-tag">Start bez ryzyka</span>
+                <h3 class="preset-card-title">Tylko Pilotaż Munji</h3>
+              </div>
+              <div class="preset-card-price">
+                <span class="preset-price-label">Jednorazowo:</span>
+                <strong>4 000 zł</strong>
+                <span class="preset-price-evolution">0 zł stałego abonamentu</span>
+              </div>
+            </div>
+            <div class="preset-card-body">
+              <p class="preset-card-target">
+                <strong>Dla kogo:</strong> Szybki test jakości współpracy przed sezonem świątecznym. Natychmiastowe rozwiązanie problemu formularza mobilnego i multimediów bez wiązania się stałą umową.
+              </p>
+              <div class="preset-path-steps">
+                <div class="path-step">
+                  <span class="step-dot">1</span>
+                  <span><strong>Zakres prac:</strong> Naprawa formularza rezerwacji, odciążenie wideo, RODO / analityka</span>
+                </div>
+                <div class="path-step">
+                  <span class="step-dot">2</span>
+                  <span><strong>Brak dalszych kosztów:</strong> Decyzja o stałej opiece dopiero po weryfikacji efektów</span>
+                </div>
+              </div>
+            </div>
           </button>
         </div>
       </section>
@@ -109,41 +232,37 @@
 
               <div class="card-body">
                 <label class="feature-toggle-card highlighted-card" for="opt-pilot">
-                  <input type="checkbox" id="opt-pilot" name="pilot_munja" value="pilot" data-price="3000" class="visually-hidden" checked>
+                  <input type="checkbox" id="opt-pilot" name="pilot_munja" value="pilot" data-price="4000" class="visually-hidden" checked>
                   <span class="checkbox-box" aria-hidden="true"></span>
                   <div class="toggle-card-content">
                     <div class="toggle-header-row">
-                      <span class="toggle-title">Pilotaż Munji — pakiet 20 godzin</span>
-                      <span class="toggle-price" data-amount-net="3000" data-period="jednorazowo">3 000,00 zł</span>
+                      <span class="toggle-title">Pilotaż Munji — pakiet szybkich usprawnień</span>
+                      <span class="toggle-price" data-amount-net="4000" data-period="jednorazowo">4 000,00 zł</span>
                     </div>
                     <p class="toggle-desc">
-                      Efektywnie <strong>150 zł/godz. netto</strong>. Błyskawiczne usunięcie najbardziej uciążliwych wąskich gardeł Munji:
+                      W pakiecie <strong>4 000 zł</strong> skupię się na szybkich usprawnieniach obecnej strony:
                     </p>
                     <ul class="feature-pills-list">
                       <li>
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        <span>Naprawa formularza mobilnego (likwidacja utraty danych po dotknięciu tła)</span>
+                        <span>Drobne poprawki obecnego formularza rezerwacji na telefonach (zwłaszcza problem utraty wpisanych danych po dotknięciu tła i wygoda obsługi)</span>
                       </li>
                       <li>
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        <span>Odciążenie wideo z grillem (zostaje na stronie, ale lżejszy plik + poster)</span>
+                        <span>Skrócenie czasu ładowania przez odciążenie multimediów, z zachowaniem filmu z grillem</span>
                       </li>
                       <li>
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        <span>Przyspieszenie LCP do &le; 2,5 s i redukcja transferu strony z 18,6 MB do &lt; 3,5 MB</span>
+                        <span>Załatanie problemu zbierania analityki w kontekście braku zgody cookie (zgodność z RODO / Google Consent Mode)</span>
                       </li>
                       <li>
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        <span>Łatwy dostęp do telefonu i godzin otwarcia dla gości na smartfonach</span>
-                      </li>
-                      <li>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        <span>Korekta komunikatów językowych (brak polskich resztek przy EN / UA)</span>
+                        <span>Szybki dostęp do telefonu i godzin otwarcia dla gości oraz korekta komunikatów językowych</span>
                       </li>
                     </ul>
                     <div class="note-box">
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                      <span>Pilotaż zamawiany jest jako <strong>osobny etap</strong>. Nie uruchamia automatycznie opłat za nadzór ani CMS.</span>
+                      <span>Pilotaż zamawiany jest jako <strong>osobny etap</strong>. Nie uruchamia automatycznie opłat za nadzór ani serwery.</span>
                     </div>
                   </div>
                 </label>
@@ -462,7 +581,7 @@
                 </summary>
                 <div class="faq-body">
                   <p>
-                    Pilotaż (20 godzin za 3 000 zł) pozwala szybko usunąć najbardziej palące problemy (formularz mobilny, ciężkie multimedia) i pokazać natychmiastową korzyść z mojej pracy, bez konieczności wiązania się od razu stałą umową. Nadzór techniczny, CMS i opłaty infrastrukturalne startują dopiero po uzgodnionym przejęciu (najwcześniej styczeń 2027).
+                    Pilotaż (pakiet szybkich usprawnień za 4 000 zł) pozwala błyskawicznie usunąć najbardziej palące problemy (formularz rezerwacji na telefonach, ciężkie multimedia, analityka/RODO) i pokazać natychmiastową korzyść z mojej pracy, bez konieczności wiązania się od razu stałą umową. Nadzór techniczny, CMS i opłaty infrastrukturalne startują dopiero po uzgodnionym przejęciu (najwcześniej styczeń 2027).
                   </p>
                 </div>
               </details>

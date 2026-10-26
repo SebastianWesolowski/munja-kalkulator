@@ -75,7 +75,7 @@ export function generateOfferText(calc) {
 
   text += `==============================================================\n`;
   text += `GŁÓWNE ZASADY OFERTY:\n`;
-  text += `• Pilotaż Munji (20h za 3 000 zł) zamawiany jest jako niezależny etap startowy.\n`;
+  text += `• Pilotaż Munji (4 000 zł) zamawiany jest jako niezależny etap startowy (szybkie usprawnienia: formularz, wideo, analityka/RODO).\n`;
   text += `• Nadzór, CMS i koszty infrastruktury startują najwcześniej od stycznia 2027 r.\n`;
   text += `• Po pilotażu zostanie przedstawiona wiążąca wycena końcowa i konsolidacja w ryczałt.\n`;
   text += `• Konsolidacja 5 domen w modelu hurtowym zdejmuje ryzyko corocznych skoków cen.\n`;

@@ -78,7 +78,7 @@ export function renderSummary(calc, values, isGross) {
   }
   if (onetimeSubtext) {
     const parts = [];
-    if (values.pilot) parts.push('Pilotaż (3 tys. zł)');
+    if (values.pilot) parts.push('Pilotaż (4 tys. zł)');
     if (values.setupFee) parts.push('Setup Fee (3 tys. zł)');
     onetimeSubtext.textContent = parts.length > 0 ? parts.join(' + ') : 'Brak opłat startowych';
   }

@@ -1,0 +1,24 @@
+{
+  "name": "munja-kalkulator",
+  "version": "1.0.0",
+  "description": "Interaktywny kalkulator oferty i symulator kosztów opieki technicznej dla grupy restauracyjnej Munja, Baila Warsaw, NINE's",
+  "type": "module",
+  "scripts": {
+    "dev": "serve -l 8080 .",
+    "start": "serve -l 8080 .",
+    "serve": "serve -l 8080 .",
+    "dev:python": "python3 -m http.server 8080"
+  },
+  "keywords": [
+    "kalkulator",
+    "oferta",
+    "munja",
+    "baila",
+    "nines"
+  ],
+  "author": "Sebastian Wesołowski",
+  "license": "ISC",
+  "devDependencies": {
+    "serve": "^14.2.4"
+  }
+}

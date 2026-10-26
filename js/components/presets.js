@@ -5,18 +5,18 @@
 import { PRESETS } from '../data/offer-data.js';
 import { showToast } from './toast.js';
 
-let presetPills = [];
+let presetElements = [];
 
 /**
- * Initialize preset pill buttons
+ * Initialize preset cards and buttons
  * @param {Function} onSelectPreset - Callback with (presetId)
  */
 export function initPresets(onSelectPreset) {
-  presetPills = Array.from(document.querySelectorAll('.preset-pill'));
+  presetElements = Array.from(document.querySelectorAll('.preset-card, .preset-pill'));
 
-  presetPills.forEach(pill => {
-    pill.addEventListener('click', () => {
-      const presetId = pill.dataset.preset;
+  presetElements.forEach(el => {
+    el.addEventListener('click', () => {
+      const presetId = el.dataset.preset;
       if (presetId && PRESETS[presetId]) {
         onSelectPreset(presetId);
         showToast(`Włączono wariant: ${PRESETS[presetId].name}`);
@@ -49,11 +49,11 @@ export function updateActivePresetIndicator(values) {
     matchingPreset = 'pilot-only';
   }
 
-  presetPills.forEach(pill => {
-    if (pill.dataset.preset === matchingPreset) {
-      pill.classList.add('active');
+  presetElements.forEach(el => {
+    if (el.dataset.preset === matchingPreset) {
+      el.classList.add('active');
     } else {
-      pill.classList.remove('active');
+      el.classList.remove('active');
     }
   });
 }

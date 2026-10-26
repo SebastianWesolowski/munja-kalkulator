@@ -14,9 +14,9 @@ Zbudowany w czystym **HTML5, CSS3 i Vanilla JavaScript** (bez zewnętrznych bibl
 Kalkulator odwzorowuje strukturę etapów i cennik ze szkicu współpracy:
 
 1. **Krok 1: Pilotaż Munji (XI / XII 2026 r.)**
-   - **Pakiet 20 godzin za 3 000 zł netto** (150 zł/h).
-   - Osobno zamawiany etap startowy (nie uruchamia automatycznie opłat stałych).
-   - Cel: naprawa formularza mobilnego, odciążenie wideo grilla (zostaje na stronie, ale lżejszy plik + poster), skrócenie LCP i TTFB, ekspozycja telefonu i godzin.
+   - **Pakiet szybkich usprawnień za 4 000 zł netto** (bez zobowiązań abonamentowych).
+   - Osobno zamawiany etap startowy przed decyzją o stałej umowie.
+   - Zakres: poprawka formularza rezerwacji na telefonach (utrata wpisanych danych), skrócenie czasu ładowania przez odciążenie multimediów (zostaje wideo z grillem), załatanie analityki pod kątem zgód cookie / RODO.
 
 2. **Krok 2: Wdrożenie nowej infrastruktury i Setup Fee (od I 2027 r.)**
    - **Setup Fee: 3 000 zł jednorazowo netto**.
@@ -31,8 +31,8 @@ Kalkulator odwzorowuje strukturę etapów i cennik ze szkicu współpracy:
      - Dedykowany serwer VPS (150 zł/m.)
      - Pakiet 5 domen (50 zł/m.)
    - **Pula rozwoju serwisów grupy**:
-     - **Pakiet 20 godzin (Rekomendowany):** 3 200 zł/mies. (160 zł/h, z przenoszeniem godzin na kolejny miesiąc)
-     - **Pakiet 10 godzin:** 1 700 zł/mies. (170 zł/h)
+     - **Pakiet 20 godzin (Rekomendowany na start):** 3 200 zł/mies. (z przenoszeniem godzin)
+     - **Pakiet 10 godzin (Docelowy od 4. miesiąca):** 1 700 zł/mies.
      - **Brak stałego pakietu (0h):** 0 zł/mies. (rozliczenia doraźne 200 zł/h)
    - **Opcje dodatkowe**:
      - Licencje pocztowe Google Workspace (np. 9 kont × 35 zł/konto/mies.)
@@ -42,11 +42,11 @@ Kalkulator odwzorowuje strukturę etapów i cennik ze szkicu współpracy:
 
 ## ⚡ Główne funkcjonalności kalkulatora
 
-- **Szybkie profile wyceny (Presets)**:
-  - `Rekomendowany`: Baza + Rozwój 20h = 4 650 zł/mies. netto (Start: 6 000 zł)
-  - `Zrównoważony`: Baza + Rozwój 10h = 3 150 zł/mies. netto (Start: 6 000 zł)
-  - `Sama Baza`: Nadzór + CMS + VPS + Domeny = 1 450 zł/mies. netto (Start: 6 000 zł)
-  - `Tylko Pilotaż Munji`: 3 000 zł jednorazowo netto
+- **Strategiczne ścieżki rozwoju (Warianty)**:
+  - `Rekomendowany (Pełna Transformacja)`: Start: Pilotaż (4 000 zł) + Setup (3 000 zł). M-ce 1–3: 20h R&D + Baza = 4 650 zł/m. Od 4. m-ca: 10h R&D + Baza = 3 150 zł/m.
+  - `Zrównoważony`: Start: 7 000 zł. Stała obsługa: Baza + Rozwój 10h = 3 150 zł/mies. netto od 1. dnia.
+  - `Sama Baza`: Start: Setup (3 000 zł). Nadzór + CMS + VPS + Domeny = 1 450 zł/mies. netto (programista doraźnie).
+  - `Tylko Pilotaż Munji`: 4 000 zł jednorazowo netto (0 zł abonamentu).
 - **Przełącznik Netto / Brutto**: Błyskawiczny podgląd kwot z podatkiem VAT 23% na kartach i w podsumowaniu.
 - **Kopiowanie sformatowanej oferty**: Przycisk generuje czytelny szablon podsumowania gotowy do wklejenia do wiadomości e-mail dla Martyny.
 - **Druk / Eksport do PDF**: Dedykowany arkusz `@media print` przygotowujący raport do wydruku lub zapisu w formacie PDF.
@@ -91,6 +91,7 @@ munja-kalkulator/
 │       ├── form.js               # Kontroler pól formularza, suwaków i etykiet cen
 │       ├── summary.js            # Kontroler panelu podsumowania i akcji (PDF, schowek)
 │       └── toast.js              # Wyświetlanie powiadomień
+├── package.json                  # Konfiguracja skryptów npm i serwera lokalnego
 ├── netlify.toml                  # Konfiguracja wdrożenia statycznego i nagłówków bezpieczeństwa
 ├── .gitignore
 └── README.md
@@ -101,10 +102,12 @@ munja-kalkulator/
 ## 🚀 Uruchomienie lokalne
 
 ```bash
-# Uruchomienie serwera HTTP w katalogu projektu
+# Uruchomienie serwera lokalnego przez npm
+npm run dev
+# lub npm start
+
+# Alternatywnie bezpośrednio przez Python
 python3 -m http.server 8080
-# lub
-npx serve .
 ```
 
 Otwórz w przeglądarce: `http://localhost:8080`
