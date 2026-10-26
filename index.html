@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kalkulator Oferty | Munja</title>
-  <meta name="description" content="Przejrzysty i szybki kalkulator wyceny oferty Munja.">
+  <title>Kalkulator Oferty | Munja · Baila Warsaw · NINE’s</title>
+  <meta name="description" content="Interaktywny kalkulator oferty i symulator kosztów opieki technicznej oraz rozwoju serwisów grupy restauracyjnej (Munja, Baila Warsaw, NINE's).">
   <meta name="theme-color" content="#0f172a">
 
   <!-- Favicon (SVG) -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232563eb'><path d='M13 2L3 14h9l-1 8 10-12h-9l1-8z'/></svg>" type="image/svg+xml">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23f59e0b'><path d='M13 2L3 14h9l-1 8 10-12h-9l1-8z'/></svg>" type="image/svg+xml">
 
   <!-- Google Fonts: Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,13 +30,26 @@
             </svg>
           </div>
           <div class="brand-text">
-            <span class="brand-name">Munja</span>
-            <span class="brand-domain">munja-kalkulator.wesolowski.dev</span>
+            <span class="brand-name">Munja · Baila · NINE’s</span>
+            <span class="brand-domain">Opieka techniczna i rozwój serwisów grupy</span>
           </div>
         </div>
-        <div class="header-badge">
-          <span class="status-indicator"></span>
-          <span>Wycena na żywo</span>
+
+        <div class="header-controls">
+          <!-- Net / Gross Switch -->
+          <div class="tax-mode-toggle" role="group" aria-label="Wybór prezentacji cen">
+            <button type="button" id="tax-toggle-net" class="tax-toggle-btn active" aria-pressed="true">
+              Netto
+            </button>
+            <button type="button" id="tax-toggle-gross" class="tax-toggle-btn" aria-pressed="false">
+              Brutto (+23% VAT)
+            </button>
+          </div>
+
+          <div class="header-badge" title="Wycena na podstawie szkicu oferty z 26.10.2026 r.">
+            <span class="status-indicator"></span>
+            <span>Oferta 26.10.2026</span>
+          </div>
         </div>
       </div>
     </header>
@@ -45,143 +58,526 @@
     <main class="main-content container" id="main-content">
       <!-- Title & Hero Section -->
       <section class="intro-section" aria-labelledby="page-title">
-        <h1 id="page-title" class="page-title">Kalkulator Oferty</h1>
+        <div class="intro-badge">
+          <span class="badge-dot"></span>
+          <span>Szkic współpracy partnerskiej</span>
+        </div>
+        <h1 id="page-title" class="page-title">Kalkulator Oferty Technicznej</h1>
         <p class="page-description">
-          Skonfiguruj parametry, aby natychmiast wygenerować szacunkową wycenę oraz przejrzyste podsumowanie kosztów.
+          Skonfiguruj zakres współpracy dla grupy <strong>Munja · Baila Warsaw · NINE’s Restaurant &amp; Sports Bar</strong>. 
+          Pilotaż zamawiany jest jako niezależny krok, a docelowe stawki stałej obsługi doprecyzujemy po zbadaniu zaplecza.
         </p>
+      </section>
+
+      <!-- Preset Scenarios Toolbar -->
+      <section class="presets-section" aria-label="Szybkie scenariusze wyceny">
+        <div class="presets-label">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+          <span>Szybkie warianty:</span>
+        </div>
+        <div class="presets-group" role="group">
+          <button type="button" class="preset-pill active" id="preset-recommended" data-preset="recommended">
+            <span class="preset-star">★</span>
+            <span class="preset-name">Rekomendowany (Baza + 20h)</span>
+            <span class="preset-tag">4 650 zł/m.</span>
+          </button>
+          <button type="button" class="preset-pill" id="preset-balanced" data-preset="balanced">
+            <span class="preset-name">Zrównoważony (Baza + 10h)</span>
+            <span class="preset-tag">3 150 zł/m.</span>
+          </button>
+          <button type="button" class="preset-pill" id="preset-base" data-preset="base">
+            <span class="preset-name">Sama Baza (Nadzór + CMS + VPS + Domeny)</span>
+            <span class="preset-tag">1 450 zł/m.</span>
+          </button>
+          <button type="button" class="preset-pill" id="preset-pilot-only" data-preset="pilot-only">
+            <span class="preset-name">Tylko Pilotaż Munji</span>
+            <span class="preset-tag">3 000 zł jednorazowo</span>
+          </button>
+        </div>
       </section>
 
       <!-- Calculator Layout -->
       <div class="calculator-layout">
-        <!-- Form / Configuration Column -->
-        <section class="calc-config-column" aria-label="Parametry kalkulatora">
+        <!-- Configuration Column -->
+        <section class="calc-config-column" aria-label="Etapy i konfiguracja oferty">
           <form id="offer-calc-form" class="calc-form" novalidate>
-            <!-- Placeholder section: Ready for the user's specific inputs -->
-            <div class="card config-card" id="form-sections-container">
+
+            <!-- KROK 1: PILOTAŻ MUNJI -->
+            <div class="card config-card" id="card-step-pilot">
               <div class="card-header">
                 <div class="card-step-badge">1</div>
-                <div>
-                  <h2 class="card-title">Podstawowe parametry</h2>
-                  <p class="card-subtitle">Wybierz zakres usługi i wprowadź ilości</p>
+                <div class="card-header-content">
+                  <div class="card-title-row">
+                    <h2 class="card-title">Krok 1: Pilotaż Munji (Listopad / Grudzień 2026)</h2>
+                    <span class="status-pill status-pill-start">Start współpracy</span>
+                  </div>
+                  <p class="card-subtitle">Szybkie usprawnienia obecnej strony i weryfikacja korzyści przed stałą umową</p>
                 </div>
               </div>
 
               <div class="card-body">
-                <!-- Example starter field - will be replaced/expanded based on user requirements -->
-                <div class="form-group">
-                  <label for="package-select" class="form-label">
-                    Pakiet bazowy
-                    <span class="required-mark" aria-hidden="true">*</span>
-                  </label>
-                  <select id="package-select" name="package" class="form-select">
-                    <option value="standard" data-price="2500" selected>Pakiet Standard — 2 500,00 zł</option>
-                    <option value="pro" data-price="4500">Pakiet Pro — 4 500,00 zł</option>
-                    <option value="enterprise" data-price="8000">Pakiet Enterprise — 8 000,00 zł</option>
-                  </select>
-                  <p class="form-hint">Wybierz wariant dopasowany do Twojego projektu.</p>
-                </div>
-
-                <div class="form-group">
-                  <div class="form-row-between">
-                    <label for="quantity-range" class="form-label">Dodatkowe godziny / moduły</label>
-                    <span class="range-live-val" id="quantity-val">5 szt.</span>
+                <label class="feature-toggle-card highlighted-card" for="opt-pilot">
+                  <input type="checkbox" id="opt-pilot" name="pilot_munja" value="pilot" data-price="3000" class="visually-hidden" checked>
+                  <span class="checkbox-box" aria-hidden="true"></span>
+                  <div class="toggle-card-content">
+                    <div class="toggle-header-row">
+                      <span class="toggle-title">Pilotaż Munji — pakiet 20 godzin</span>
+                      <span class="toggle-price" data-amount-net="3000" data-period="jednorazowo">3 000,00 zł</span>
+                    </div>
+                    <p class="toggle-desc">
+                      Efektywnie <strong>150 zł/godz. netto</strong>. Błyskawiczne usunięcie najbardziej uciążliwych wąskich gardeł Munji:
+                    </p>
+                    <ul class="feature-pills-list">
+                      <li>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span>Naprawa formularza mobilnego (likwidacja utraty danych po dotknięciu tła)</span>
+                      </li>
+                      <li>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span>Odciążenie wideo z grillem (zostaje na stronie, ale lżejszy plik + poster)</span>
+                      </li>
+                      <li>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span>Przyspieszenie LCP do &le; 2,5 s i redukcja transferu strony z 18,6 MB do &lt; 3,5 MB</span>
+                      </li>
+                      <li>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span>Łatwy dostęp do telefonu i godzin otwarcia dla gości na smartfonach</span>
+                      </li>
+                      <li>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span>Korekta komunikatów językowych (brak polskich resztek przy EN / UA)</span>
+                      </li>
+                    </ul>
+                    <div class="note-box">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                      <span>Pilotaż zamawiany jest jako <strong>osobny etap</strong>. Nie uruchamia automatycznie opłat za nadzór ani CMS.</span>
+                    </div>
                   </div>
-                  <input 
-                    type="range" 
-                    id="quantity-range" 
-                    name="quantity" 
-                    class="form-range" 
-                    min="0" 
-                    max="20" 
-                    value="5" 
-                    step="1"
-                    data-unit-price="150"
-                  >
-                  <div class="range-labels" aria-hidden="true">
-                    <span>0</span>
-                    <span>10</span>
-                    <span>20</span>
-                  </div>
-                </div>
+                </label>
+              </div>
+            </div>
 
-                <div class="form-group">
-                  <span class="form-label">Opcje dodatkowe</span>
-                  <div class="checkbox-group">
-                    <label class="custom-checkbox-card" for="opt-priority">
-                      <input type="checkbox" id="opt-priority" name="extra_options" value="priority" data-price="800" class="visually-hidden">
+            <!-- KROK 2: PRZEJĘCIE INFRASTRUKTURY (SETUP FEE) -->
+            <div class="card config-card" id="card-step-setup">
+              <div class="card-header">
+                <div class="card-step-badge">2</div>
+                <div class="card-header-content">
+                  <div class="card-title-row">
+                    <h2 class="card-title">Krok 2: Wdrożenie nowej infrastruktury i Setup Fee</h2>
+                    <span class="status-pill status-pill-prep">Od stycznia 2027</span>
+                  </div>
+                  <p class="card-subtitle">Jednorazowe przygotowanie bezpiecznego środowiska i konsolidacja rozproszonych dostawców</p>
+                </div>
+              </div>
+
+              <div class="card-body">
+                <label class="feature-toggle-card" for="opt-setup-fee">
+                  <input type="checkbox" id="opt-setup-fee" name="setup_fee" value="setup" data-price="3000" class="visually-hidden" checked>
+                  <span class="checkbox-box" aria-hidden="true"></span>
+                  <div class="toggle-card-content">
+                    <div class="toggle-header-row">
+                      <span class="toggle-title">Przejęcie infrastruktury (Setup Fee)</span>
+                      <span class="toggle-price" data-amount-net="3000" data-period="jednorazowo">3 000,00 zł</span>
+                    </div>
+                    <p class="toggle-desc">
+                      Jednorazowy etap migracji i uporządkowania zaplecza technicznego całej grupy:
+                    </p>
+                    <ul class="feature-pills-list">
+                      <li>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span>Uruchomienie dedykowanego VPS grupy w DataHouse Warszawa (4 vCPU, 8 GB RAM, 100 GB NVMe)</span>
+                      </li>
+                      <li>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span>Migracja serwisów (Munja, Baila, Nine’s) z limitowanych hostingów współdzielonych</span>
+                      </li>
+                      <li>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span>Konsolidacja 5 domen od 4 rejestratorów w hurtowym modelu partnera technologicznego</span>
+                      </li>
+                      <li>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span>Konfiguracja zabezpieczeń poczty: SPF, DKIM i DMARC (ochrona zarządu przed CEO spoofingiem)</span>
+                      </li>
+                    </ul>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- KROK 3: STAŁA OBSŁUGA MIESIĘCZNA -->
+            <div class="card config-card" id="card-step-monthly">
+              <div class="card-header">
+                <div class="card-step-badge">3</div>
+                <div class="card-header-content">
+                  <div class="card-title-row">
+                    <h2 class="card-title">Krok 3: Stała obsługa miesięczna (od Stycznia 2027)</h2>
+                    <span class="status-pill status-pill-recurring">Abonament miesięczny</span>
+                  </div>
+                  <p class="card-subtitle">Nadzór nad stabilnością, aktualizacje, publikacja treści i stała pula rozwoju grupy</p>
+                </div>
+              </div>
+
+              <div class="card-body">
+                <!-- Sekcja A: Baza technologiczna grupy -->
+                <div class="form-subsection">
+                  <div class="subsection-header">
+                    <div>
+                      <h3 class="subsection-title">A. Baza infrastrukturalno-techniczna</h3>
+                      <p class="subsection-desc">Fundament bezpieczeństwa, bezawaryjności i obsługi treści stron grupy</p>
+                    </div>
+                    <div class="base-bundle-badge">
+                      <span>Baza pakietu:</span>
+                      <strong id="base-bundle-total">1 450 zł/m.</strong>
+                    </div>
+                  </div>
+
+                  <div class="sub-checkboxes-grid">
+                    <!-- Nadzór techniczny -->
+                    <label class="custom-checkbox-card" for="opt-supervision">
+                      <input type="checkbox" id="opt-supervision" name="base_items" value="supervision" data-price="750" class="visually-hidden" checked>
                       <span class="checkbox-box" aria-hidden="true"></span>
-                      <span class="checkbox-content">
-                        <span class="checkbox-title">Realizacja priorytetowa (+800 zł)</span>
-                        <span class="checkbox-desc">Skrócenie czasu wdrożenia o 50%</span>
-                      </span>
+                      <div class="checkbox-content">
+                        <div class="checkbox-title-row">
+                          <span class="checkbox-title">Nadzór techniczny i SLA</span>
+                          <span class="checkbox-item-price" data-amount-net="750">750 zł/m.</span>
+                        </div>
+                        <p class="checkbox-desc">
+                          Kopie zapasowe, monitoring 24/7, bieżące aktualizacje WP i wtyczek. Czasy reakcji: P1 krytyczny &le; 4h, P2 &le; 1 dzień roboczy, P3 &le; 3 dni.
+                        </p>
+                      </div>
                     </label>
 
-                    <label class="custom-checkbox-card" for="opt-support">
-                      <input type="checkbox" id="opt-support" name="extra_options" value="support" data-price="450" class="visually-hidden">
+                    <!-- Publikacja treści CMS -->
+                    <label class="custom-checkbox-card" for="opt-cms">
+                      <input type="checkbox" id="opt-cms" name="base_items" value="cms" data-price="500" class="visually-hidden" checked>
                       <span class="checkbox-box" aria-hidden="true"></span>
-                      <span class="checkbox-content">
-                        <span class="checkbox-title">Wsparcie techniczne 30 dni (+450 zł)</span>
-                        <span class="checkbox-desc">Dedykowany kontakt i bieżące poprawki</span>
-                      </span>
+                      <div class="checkbox-content">
+                        <div class="checkbox-title-row">
+                          <span class="checkbox-title">Publikacja treści w CMS</span>
+                          <span class="checkbox-item-price" data-amount-net="500">500 zł/m.</span>
+                        </div>
+                        <p class="checkbox-desc">
+                          Do 9 godzin łącznie w miesiącu na wprowadzanie gotowych, zatwierdzonych tekstów, aktualizacji menu i zdjęć dla lokali.
+                        </p>
+                      </div>
+                    </label>
+
+                    <!-- VPS Warszawa -->
+                    <label class="custom-checkbox-card" for="opt-vps">
+                      <input type="checkbox" id="opt-vps" name="base_items" value="vps" data-price="150" class="visually-hidden" checked>
+                      <span class="checkbox-box" aria-hidden="true"></span>
+                      <div class="checkbox-content">
+                        <div class="checkbox-title-row">
+                          <span class="checkbox-title">Dedykowany VPS (DataHouse Warszawa)</span>
+                          <span class="checkbox-item-price" data-amount-net="150">150 zł/m.</span>
+                        </div>
+                        <p class="checkbox-desc">
+                          Instancja wyłącznie dla stron grupy (4 vCPU, 8 GB RAM, 100 GB NVMe), bez obcych projektów, z zapasem pod kolejny lokal.
+                        </p>
+                      </div>
+                    </label>
+
+                    <!-- Pakiet 5 domen -->
+                    <label class="custom-checkbox-card" for="opt-domains">
+                      <input type="checkbox" id="opt-domains" name="base_items" value="domains" data-price="50" class="visually-hidden" checked>
+                      <span class="checkbox-box" aria-hidden="true"></span>
+                      <div class="checkbox-content">
+                        <div class="checkbox-title-row">
+                          <span class="checkbox-title">Pakiet 5 domen (stały ryczałt)</span>
+                          <span class="checkbox-item-price" data-amount-net="50">50 zł/m.</span>
+                        </div>
+                        <p class="checkbox-desc">
+                          Model win-win: transfer i wszystkie coroczne odnowienia w stałej cenie, bez ryzyka wygaśnięcia domeny i skoków cenowych.
+                        </p>
+                      </div>
                     </label>
                   </div>
                 </div>
 
-                <div class="form-group">
-                  <label for="calc-discount" class="form-label">Rabat partnerski (%)</label>
-                  <div class="input-with-affix">
+                <!-- Sekcja B: Dalszy rozwój serwisów -->
+                <div class="form-subsection">
+                  <div class="subsection-header">
+                    <div>
+                      <h3 class="subsection-title">B. Pula godzin na dalszy rozwój serwisów</h3>
+                      <p class="subsection-desc">Prace programistyczne, nowe funkcje, integracje rezerwacji i optymalizacje konwersji</p>
+                    </div>
+                  </div>
+
+                  <div class="radio-cards-group" role="radiogroup" aria-label="Pakiet godzin na dalszy rozwój">
+                    <!-- Opcja 20h -->
+                    <label class="custom-radio-card" for="dev-plan-20">
+                      <input type="radio" id="dev-plan-20" name="dev_plan" value="20" data-price="3200" data-hours="20" data-rate="160" class="visually-hidden" checked>
+                      <span class="radio-box" aria-hidden="true"></span>
+                      <div class="radio-card-content">
+                        <div class="radio-header-row">
+                          <div>
+                            <span class="radio-title">Dalszy rozwój: Pakiet 20 godzin</span>
+                            <span class="badge-rec">Rekomendowany</span>
+                          </div>
+                          <span class="radio-price" data-amount-net="3200">3 200 zł/m.</span>
+                        </div>
+                        <p class="radio-desc">
+                          Stawka <strong>160 zł/godz. netto</strong>. Wspólna pula dla wszystkich serwisów grupy. 
+                          <strong>Niewykorzystane godziny przechodzą na kolejny miesiąc!</strong>
+                        </p>
+                      </div>
+                    </label>
+
+                    <!-- Opcja 10h -->
+                    <label class="custom-radio-card" for="dev-plan-10">
+                      <input type="radio" id="dev-plan-10" name="dev_plan" value="10" data-price="1700" data-hours="10" data-rate="170" class="visually-hidden">
+                      <span class="radio-box" aria-hidden="true"></span>
+                      <div class="radio-card-content">
+                        <div class="radio-header-row">
+                          <span class="radio-title">Dalszy rozwój: Pakiet 10 godzin</span>
+                          <span class="radio-price" data-amount-net="1700">1 700 zł/m.</span>
+                        </div>
+                        <p class="radio-desc">
+                          Stawka <strong>170 zł/godz. netto</strong>. Mniejsza pula po uporządkowaniu głównych potrzeb i wdrożeniu priorytetów.
+                        </p>
+                      </div>
+                    </label>
+
+                    <!-- Opcja 0h (Brak stałego pakietu) -->
+                    <label class="custom-radio-card" for="dev-plan-0">
+                      <input type="radio" id="dev-plan-0" name="dev_plan" value="0" data-price="0" data-hours="0" data-rate="0" class="visually-hidden">
+                      <span class="radio-box" aria-hidden="true"></span>
+                      <div class="radio-card-content">
+                        <div class="radio-header-row">
+                          <span class="radio-title">Brak stałego pakietu rozwoju (0 godzin)</span>
+                          <span class="radio-price">0 zł/m.</span>
+                        </div>
+                        <p class="radio-desc">
+                          Tylko opieka bazowa nad stabilnością. Zmiany programistyczne rozliczane wyłącznie jako zlecenia dodatkowe (200 zł/h).
+                        </p>
+                      </div>
+                    </label>
+                  </div>
+
+                  <!-- Dodatkowe godziny ad-hoc -->
+                  <div class="extra-hours-card">
+                    <div class="form-row-between">
+                      <label for="extra-adhoc-hours" class="form-label mb-0">
+                        Dodatkowe godziny doraźne ponad pakiet
+                        <span class="label-info-tag">200 zł/h</span>
+                      </label>
+                      <span class="range-live-val" id="extra-hours-display">0 godz. (0 zł)</span>
+                    </div>
                     <input 
-                      type="number" 
-                      id="calc-discount" 
-                      name="discount" 
-                      class="form-input" 
+                      type="range" 
+                      id="extra-adhoc-hours" 
+                      name="extra_adhoc_hours" 
+                      class="form-range" 
                       min="0" 
-                      max="50" 
+                      max="20" 
                       value="0" 
-                      placeholder="0"
+                      step="1"
+                      data-rate="200"
                     >
-                    <span class="input-affix" aria-hidden="true">%</span>
+                    <div class="range-labels" aria-hidden="true">
+                      <span>0 h</span>
+                      <span>5 h</span>
+                      <span>10 h</span>
+                      <span>15 h</span>
+                      <span>20 h</span>
+                    </div>
+                    <p class="form-hint">
+                      Wyłącznie po wcześniejszym uzgodnieniu i akceptacji zapotrzebowania.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Sekcja C: Google Workspace -->
+                <div class="form-subsection border-top-sub">
+                  <div class="subsection-header">
+                    <div>
+                      <h3 class="subsection-title">C. Poczta firmowa (Google Workspace)</h3>
+                      <p class="subsection-desc">Orientacyjny koszt licencji skrzynek pocztowych (przedział 30–40 zł/konto/mies.)</p>
+                    </div>
+                  </div>
+
+                  <label class="feature-toggle-card minimal-toggle" for="toggle-workspace">
+                    <input type="checkbox" id="toggle-workspace" name="use_workspace" value="1" class="visually-hidden">
+                    <span class="checkbox-box" aria-hidden="true"></span>
+                    <div class="toggle-card-content">
+                      <div class="toggle-header-row">
+                        <span class="toggle-title">Uwzględnij koszt licencji poczty w symulacji</span>
+                        <span class="badge-optional">Opcjonalnie</span>
+                      </div>
+                    </div>
+                  </label>
+
+                  <div id="workspace-config-panel" class="nested-panel collapsed">
+                    <div class="form-row-between">
+                      <label for="workspace-accounts-range" class="form-label mb-0">
+                        Liczba płatnych kont pocztowych:
+                      </label>
+                      <span class="range-live-val" id="workspace-accounts-display">9 kont (315 zł/m.)</span>
+                    </div>
+                    <input 
+                      type="range" 
+                      id="workspace-accounts-range" 
+                      name="workspace_accounts" 
+                      class="form-range" 
+                      min="1" 
+                      max="20" 
+                      value="9" 
+                      step="1"
+                      data-cost-per-account="35"
+                    >
+                    <div class="range-labels" aria-hidden="true">
+                      <span>1 konto</span>
+                      <span>9 kont (wg audytu)</span>
+                      <span>20 kont</span>
+                    </div>
+                    <p class="form-hint">
+                      Przyjęto średnią stawkę <strong>35 zł/konto/mies. netto</strong>. W materiałach rozpoznano 9 adresów e-mail; faktyczną liczbę płatnych licencji (względem bezpłatnych aliasów) zweryfikujemy w konsoli administracyjnej.
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Form Quick Actions -->
+            <!-- Form Actions (Reset) -->
             <div class="form-actions">
               <button type="button" id="btn-reset" class="btn btn-secondary">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
                   <path d="M3 3v5h5"></path>
                 </svg>
-                Zresetuj formularz
+                <span>Przywróć rekomendowane ustawienia</span>
               </button>
             </div>
           </form>
+
+          <!-- Accordion: Informacje i korzyści oferty -->
+          <div class="card info-faq-card">
+            <div class="faq-header">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+              </svg>
+              <h3 class="faq-title">Kluczowe założenia biznesowe ze szkicu współpracy</h3>
+            </div>
+            <div class="accordion-list">
+              <details class="faq-item">
+                <summary class="faq-summary">
+                  <span>Dlaczego pilotaż Munji jest zamawiany osobno?</span>
+                  <span class="faq-chevron" aria-hidden="true">›</span>
+                </summary>
+                <div class="faq-body">
+                  <p>
+                    Pilotaż (20 godzin za 3 000 zł) pozwala szybko usunąć najbardziej palące problemy (formularz mobilny, ciężkie multimedia) i pokazać natychmiastową korzyść z mojej pracy, bez konieczności wiązania się od razu stałą umową. Nadzór techniczny, CMS i opłaty infrastrukturalne startują dopiero po uzgodnionym przejęciu (najwcześniej styczeń 2027).
+                  </p>
+                </div>
+              </details>
+
+              <details class="faq-item">
+                <summary class="faq-summary">
+                  <span>Na czym polega model Win-Win przy konsolidacji domen?</span>
+                  <span class="faq-chevron" aria-hidden="true">›</span>
+                </summary>
+                <div class="faq-body">
+                  <p>
+                    Zarządzam dużą liczbą domen i posiadam wynegocjowane u rejestratorów hurtowe stawki. Przejęcie kompletu 5 domen grupy pod moje skrzydła w stałym abonamencie (50 zł/mies.) zdejmuje z Was ryzyko wygaśnięcia domen, eliminuje coroczne drastyczne podwyżki cen odnowień w nazwa.pl/home.pl/LH.pl, a wszelkie koszty transferu i przedłużeń biorę na siebie.
+                  </p>
+                </div>
+              </details>
+
+              <details class="faq-item">
+                <summary class="faq-summary">
+                  <span>Dlaczego dedykowany serwer VPS w DataHouse Warszawa?</span>
+                  <span class="faq-chevron" aria-hidden="true">›</span>
+                </summary>
+                <div class="faq-body">
+                  <p>
+                    Pozostawanie na limitowanych hostingach współdzielonych uniemożliwia zagwarantowanie stabilności i szybkiej reakcji. Osobna instancja (4 vCPU, 8 GB RAM, 100 GB NVMe w Warszawie) nie współdzieli zasobów z obcymi stronami, drastycznie skraca czas odpowiedzi serwera (TTFB) i zapewnia bufor na otwarcie 5. lokalu.
+                  </p>
+                </div>
+              </details>
+
+              <details class="faq-item">
+                <summary class="faq-summary">
+                  <span>Jak działa przenoszenie niewykorzystanych godzin rozwoju?</span>
+                  <span class="faq-chevron" aria-hidden="true">›</span>
+                </summary>
+                <div class="faq-body">
+                  <p>
+                    Niewykorzystane godziny z danego miesiąca przechodzą na bezpośrednio kolejny miesiąc (np. przy wykorzystaniu 15h z 20h, w kolejnym miesiącu dostępnych jest 25h). Daje to pełne bezpieczeństwo budżetu przy zmiennej dynamice prac marketingowych grupy.
+                  </p>
+                </div>
+              </details>
+            </div>
+          </div>
         </section>
 
         <!-- Live Summary / Output Column -->
         <aside class="calc-summary-column" aria-label="Podsumowanie wyceny">
           <div class="card summary-card sticky-card">
             <div class="summary-header">
-              <span class="summary-eyebrow">Podsumowanie</span>
-              <h2 class="summary-title">Szacunek Oferty</h2>
+              <div class="summary-header-top">
+                <span class="summary-eyebrow">Symulator Oferty</span>
+                <span class="badge-mode-indicator" id="summary-tax-indicator">NETTO</span>
+              </div>
+              <h2 class="summary-title">Podsumowanie Kosztów</h2>
             </div>
 
-            <!-- Total Price Highlight -->
-            <div class="summary-price-hero">
-              <div class="price-label">Łącznie brutto</div>
-              <div class="price-value" id="total-gross">0,00 zł</div>
-              <div class="price-net-note">
-                Netto: <strong id="total-net">0,00 zł</strong> + VAT 23%: <span id="total-vat">0,00 zł</span>
+            <!-- Total Price Highlights Cards -->
+            <div class="summary-hero-dual">
+              <!-- Karta 1: Koszt startowy -->
+              <div class="hero-subcard hero-subcard-start">
+                <span class="hero-label">Jednorazowo na start:</span>
+                <div class="hero-value" id="total-onetime-display">6 000,00 zł</div>
+                <div class="hero-subtext" id="onetime-subtext">Pilotaż Munji + Setup Fee</div>
+              </div>
+
+              <!-- Karta 2: Koszt miesięczny -->
+              <div class="hero-subcard hero-subcard-monthly">
+                <span class="hero-label">Stały abonament:</span>
+                <div class="hero-value accent-value" id="total-monthly-display">4 650,00 zł<small>/m.</small></div>
+                <div class="hero-subtext" id="monthly-subtext">Baza (1 450 zł) + Rozwój 20h (3 200 zł)</div>
+              </div>
+            </div>
+
+            <!-- Tax Summary Banner -->
+            <div class="summary-tax-banner" id="tax-banner">
+              <div class="tax-line">
+                <span>Razem netto miesięcznie:</span>
+                <strong id="summary-net-monthly">4 650,00 zł</strong>
+              </div>
+              <div class="tax-line">
+                <span>Podatek VAT (23%):</span>
+                <span id="summary-vat-monthly">1 069,50 zł</span>
+              </div>
+              <div class="tax-line total-line">
+                <span>Razem brutto miesięcznie:</span>
+                <strong id="summary-gross-monthly">5 719,50 zł</strong>
               </div>
             </div>
 
             <!-- Itemized Breakdown -->
             <div class="breakdown-wrapper">
-              <h3 class="breakdown-heading">Pozycje kosztowe</h3>
+              <h3 class="breakdown-heading">Składniki wyceny</h3>
               <ul class="breakdown-list" id="breakdown-list">
                 <!-- Dynamically populated via JS -->
               </ul>
+            </div>
+
+            <!-- First Year Estimate (TCO) -->
+            <div class="tco-box" id="tco-container">
+              <div class="tco-header">
+                <span class="tco-title">Szacunek I roku współpracy (2026/2027)</span>
+                <span class="tco-badge">TCO</span>
+              </div>
+              <div class="tco-amount" id="tco-total">61 800,00 zł</div>
+              <p class="tco-note" id="tco-note">
+                Obejmuje: Pilotaż Munji (XI/XII 2026) + Setup Fee (I 2027) + 12 miesięcy stałej obsługi.
+              </p>
             </div>
 
             <!-- Summary Actions -->
@@ -191,7 +587,7 @@
                   <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                   <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                 </svg>
-                <span>Kopiuj ofertę</span>
+                <span>Kopiuj wycenę do maila</span>
               </button>
 
               <button type="button" id="btn-print-summary" class="btn btn-outline btn-block">
@@ -200,12 +596,12 @@
                   <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
                   <rect x="6" y="14" width="12" height="8"></rect>
                 </svg>
-                <span>Drukuj / Pobierz PDF</span>
+                <span>Drukuj / Zapisz jako PDF</span>
               </button>
             </div>
 
             <p class="summary-legal">
-              Wycena ma charakter orientacyjny i nie stanowi ostatecznej oferty handlowej w rozumieniu Kodeksu Cywilnego.
+              Wszystkie ceny w ofercie są kwotami netto (+23% VAT). Pilotaż zamawiany jest osobno. Docelowe stawki stałej opieki doprecyzujemy po pilotażu i zbadaniu zaplecza.
             </p>
           </div>
         </aside>
@@ -215,9 +611,11 @@
     <!-- Footer -->
     <footer class="site-footer" role="contentinfo">
       <div class="footer-inner container">
-        <p>© 2026 Munja Kalkulator. Wszelkie prawa zastrzeżone.</p>
+        <div class="footer-brand">
+          <strong>Grupa Restauracyjna</strong> · Munja · Baila Warsaw · NINE’s Restaurant &amp; Sports Bar
+        </div>
         <p class="footer-link-wrap">
-          Hostowane na Netlify: <a href="https://munja-kalkulator.wesolowski.dev" target="_blank" rel="noopener noreferrer">munja-kalkulator.wesolowski.dev</a>
+          Kalkulator oferty: <a href="https://munja-kalkulator.wesolowski.dev" target="_blank" rel="noopener noreferrer">munja-kalkulator.wesolowski.dev</a>
         </p>
       </div>
     </footer>
@@ -230,7 +628,7 @@
         <polyline points="20 6 9 17 4 12"></polyline>
       </svg>
     </div>
-    <span id="toast-message" class="toast-message">Skopiowano do schowka!</span>
+    <span id="toast-message" class="toast-message">Skopiowano podsumowanie do schowka!</span>
   </div>
 
   <!-- JavaScript -->
