@@ -87,7 +87,7 @@ munja-kalkulator/
 │   │   └── clipboard.js          # Generator i formater treści oferty do wiadomości e-mail
 │   └── components/
 │       ├── header.js             # Kontroler przełącznika cen Netto/Brutto
-│       ├── presets.js            # Kontroler pigułek wariantów i wskaźnik aktywnego profilu
+│       ├── presets.js            # Komponent widoku i kontroler kart wariantów (Ścieżki rozwoju grupy)
 │       ├── form.js               # Kontroler pól formularza, suwaków i etykiet cen
 │       ├── summary.js            # Kontroler panelu podsumowania i akcji (PDF, schowek)
 │       └── toast.js              # Wyświetlanie powiadomień

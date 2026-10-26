@@ -141,3 +141,113 @@ export const PRESETS = {
     workspace: false
   }
 };
+
+/**
+ * Detailed configuration for the 4 Strategic Development Paths (Ścieżki rozwoju grupy)
+ */
+export const PRESET_CARDS = [
+  {
+    id: 'recommended',
+    title: 'Pełna Transformacja i Skalowanie',
+    badgeTag: '★ Rekomendowany',
+    badgeClass: 'badge-star',
+    highlighted: true,
+    priceLabel: 'Miesiące 1–3:',
+    priceNet: 4650,
+    priceSuffix: '/mies.',
+    priceEvolutionHtml: 'od 4. m-ca: <span data-amount-net="3150" data-suffix="/mies.">3 150 zł/mies.</span>',
+    target: 'Dla grupy planującej szybki skok jakościowy w pierwszych 3 miesiącach, wdrożenie kluczowych zmian na wszystkich 3 stronach, a następnie obniżenie budżetu do stabilnego rozwoju.',
+    steps: [
+      {
+        dot: '1',
+        html: '<strong>Start:</strong> Pilotaż Munji (<span data-amount-net="4000">4 000 zł</span>) — naprawa rezerwacji na telefonach, odciążenie wideo, RODO'
+      },
+      {
+        dot: '2',
+        html: '<strong>Setup:</strong> Przejęcie infrastruktury (<span data-amount-net="3000">3 000 zł</span>) — nowy dedykowany serwer VPS i 5 domen (<span data-amount-net="200" data-suffix="/mies.">200 zł/mies.</span>)'
+      },
+      {
+        dot: '3',
+        html: '<strong>Miesiące 1–3:</strong> 20h R&amp;D + Baza (Nadzór <span data-amount-net="750">750 zł</span> + Serwer/Domeny <span data-amount-net="200">200 zł</span> + CMS <span data-amount-net="500">500 zł</span>) = <span data-amount-net="4650" data-suffix="/mies.">4 650 zł/mies.</span>'
+      },
+      {
+        dot: '4',
+        html: '<strong>Od 4. miesiąca:</strong> Zmniejszenie puli do 10h R&amp;D + Baza = <span data-amount-net="3150" data-suffix="/mies.">3 150 zł/mies.</span>'
+      }
+    ]
+  },
+  {
+    id: 'balanced',
+    title: 'Stałe Wsparcie i Ewolucja',
+    badgeTag: 'Zrównoważony',
+    badgeClass: '',
+    highlighted: false,
+    priceLabel: 'Stały abonament:',
+    priceNet: 3150,
+    priceSuffix: '/mies.',
+    priceEvolutionHtml: 'stały budżet od 1. dnia',
+    target: 'Dla zarządu oczekującego w 100% równego, przewidywalnego kosztu co miesiąc, ze stałą i bezpieczną pulą 10 godzin na bieżące ulepszenia (godziny przechodzą na kolejny miesiąc).',
+    steps: [
+      {
+        dot: '1',
+        html: '<strong>Start:</strong> Pilotaż Munji (<span data-amount-net="4000">4 000 zł</span>) — szybkie usunięcie wąskich gardeł'
+      },
+      {
+        dot: '2',
+        html: '<strong>Setup:</strong> Setup Fee (<span data-amount-net="3000">3 000 zł</span>) — migracja na dedykowany serwer VPS i domeny'
+      },
+      {
+        dot: '3',
+        html: '<strong>Stała obsługa (od 2027 r.):</strong> Baza (<span data-amount-net="1450">1 450 zł</span>) + 10h R&amp;D (<span data-amount-net="1700">1 700 zł</span>) = <span data-amount-net="3150" data-suffix="/mies.">3 150 zł/mies.</span>'
+      }
+    ]
+  },
+  {
+    id: 'base',
+    title: 'Sama Baza (Bez R&D)',
+    badgeTag: 'Fundament Techniczny',
+    badgeClass: '',
+    highlighted: false,
+    priceLabel: 'Stały ryczałt:',
+    priceNet: 1450,
+    priceSuffix: '/mies.',
+    priceEvolutionHtml: 'Nadzór + CMS + Serwer + Domeny',
+    target: 'Dla grupy skupionej wyłącznie na bezawaryjności, bezpieczeństwie serwerów i bieżących zmianach w menu/treściach, bez stałego miesięcznego abonamentu na programistę.',
+    steps: [
+      {
+        dot: '1',
+        html: '<strong>Setup:</strong> Setup Fee (<span data-amount-net="3000">3 000 zł</span>) — uruchomienie dedykowanego serwera i transfer domen'
+      },
+      {
+        dot: '2',
+        html: '<strong>Stała Baza:</strong> Nadzór 24/7 (<span data-amount-net="750">750 zł</span>) + CMS (<span data-amount-net="500">500 zł</span>) + Serwer i Domeny (<span data-amount-net="200">200 zł</span>) = <span data-amount-net="1450" data-suffix="/mies.">1 450 zł/mies.</span>'
+      },
+      {
+        dot: '3',
+        html: '<strong>Prace programistyczne:</strong> Tylko doraźne zlecenia w razie potrzeby (<span data-amount-net="200" data-suffix="/h">200 zł/h</span>)'
+      }
+    ]
+  },
+  {
+    id: 'pilot-only',
+    title: 'Tylko Pilotaż Munji',
+    badgeTag: 'Start bez ryzyka',
+    badgeClass: 'badge-start-tag',
+    highlighted: false,
+    priceLabel: 'Jednorazowo:',
+    priceNet: 4000,
+    priceSuffix: '',
+    priceEvolutionHtml: '<span data-amount-net="0" data-suffix=" stałego abonamentu">0 zł stałego abonamentu</span>',
+    target: 'Szybki test jakości współpracy przed sezonem świątecznym. Natychmiastowe rozwiązanie problemu formularza mobilnego i multimediów bez wiązania się stałą umową.',
+    steps: [
+      {
+        dot: '1',
+        html: '<strong>Zakres prac:</strong> Naprawa formularza rezerwacji, odciążenie wideo, RODO / analityka'
+      },
+      {
+        dot: '2',
+        html: '<strong>Brak dalszych kosztów:</strong> Decyzja o stałej opiece dopiero po weryfikacji efektów'
+      }
+    ]
+  }
+];
