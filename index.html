@@ -37,7 +37,7 @@
               Netto
             </button>
             <button type="button" id="tax-toggle-gross" class="tax-toggle-btn" aria-pressed="false">
-              Brutto (+23% VAT)
+              Brutto <span class="tax-vat-hint">(+23% VAT)</span>
             </button>
           </div>
         </div>
@@ -178,7 +178,7 @@
                     <ul class="feature-pills-list">
                       <li>
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        <span>Uruchomienie dedykowanego VPS grupy w DataHouse Warszawa (4 vCPU, 8 GB RAM, 100 GB NVMe)</span>
+                        <span>Uruchomienie dedykowanego serwera VPS (4 vCPU, 8 GB RAM, 100 GB NVMe)</span>
                       </li>
                       <li>
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -262,11 +262,11 @@
                       <span class="checkbox-box" aria-hidden="true"></span>
                       <div class="checkbox-content">
                         <div class="checkbox-title-row">
-                          <span class="checkbox-title">Dedykowany VPS (DataHouse Warszawa)</span>
+                          <span class="checkbox-title">Dedykowany serwer VPS</span>
                           <span class="checkbox-item-price" data-amount-net="150">150 zł/m.</span>
                         </div>
                         <p class="checkbox-desc">
-                          Instancja wyłącznie dla stron grupy (4 vCPU, 8 GB RAM, 100 GB NVMe), bez obcych projektów, z zapasem pod kolejny lokal.
+                          Osobna instancja (4 vCPU, 8 GB RAM, 100 GB NVMe), bez obcych projektów, z zapasem pod kolejny lokal.
                         </p>
                       </div>
                     </label>
@@ -481,12 +481,12 @@
 
               <details class="faq-item">
                 <summary class="faq-summary">
-                  <span>Dlaczego dedykowany serwer VPS w DataHouse Warszawa?</span>
+                  <span>Dlaczego dedykowany serwer VPS?</span>
                   <span class="faq-chevron" aria-hidden="true">›</span>
                 </summary>
                 <div class="faq-body">
                   <p>
-                    Pozostawanie na limitowanych hostingach współdzielonych uniemożliwia zagwarantowanie stabilności i szybkiej reakcji. Osobna instancja (4 vCPU, 8 GB RAM, 100 GB NVMe w Warszawie) nie współdzieli zasobów z obcymi stronami, drastycznie skraca czas odpowiedzi serwera (TTFB) i zapewnia bufor na otwarcie 5. lokalu.
+                    Pozostawanie na limitowanych hostingach współdzielonych uniemożliwia zagwarantowanie stabilności i szybkiej reakcji. Osobna instancja (4 vCPU, 8 GB RAM, 100 GB NVMe) nie współdzieli zasobów z obcymi stronami, drastycznie skraca czas odpowiedzi serwera (TTFB) i zapewnia bufor na otwarcie 5. lokalu.
                   </p>
                 </div>
               </details>
@@ -621,7 +621,7 @@
     <span id="toast-message" class="toast-message">Skopiowano podsumowanie do schowka!</span>
   </div>
 
-  <!-- JavaScript -->
-  <script src="js/app.js"></script>
+  <!-- JavaScript Modules -->
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>

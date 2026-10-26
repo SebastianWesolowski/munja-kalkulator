@@ -1,0 +1,47 @@
+/* ==========================================================================
+   Print Styles (PDF Export)
+   ========================================================================== */
+
+@media print {
+  body {
+    background-color: #fff;
+    color: #000;
+    font-size: 13px;
+  }
+
+  .site-header,
+  .presets-section,
+  .form-actions,
+  .summary-actions,
+  .site-footer,
+  .toast,
+  .tax-mode-toggle,
+  .header-badge {
+    display: none !important;
+  }
+
+  .main-content {
+    padding: 0;
+  }
+
+  .calculator-layout {
+    display: block;
+  }
+
+  .card {
+    border: 1px solid #cbd5e1;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+    margin-bottom: 1.5rem;
+  }
+
+  .summary-card {
+    position: static;
+    border: 2px solid #0f172a;
+    page-break-before: always;
+  }
+
+  .sticky-card {
+    position: static;
+  }
+}

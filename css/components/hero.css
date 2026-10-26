@@ -1,0 +1,72 @@
+/* ==========================================================================
+   Component: Hero Intro Section
+   ========================================================================== */
+
+.main-content {
+  flex: 1;
+  padding-block: 2rem 4rem;
+}
+
+.intro-section {
+  text-align: center;
+  max-width: 760px;
+  margin-inline: auto;
+  margin-block-end: 2rem;
+}
+
+.intro-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--color-amber-light);
+  color: var(--color-amber-dark);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.3rem 0.85rem;
+  border-radius: var(--radius-full);
+  margin-block-end: 1rem;
+}
+
+.badge-dot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--color-amber);
+  border-radius: 50%;
+}
+
+.page-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--color-text-main);
+  margin-block-end: 0.75rem;
+  line-height: 1.25;
+}
+
+@media (min-width: 640px) {
+  .page-title {
+    font-size: 2.35rem;
+    line-height: 1.2;
+  }
+}
+
+@media (min-width: 1024px) {
+  .page-title {
+    font-size: 2.6rem;
+  }
+}
+
+.page-description {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+}
+
+@media (min-width: 640px) {
+  .page-description {
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+}

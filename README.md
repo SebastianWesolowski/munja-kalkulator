@@ -20,7 +20,7 @@ Kalkulator odwzorowuje strukturę etapów i cennik ze szkicu współpracy:
 
 2. **Krok 2: Wdrożenie nowej infrastruktury i Setup Fee (od I 2027 r.)**
    - **Setup Fee: 3 000 zł jednorazowo netto**.
-   - Dedykowany serwer VPS w DataHouse Warszawa (4 vCPU, 8 GB RAM, 100 GB NVMe).
+   - Dedykowany serwer VPS (4 vCPU, 8 GB RAM, 100 GB NVMe).
    - Konsolidacja 5 domen od 4 rejestratorów w hurtowym modelu partnera technologicznego (model win-win bez skoków cen).
    - Konfiguracja zabezpieczeń poczty: SPF, DKIM, DMARC (ochrona zarządu przed CEO spoofingiem).
 
@@ -28,7 +28,7 @@ Kalkulator odwzorowuje strukturę etapów i cennik ze szkicu współpracy:
    - **Baza technologiczna grupy: 1 450 zł/mies. netto**:
      - Nadzór techniczny, monitoring 24/7, kopie i SLA (750 zł/m.)
      - Publikacja treści w CMS do 9h łącznie (500 zł/m.)
-     - Dedykowany VPS Warszawa (150 zł/m.)
+     - Dedykowany serwer VPS (150 zł/m.)
      - Pakiet 5 domen (50 zł/m.)
    - **Pula rozwoju serwisów grupy**:
      - **Pakiet 20 godzin (Rekomendowany):** 3 200 zł/mies. (160 zł/h, z przenoszeniem godzin na kolejny miesiąc)
@@ -54,16 +54,44 @@ Kalkulator odwzorowuje strukturę etapów i cennik ze szkicu współpracy:
 
 ---
 
-## 📁 Struktura Projektu
+## 📁 Struktura Projektu (Modułowa architektura)
 
 ```text
 munja-kalkulator/
-├── index.html        # Szablon semantyczny z krokami, presetami i widokiem podsumowania
+├── index.html                    # Semantyczny szkielet aplikacji z podziałem na obszary
 ├── css/
-│   └── style.css     # Design system (Plus Jakarta Sans, paleta Slate/Amber/Blue, print styles)
+│   ├── style.css                 # Główny arkusz importujący moduły komponentów
+│   ├── variables.css             # Tokeny stylów (kolory, typografia, cienie, promienie)
+│   ├── base.css                  # Reset, layout siatki (.calculator-layout), przyciski
+│   ├── responsive.css            # Adaptacje mobilne (< 768px, < 460px, < 360px)
+│   ├── print.css                 # Dedykowany arkusz wydruku / eksportu PDF
+│   └── components/
+│       ├── header.css            # Pasek nawigacji, brand i przełącznik Netto/Brutto
+│       ├── hero.css              # Wprowadzenie, tytuł i opis kalkulatora
+│       ├── presets.css           # Pasek szybkich wariantów (Rekomendowany, Baza, etc.)
+│       ├── cards.css             # Wspólne style kart, kroków i statusów
+│       ├── steps.css             # Formularz: Krok 1 (Pilot), Krok 2 (Setup), Krok 3 (Baza/Rozwój)
+│       ├── summary.css           # Podsumowanie oferty, bohaterowie kwot, tabela VAT, lista, TCO
+│       ├── faq.css               # Akordeony z bazą wiedzy i założeń biznesowych
+│       ├── footer.css            # Stopka serwisu
+│       └── toast.css             # Powiadomienia schowka
 ├── js/
-│   └── app.js        # Silnik kalkulacji, tryby Netto/Brutto, generowanie tekstu do schowka
-├── netlify.toml      # Konfiguracja wdrożenia statycznego i nagłówków bezpieczeństwa
+│   ├── main.js                   # Główny orchestrator aplikacji ES Module
+│   ├── app.js                    # Kompatybilny wstecznie punkt wejścia
+│   ├── config.js                 # Konfiguracja stawek VAT i formatowania walutowego PLN
+│   ├── state.js                  # Reaktywny stan aplikacji (tryb Netto/Brutto, subskrypcje)
+│   ├── data/
+│   │   └── offer-data.js         # Stałe cenowe, pakiety i definicje wariantów
+│   ├── services/
+│   │   ├── calculator.js         # Czysty silnik obliczeń finansowych (jednorazowe, abonament, TCO)
+│   │   └── clipboard.js          # Generator i formater treści oferty do wiadomości e-mail
+│   └── components/
+│       ├── header.js             # Kontroler przełącznika cen Netto/Brutto
+│       ├── presets.js            # Kontroler pigułek wariantów i wskaźnik aktywnego profilu
+│       ├── form.js               # Kontroler pól formularza, suwaków i etykiet cen
+│       ├── summary.js            # Kontroler panelu podsumowania i akcji (PDF, schowek)
+│       └── toast.js              # Wyświetlanie powiadomień
+├── netlify.toml                  # Konfiguracja wdrożenia statycznego i nagłówków bezpieczeństwa
 ├── .gitignore
 └── README.md
 ```
