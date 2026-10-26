@@ -26,10 +26,10 @@ Kalkulator odwzorowuje strukturę etapów i cennik ze szkicu współpracy:
 
 3. **Krok 3: Stała obsługa miesięczna (od I 2027 r.)**
    - **Baza technologiczna grupy: 1 450 zł/mies. netto**:
-     - Nadzór techniczny, monitoring 24/7, kopie i SLA (750 zł/m.)
-     - Publikacja treści w CMS do 9h łącznie (500 zł/m.)
-     - Dedykowany serwer VPS (150 zł/m.)
-     - Pakiet 5 domen (50 zł/m.)
+     - Nadzór techniczny, monitoring 24/7, kopie i SLA (750 zł/mies.)
+     - Publikacja treści w CMS do 9h łącznie (500 zł/mies.)
+     - Dedykowany serwer VPS (150 zł/mies.)
+     - Pakiet 5 domen (50 zł/mies.)
    - **Pula rozwoju serwisów grupy**:
      - **Pakiet 20 godzin (Rekomendowany na start):** 3 200 zł/mies. (z przenoszeniem godzin)
      - **Pakiet 10 godzin (Docelowy od 4. miesiąca):** 1 700 zł/mies.
@@ -43,7 +43,7 @@ Kalkulator odwzorowuje strukturę etapów i cennik ze szkicu współpracy:
 ## ⚡ Główne funkcjonalności kalkulatora
 
 - **Strategiczne ścieżki rozwoju (Warianty)**:
-  - `Rekomendowany (Pełna Transformacja)`: Start: Pilotaż (4 000 zł) + Setup (3 000 zł). M-ce 1–3: 20h R&D + Baza = 4 650 zł/m. Od 4. m-ca: 10h R&D + Baza = 3 150 zł/m.
+  - `Rekomendowany (Pełna Transformacja)`: Start: Pilotaż (4 000 zł) + Setup (3 000 zł). M-ce 1–3: 20h R&D + Baza = 4 650 zł/mies. Od 4. m-ca: 10h R&D + Baza = 3 150 zł/mies.
   - `Zrównoważony`: Start: 7 000 zł. Stała obsługa: Baza + Rozwój 10h = 3 150 zł/mies. netto od 1. dnia.
   - `Sama Baza`: Start: Setup (3 000 zł). Nadzór + CMS + VPS + Domeny = 1 450 zł/mies. netto (programista doraźnie).
   - `Tylko Pilotaż Munji`: 4 000 zł jednorazowo netto (0 zł abonamentu).

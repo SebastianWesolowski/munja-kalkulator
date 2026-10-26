@@ -2,7 +2,7 @@
  * Component: Calculator Form & Steps Controller
  */
 
-import { formatMoney } from '../config.js';
+import { formatMoney, getTaxLabel } from '../config.js';
 import { PRESETS } from '../data/offer-data.js';
 
 let formElement = null;
@@ -116,24 +116,41 @@ export function applyPresetValues(presetId) {
  * @param {boolean} isGross - Whether in gross mode
  */
 export function updateFormUI(values, calc, isGross) {
-  // Update all [data-amount-net] tags across cards
+  const taxLabel = getTaxLabel(isGross);
+
+  // Update all [data-amount-net] tags across cards, presets, text, and labels
   document.querySelectorAll('[data-amount-net]').forEach(el => {
     const netVal = parseFloat(el.dataset.amountNet || '0');
-    const period = el.dataset.period;
-    const displayPrice = formatMoney(netVal, isGross);
-    el.textContent = period === 'jednorazowo' ? displayPrice : `${displayPrice}/m.`;
+    const trimZero = el.dataset.trimZero !== 'false';
+    const displayPrice = formatMoney(netVal, isGross, { trimZero });
+
+    if (el.dataset.format) {
+      el.textContent = el.dataset.format
+        .replace('{price}', displayPrice)
+        .replace('{tax}', taxLabel);
+    } else if (el.dataset.suffix || el.dataset.prefix) {
+      const prefix = el.dataset.prefix || '';
+      const suffix = el.dataset.suffix || '';
+      el.textContent = `${prefix}${displayPrice}${suffix}`;
+    } else if (el.dataset.period === 'jednorazowo') {
+      el.textContent = displayPrice;
+    } else if (el.dataset.period === 'miesiecznie') {
+      el.textContent = `${displayPrice}/mies.`;
+    } else {
+      el.textContent = displayPrice;
+    }
   });
 
   // Base bundle badge total
   if (baseBundleTotal) {
-    baseBundleTotal.textContent = `${formatMoney(calc.baseNet, isGross)}/m.`;
+    baseBundleTotal.textContent = `${formatMoney(calc.baseNet, isGross, { trimZero: true })}/mies.`;
   }
 
   // Extra hours slider live value
   if (extraHoursDisplay && extraAdhocHours) {
     const hrs = parseInt(extraAdhocHours.value, 10);
     const val = hrs * 200;
-    extraHoursDisplay.textContent = `${hrs} godz. (${formatMoney(val, isGross)})`;
+    extraHoursDisplay.textContent = `${hrs} godz. (${formatMoney(val, isGross, { trimZero: true })})`;
   }
 
   // Workspace panel visibility & accounts live value
@@ -144,6 +161,6 @@ export function updateFormUI(values, calc, isGross) {
   if (workspaceAccountsDisplay && workspaceAccountsRange) {
     const count = parseInt(workspaceAccountsRange.value, 10);
     const cost = count * 35;
-    workspaceAccountsDisplay.textContent = `${count} kont (${formatMoney(cost, isGross)}/m.)`;
+    workspaceAccountsDisplay.textContent = `${count} kont (${formatMoney(cost, isGross, { trimZero: true })}/mies.)`;
   }
 }

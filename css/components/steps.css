@@ -66,7 +66,7 @@
 }
 
 .feature-toggle-card.highlighted-card .toggle-price {
-  color: #b45309;
+  color: var(--color-amber-dark);
 }
 
 .toggle-desc {
@@ -136,7 +136,7 @@
 .checkbox-box {
   width: 22px;
   height: 22px;
-  border: 2px solid #cbd5e1;
+  border: 2px solid #78889b;
   border-radius: 6px;
   background-color: #fff;
   flex-shrink: 0;
@@ -333,7 +333,7 @@
 .radio-box {
   width: 20px;
   height: 20px;
-  border: 2px solid #cbd5e1;
+  border: 2px solid #78889b;
   border-radius: 50%;
   background-color: #fff;
   flex-shrink: 0;

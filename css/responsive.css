@@ -146,7 +146,7 @@
   }
 
   .feature-toggle-card.highlighted-card .toggle-price {
-    color: #b45309;
+    color: var(--color-amber-dark);
   }
 
   .toggle-desc {

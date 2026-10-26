@@ -131,8 +131,8 @@
 
 .badge-star {
   background-color: #fef3c7;
-  color: #b45309;
-  border: 1px solid rgba(217, 119, 6, 0.25);
+  color: var(--color-amber-dark);
+  border: 1px solid rgba(146, 64, 14, 0.25);
 }
 
 .badge-start-tag {
@@ -171,7 +171,7 @@
 }
 
 .preset-card.highlighted-preset .preset-card-price strong {
-  color: #b45309;
+  color: var(--color-amber-dark);
 }
 
 .preset-price-evolution {

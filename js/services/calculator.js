@@ -2,7 +2,7 @@
  * Financial Calculation Service
  */
 
-import { CONFIG } from '../config.js';
+import { CONFIG, formatMoney, getTaxLabel } from '../config.js';
 import { OFFER_DATA } from '../data/offer-data.js';
 
 /**
@@ -12,6 +12,7 @@ import { OFFER_DATA } from '../data/offer-data.js';
  * @returns {Object} Comprehensive calculation result
  */
 export function calculateOffer(values, isGross = false) {
+  const taxLabel = getTaxLabel(isGross);
   const onetimeItems = [];
   let onetimeNet = 0;
 
@@ -70,10 +71,11 @@ export function calculateOffer(values, isGross = false) {
   let devNet = 0;
   const devPlan = OFFER_DATA.devPlans[values.devPlan] || OFFER_DATA.devPlans['0'];
   if (devPlan && devPlan.priceNet > 0) {
+    const rateFormatted = formatMoney(devPlan.rateNet, isGross, { trimZero: true });
     monthlyItems.push({
       id: 'dev_plan',
       name: devPlan.name,
-      sub: devPlan.sub,
+      sub: `${rateFormatted}/h ${taxLabel} · Niewykorzystane godziny przechodzą na kolejny miesiąc`,
       netPrice: devPlan.priceNet,
       type: 'dev'
     });
@@ -85,10 +87,11 @@ export function calculateOffer(values, isGross = false) {
   const adhocHours = parseInt(values.extraHours || '0', 10) || 0;
   if (adhocHours > 0) {
     extraHoursNet = adhocHours * OFFER_DATA.adhocRate;
+    const rateFormatted = formatMoney(OFFER_DATA.adhocRate, isGross, { trimZero: true });
     monthlyItems.push({
       id: 'extra_hours',
       name: `Dodatkowe godziny doraźne (${adhocHours} h)`,
-      sub: `${OFFER_DATA.adhocRate} zł/godz. netto · Rozliczane po wcześniejszym uzgodnieniu`,
+      sub: `${rateFormatted}/godz. ${taxLabel} · Rozliczane po wcześniejszym uzgodnieniu`,
       netPrice: extraHoursNet,
       type: 'adhoc'
     });
@@ -96,13 +99,16 @@ export function calculateOffer(values, isGross = false) {
 
   // 3D. Google Workspace
   let workspaceNet = 0;
+  const accountsCount = parseInt(values.workspaceAccounts || '9', 10) || 9;
   if (values.workspace) {
-    const accountsCount = parseInt(values.workspaceAccounts || '9', 10) || 9;
     workspaceNet = accountsCount * OFFER_DATA.workspaceCostPerAccount;
+    const costFormatted = formatMoney(OFFER_DATA.workspaceCostPerAccount, isGross, { trimZero: true });
+    const minFormatted = formatMoney(30, isGross, { trimZero: true });
+    const maxFormatted = formatMoney(40, isGross, { trimZero: true });
     monthlyItems.push({
       id: 'workspace',
       name: `Poczta Google Workspace (${accountsCount} kont)`,
-      sub: `Średnio ${OFFER_DATA.workspaceCostPerAccount} zł/konto/mies. netto (plan 30–40 zł/m.)`,
+      sub: `Średnio ${costFormatted}/konto/mies. ${taxLabel} (plan ${minFormatted}–${maxFormatted}/mies.)`,
       netPrice: workspaceNet,
       type: 'workspace'
     });
@@ -138,6 +144,9 @@ export function calculateOffer(values, isGross = false) {
     monthlyDisplay: isGross ? monthlyGross : monthlyNet,
 
     adhocHours,
+    adhocNet: extraHoursNet,
+    workspaceNet,
+    workspaceAccounts: accountsCount,
     tcoNet,
     tcoVat,
     tcoGross,

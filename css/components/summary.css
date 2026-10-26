@@ -139,6 +139,14 @@
   font-weight: 700;
 }
 
+.summary-tax-banner.mode-gross .total-line strong {
+  color: var(--color-primary);
+}
+
+.summary-tax-banner.mode-net .tax-line:first-child strong {
+  color: var(--color-primary);
+}
+
 /* Breakdown List */
 .breakdown-wrapper {
   padding: 1.25rem 1.5rem;

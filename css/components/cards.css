@@ -87,17 +87,17 @@
 .status-pill-start {
   background-color: var(--color-amber-light);
   color: var(--color-amber-dark);
-  border: 1px solid rgba(217, 119, 6, 0.2);
+  border: 1px solid rgba(146, 64, 14, 0.25);
 }
 
 .status-pill-prep {
   background-color: var(--color-purple-light);
   color: var(--color-purple);
-  border: 1px solid rgba(124, 58, 237, 0.2);
+  border: 1px solid rgba(109, 40, 217, 0.25);
 }
 
 .status-pill-recurring {
   background-color: var(--color-success-light);
   color: var(--color-success-dark);
-  border: 1px solid rgba(16, 185, 129, 0.2);
+  border: 1px solid rgba(4, 120, 87, 0.25);
 }

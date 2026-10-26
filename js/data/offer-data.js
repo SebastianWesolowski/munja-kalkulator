@@ -87,7 +87,7 @@ export const PRESETS = {
   recommended: {
     id: 'recommended',
     name: 'Rekomendowany (Pełna Transformacja)',
-    tag: '4 650 zł/m. (od 4. m-ca: 3 150 zł)',
+    tag: '4 650 zł/mies. (od 4. m-ca: 3 150 zł)',
     pilot: true,
     setupFee: true,
     supervision: true,
@@ -101,7 +101,7 @@ export const PRESETS = {
   balanced: {
     id: 'balanced',
     name: 'Zrównoważony (Stałe Wsparcie: 10h)',
-    tag: '3 150 zł/m.',
+    tag: '3 150 zł/mies.',
     pilot: true,
     setupFee: true,
     supervision: true,
@@ -115,7 +115,7 @@ export const PRESETS = {
   base: {
     id: 'base',
     name: 'Sama Baza (Nadzór + CMS + VPS + Domeny)',
-    tag: '1 450 zł/m.',
+    tag: '1 450 zł/mies.',
     pilot: true,
     setupFee: true,
     supervision: true,

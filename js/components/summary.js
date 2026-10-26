@@ -69,7 +69,7 @@ export function renderSummary(calc, values, isGross) {
 
   // Mode badge
   if (summaryTaxIndicator) {
-    summaryTaxIndicator.textContent = isGross ? 'BRUTTO (Z 23% VAT)' : 'NETTO';
+    summaryTaxIndicator.textContent = isGross ? 'BRUTTO (+23% VAT)' : 'NETTO';
   }
 
   // Hero: Onetime
@@ -78,27 +78,32 @@ export function renderSummary(calc, values, isGross) {
   }
   if (onetimeSubtext) {
     const parts = [];
-    if (values.pilot) parts.push('Pilotaż (4 tys. zł)');
-    if (values.setupFee) parts.push('Setup Fee (3 tys. zł)');
+    if (values.pilot) parts.push(`Pilotaż (${formatMoney(4000, isGross, { trimZero: true })})`);
+    if (values.setupFee) parts.push(`Setup Fee (${formatMoney(3000, isGross, { trimZero: true })})`);
     onetimeSubtext.textContent = parts.length > 0 ? parts.join(' + ') : 'Brak opłat startowych';
   }
 
   // Hero: Monthly
   if (totalMonthlyDisplay) {
-    totalMonthlyDisplay.innerHTML = `${formatMoney(calc.monthlyNet, isGross)}<small>/m.</small>`;
+    totalMonthlyDisplay.innerHTML = `${formatMoney(calc.monthlyNet, isGross)}<small>/mies.</small>`;
   }
   if (monthlySubtext) {
-    const baseFormatted = formatMoney(calc.baseNet, false).replace(',00', '');
+    const baseFormatted = formatMoney(calc.baseNet, isGross, { trimZero: true });
     const parts = [`Baza (${baseFormatted})`];
 
     if (values.devPlan && values.devPlan !== '0') {
-      parts.push(`Rozwój ${values.devPlan}h`);
+      const devItem = calc.monthlyItems.find(i => i.type === 'dev');
+      const devFormatted = devItem ? ` (${formatMoney(devItem.netPrice, isGross, { trimZero: true })})` : '';
+      parts.push(`Rozwój ${values.devPlan}h${devFormatted}`);
     }
     if (calc.adhocHours > 0) {
-      parts.push(`+${calc.adhocHours}h`);
+      const adhocFormatted = formatMoney(calc.adhocNet || (calc.adhocHours * 200), isGross, { trimZero: true });
+      parts.push(`+${calc.adhocHours}h (${adhocFormatted})`);
     }
     if (values.workspace) {
-      parts.push('Poczta');
+      const wsAccounts = calc.workspaceAccounts || 9;
+      const wsFormatted = formatMoney(calc.workspaceNet || (wsAccounts * 35), isGross, { trimZero: true });
+      parts.push(`Poczta (${wsFormatted})`);
     }
     monthlySubtext.textContent = calc.monthlyNet > 0 ? parts.join(' + ') : 'Brak stałego abonamentu';
   }
@@ -112,6 +117,12 @@ export function renderSummary(calc, values, isGross) {
   }
   if (summaryGrossMonthly) {
     summaryGrossMonthly.textContent = currencyFormatter.format(calc.monthlyGross);
+  }
+
+  const taxBanner = document.getElementById('tax-banner');
+  if (taxBanner) {
+    taxBanner.classList.toggle('mode-gross', isGross);
+    taxBanner.classList.toggle('mode-net', !isGross);
   }
 
   // Itemized breakdown list
@@ -142,7 +153,7 @@ export function renderSummary(calc, values, isGross) {
               <div class="breakdown-item-name">${escapeHtml(item.name)}</div>
               <div class="breakdown-item-sub">${escapeHtml(item.sub)}</div>
             </div>
-            <div class="breakdown-item-price">${formatMoney(item.netPrice, isGross)}/m.</div>
+            <div class="breakdown-item-price">${formatMoney(item.netPrice, isGross)}/mies.</div>
           </li>
         `;
       });
@@ -160,6 +171,14 @@ export function renderSummary(calc, values, isGross) {
     tcoTotal.textContent = formatMoney(calc.tcoNet, isGross);
   }
   if (tcoNote) {
-    tcoNote.textContent = `Obejmuje: Start (${formatMoney(calc.onetimeNet, isGross)}) + 12 miesięcy stałej obsługi (${formatMoney(calc.monthlyNet * 12, isGross)}).`;
+    tcoNote.textContent = `Obejmuje: Start (${formatMoney(calc.onetimeNet, isGross, { trimZero: true })}) + 12 miesięcy stałej obsługi (${formatMoney(calc.monthlyNet * 12, isGross, { trimZero: true })}).`;
+  }
+
+  // Legal note
+  const summaryLegal = document.getElementById('summary-legal-note');
+  if (summaryLegal) {
+    summaryLegal.textContent = isGross
+      ? 'Wszystkie kwoty w wycenie są wartościami brutto (zawierają 23% VAT). Pilotaż zamawiany jest osobno. Docelowe stawki stałej opieki doprecyzujemy po pilotażu i zbadaniu zaplecza.'
+      : 'Wszystkie kwoty w wycenie są wartościami netto (+23% VAT). Pilotaż zamawiany jest osobno. Docelowe stawki stałej opieki doprecyzujemy po pilotażu i zbadaniu zaplecza.';
   }
 }
