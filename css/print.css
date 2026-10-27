@@ -16,7 +16,8 @@
   .site-footer,
   .toast,
   .tax-mode-toggle,
-  .header-badge {
+  .header-badge,
+  .mobile-bottom-bar {
     display: none !important;
   }
 

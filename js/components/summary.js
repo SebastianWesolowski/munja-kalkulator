@@ -19,8 +19,6 @@ let summaryVatMonthly = null;
 let summaryGrossMonthly = null;
 let taxBanner = null;
 let breakdownList = null;
-let tcoTotal = null;
-let tcoNote = null;
 let btnCopy = null;
 let btnPrint = null;
 let summaryLegal = null;
@@ -51,7 +49,7 @@ export function createSummaryCardHtml() {
 
         <div class="onetime-blocks-grid" id="onetime-blocks-grid">
           <!-- Klocuszek 1: Pilotaż Munji -->
-          <div class="summary-block onetime-block block-pilot" id="block-pilot">
+          <div class="summary-block onetime-block" id="block-pilot">
             <div class="block-top">
               <span class="block-tag badge-tag-pilot">Opłata jednorazowa</span>
               <span class="block-timing">Listopad / Grudzień 2026</span>
@@ -66,10 +64,10 @@ export function createSummaryCardHtml() {
           </div>
 
           <!-- Klocuszek 2: Nowa infrastruktura -->
-          <div class="summary-block onetime-block block-setup" id="block-setup">
+          <div class="summary-block onetime-block" id="block-setup">
             <div class="block-top">
               <span class="block-tag badge-tag-setup">Opłata jednorazowa</span>
-              <span class="block-timing">Od stycznia 2027 r.</span>
+              <span class="block-timing">W styczniu 2027 r.</span>
             </div>
             <h3 class="block-title">Krok 4: Nowa infrastruktura</h3>
             <div class="block-price-val" id="setup-price-display">3 000,00 zł</div>
@@ -123,19 +121,7 @@ export function createSummaryCardHtml() {
         </ul>
       </div>
 
-      <!-- SEKCJA 5: SZACUNEK I ROKU WSPÓŁPRACY (TCO) -->
-      <div class="tco-box" id="tco-container">
-        <div class="tco-header">
-          <span class="tco-title">Szacunek I roku współpracy (2026/2027)</span>
-          <span class="tco-badge">TCO</span>
-        </div>
-        <div class="tco-amount" id="tco-total">49 300,00 zł</div>
-        <p class="tco-note" id="tco-note">
-          Obejmuje: Pilotaż Munji (listopad / grudzień 2026) + Przeniesienie infrastruktury (styczeń 2027) + 3 m-ce po 4 650 zł (20h rozwoju) + 9 m-cy po 3 150 zł (10h rozwoju).
-        </p>
-      </div>
-
-      <!-- SEKCJA 6: PRZYCISKI AKCJI -->
+      <!-- SEKCJA 5: PRZYCISKI AKCJI -->
       <div class="summary-actions">
         <button type="button" id="btn-copy-summary" class="btn btn-primary btn-block">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -194,8 +180,6 @@ export function initSummary(container) {
   summaryGrossMonthly = document.getElementById('summary-gross-monthly');
   taxBanner = document.getElementById('tax-banner');
   breakdownList = document.getElementById('breakdown-list');
-  tcoTotal = document.getElementById('tco-total');
-  tcoNote = document.getElementById('tco-note');
   btnCopy = document.getElementById('btn-copy-summary');
   btnPrint = document.getElementById('btn-print-summary');
   summaryLegal = document.getElementById('summary-legal-note');
@@ -312,8 +296,8 @@ export function renderSummary(calc, values, isGross) {
               </div>
               <div class="metric-item">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="12" y1="1" x2="12" y2="23"></line>
-                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                  <line x1="7" y1="7" x2="7.01" y2="7"></line>
                 </svg>
                 <div class="metric-col">
                   <span class="metric-label">Średnia stawka za h:</span>
@@ -366,8 +350,8 @@ export function renderSummary(calc, values, isGross) {
               </div>
               <div class="metric-item">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="12" y1="1" x2="12" y2="23"></line>
-                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                  <line x1="7" y1="7" x2="7.01" y2="7"></line>
                 </svg>
                 <div class="metric-col">
                   <span class="metric-label">Średnia stawka za h:</span>
@@ -414,8 +398,8 @@ export function renderSummary(calc, values, isGross) {
             </div>
             <div class="metric-item">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="12" y1="1" x2="12" y2="23"></line>
-                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                <line x1="7" y1="7" x2="7.01" y2="7"></line>
               </svg>
               <div class="metric-col">
                 <span class="metric-label">Średnia stawka za h:</span>
@@ -425,8 +409,8 @@ export function renderSummary(calc, values, isGross) {
           </div>
 
           <p class="phase-subtext">
-            ${calc.devHours > 0 
-              ? 'Przewidywalny, stały budżet od pierwszego miesiąca. Niewykorzystane godziny rozwoju przechodzą do 6 miesięcy w przód.' 
+            ${calc.devHours > 0
+              ? 'Przewidywalny, stały budżet od pierwszego miesiąca. Niewykorzystane godziny rozwoju przechodzą do 6 miesięcy w przód.'
               : 'Opieka bazowa nad stabilnością i obsługa CMS. Zmiany programistyczne rozliczane wyłącznie doraźnie (200 zł/h).'}
           </p>
         </div>
@@ -482,6 +466,16 @@ export function renderSummary(calc, values, isGross) {
           </li>
         `;
       });
+
+      html += `
+        <li class="breakdown-item breakdown-included-item">
+          <div>
+            <div class="breakdown-item-name">W cenie abonamentu: Dokumentacja i dedykowany kontakt</div>
+            <div class="breakdown-item-sub">Dokumentacja wykonanych prac, problemów i spraw wymagających Waszej decyzji jest w cenie. Otrzymujecie pełną transparentność i jedną osobę do kontaktu technicznego dla całej grupy.</div>
+          </div>
+          <div class="breakdown-item-price"><span class="badge-included">W cenie</span></div>
+        </li>
+      `;
     }
 
     if (calc.onetimeItems.length === 0 && calc.monthlyItems.length === 0) {
@@ -491,23 +485,7 @@ export function renderSummary(calc, values, isGross) {
     breakdownList.innerHTML = html;
   }
 
-  // 6. TCO Box
-  if (tcoTotal) {
-    tcoTotal.textContent = formatMoney(calc.tcoNet, isGross);
-  }
-  if (tcoNote) {
-    if (calc.monthlyNet === 0) {
-      tcoNote.textContent = `Obejmuje wyłącznie etap pilotażowy (${formatMoney(calc.onetimeNet, isGross, { trimZero: true })}). Bez zobowiązań do stałej obsługi.`;
-    } else if (calc.hasTransition) {
-      const p1Str = formatMoney(calc.monthlyNet, isGross, { trimZero: true });
-      const p2Str = formatMoney(calc.transitionMonthlyNet, isGross, { trimZero: true });
-      tcoNote.textContent = `Obejmuje: ${calc.hasPilot ? 'Pilotaż Munji + ' : ''}${calc.hasSetup ? 'Nowa infrastruktura + ' : ''}3 miesiące wdrożeń po ${p1Str} (20h rozwoju) + 9 miesięcy stałej opieki po ${p2Str} (10h rozwoju).`;
-    } else {
-      tcoNote.textContent = `Obejmuje: ${calc.hasPilot ? 'Pilotaż Munji + ' : ''}${calc.hasSetup ? 'Nowa infrastruktura + ' : ''}12 miesięcy stałej obsługi (${formatMoney(calc.monthlyNet * 12, isGross, { trimZero: true })}).`;
-    }
-  }
-
-  // 7. Legal Note
+  // 6. Legal Note
   if (summaryLegal) {
     summaryLegal.textContent = isGross
       ? 'Wszystkie kwoty w wycenie są wartościami brutto (zawierają 23% VAT). Pilotaż zamawiany jest osobno. Docelowe stawki stałej opieki doprecyzujemy po pilotażu i zbadaniu zaplecza.'

@@ -118,6 +118,16 @@
   margin-top: 2px;
 }
 
+.note-box-included {
+  background-color: var(--color-emerald-light, #ecfdf5);
+  border-left-color: var(--color-emerald, #10b981);
+  color: #065f46;
+}
+
+.note-box-included svg {
+  color: var(--color-emerald, #10b981);
+}
+
 /* Minimal toggle for Workspace */
 .minimal-toggle {
   padding: 1rem 1.25rem;

@@ -1,0 +1,180 @@
+/* ==========================================================================
+   Component: Mobile Sticky Bottom Bar (Najniższa cena miesięczna)
+   ========================================================================== */
+
+.mobile-bottom-bar {
+  display: none; /* Ukryty domyślnie na ekranach desktop/tablet */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  background-color: rgba(15, 23, 42, 0.96);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.22);
+  padding: 0.5rem 1rem calc(0.5rem + env(safe-area-inset-bottom, 0px));
+  transition: transform var(--transition-normal), opacity var(--transition-normal);
+}
+
+@media (max-width: 767px) {
+  .mobile-bottom-bar {
+    display: block;
+  }
+}
+
+.mobile-bar-inner {
+  max-width: 600px;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.mobile-bar-info-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.15rem;
+  color: #fff;
+  min-height: 44px;
+  flex-grow: 1;
+  text-decoration: none;
+}
+
+.mobile-bar-info-btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.mobile-bar-tag-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  line-height: 1.2;
+}
+
+.mobile-bar-phase-badge {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+  border: 1px solid rgba(52, 211, 153, 0.35);
+  padding: 0.1rem 0.45rem;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+
+.mobile-bar-phase-badge.default-phase {
+  background: rgba(59, 130, 246, 0.2);
+  color: #60a5fa;
+  border-color: rgba(96, 165, 250, 0.35);
+}
+
+.mobile-bar-note {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #cbd5e1;
+  white-space: nowrap;
+}
+
+.mobile-bar-price-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  line-height: 1.15;
+}
+
+.mobile-bar-price-val {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.mobile-bar-suffix {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #94a3b8;
+  white-space: nowrap;
+}
+
+.mobile-bar-tax-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: rgba(255, 255, 255, 0.12);
+  color: #e2e8f0;
+  padding: 0.1rem 0.4rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  margin-left: 0.15rem;
+  white-space: nowrap;
+}
+
+.mobile-bar-action-btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  min-height: 42px;
+  padding: 0.45rem 0.85rem;
+  font-family: inherit;
+  font-size: 0.825rem;
+  font-weight: 700;
+  color: #ffffff;
+  background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.35);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.mobile-bar-action-btn:hover {
+  background: #1e40af;
+  transform: translateY(-1px);
+}
+
+.mobile-bar-action-btn:focus-visible {
+  outline: 2px solid #60a5fa;
+  outline-offset: 2px;
+}
+
+.mobile-bar-action-btn svg {
+  transition: transform var(--transition-fast);
+}
+
+/* Bardzo małe ekrany (<= 360px) */
+@media (max-width: 360px) {
+  .mobile-bottom-bar {
+    padding-inline: 0.65rem;
+  }
+  .mobile-bar-price-val {
+    font-size: 1.15rem;
+  }
+  .mobile-bar-action-btn {
+    padding: 0.4rem 0.65rem;
+    font-size: 0.775rem;
+  }
+  .mobile-bar-note {
+    font-size: 0.675rem;
+  }
+}

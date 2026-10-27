@@ -217,6 +217,11 @@
   text-align: center;
 }
 
+.onetime-empty-card.hidden,
+.summary-block.hidden {
+  display: none !important;
+}
+
 /* Monthly Section & Transition Breakdown */
 .monthly-section {
   background: #f8fafc;
@@ -534,6 +539,33 @@
   color: var(--color-text-main);
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
+}
+
+.breakdown-included-item {
+  background-color: rgba(16, 185, 129, 0.05);
+  border: 1px dashed rgba(16, 185, 129, 0.3);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.breakdown-included-item .breakdown-item-name {
+  color: #065f46;
+  font-weight: 700;
+}
+
+.badge-included {
+  display: inline-block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+  background-color: var(--color-emerald-light, #ecfdf5);
+  color: #065f46;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
 .breakdown-empty {

@@ -35,7 +35,7 @@ export function generateOfferText(calc) {
       const grossStr = currencyFormatter.format(calc.setupGross);
       text += `   • Krok 4: Nowa infrastruktura\n`;
       text += `     Wartość: ${netStr} netto (${grossStr} brutto)\n`;
-      text += `     Termin: Od stycznia 2027 r. (po audycie w Kroku 3)\n`;
+      text += `     Termin: W styczniu 2027 r. (po audycie w Kroku 3)\n`;
       text += `     Zakres: Przygotowanie dedykowanego VPS, migracja 3 stron, transfer 5 domen i konfiguracja poczty\n\n`;
     }
     text += `   --> RAZEM OPŁATY JEDNORAZOWE: ${currencyFormatter.format(calc.onetimeNet)} netto (${currencyFormatter.format(calc.onetimeGross)} brutto)\n`;
@@ -80,33 +80,20 @@ export function generateOfferText(calc) {
       text += `      - ${wsItem.name} (${currencyFormatter.format(wsItem.netPrice)} netto/mies.)\n`;
     }
 
+    text += `   W cenie abonamentu: Dokumentacja wykonanych prac, problemów i spraw wymagających Waszej decyzji jest w cenie. Otrzymujecie pełną transparentność i jedną osobę do kontaktu technicznego dla całej grupy.\n`;
     text += `\n   --> BIEŻĄCA STAWKA MIESIĘCZNA: ${currencyFormatter.format(calc.monthlyNet)} netto/mies. (${currencyFormatter.format(calc.monthlyGross)} brutto/mies.)\n`;
     text += `--------------------------------------------------------------\n\n`;
   }
 
-  // 3. TCO
-  if (calc.monthlyNet > 0) {
-    text += `3. SZACUNEK I ROKU WSPÓŁPRACY (TCO 2026/2027):\n`;
-    text += `   Razem szacunek: ${currencyFormatter.format(calc.tcoNet)} netto (${currencyFormatter.format(calc.tcoGross)} brutto)\n`;
-    if (calc.hasTransition) {
-      text += `   (Obejmuje: Opłaty jednorazowe [${currencyFormatter.format(calc.onetimeNet)} netto] + 3 m-ce po ${currencyFormatter.format(calc.monthlyNet)} + 9 m-cy po ${currencyFormatter.format(calc.transitionMonthlyNet)})\n\n`;
-    } else {
-      text += `   (Obejmuje: Opłaty jednorazowe [${currencyFormatter.format(calc.onetimeNet)} netto] + 12 miesięcy stałej opieki)\n\n`;
-    }
-  } else {
-    text += `3. CAŁKOWITY KOSZT ETAPU PILOTAŻOWEGO:\n`;
-    text += `   Razem: ${currencyFormatter.format(calc.onetimeNet)} netto (${currencyFormatter.format(calc.onetimeGross)} brutto)\n`;
-    text += `   (Obejmuje wyłącznie etap pilotażowy bez zobowiązań do stałej obsługi)\n\n`;
-  }
 
   text += `==============================================================\n`;
   text += `GŁÓWNE ZASADY OFERTY:\n`;
   text += `• Pilotaż Munji (4\u00A0000\u00A0zł za ~25h) zamawiany jest jako niezależny etap startowy (szybkie usprawnienia: formularz, wideo, analityka/RODO).\n`;
   text += `• Krok 3: Po pilotażu audyt faktur i umów oraz doprecyzowanie docelowego budżetu.\n`;
-  text += `• Krok 4: Przeniesienie i uruchomienie infrastruktury (3\u00A0000\u00A0zł jednorazowo) najwcześniej od stycznia 2027 r.\n`;
+  text += `• Krok 4: Przeniesienie i uruchomienie infrastruktury (3\u00A0000\u00A0zł jednorazowo) w styczniu 2027 r.\n`;
   text += `• Krok 5: Nadzór techniczny (750\u00A0zł) z limitem 9h miesięcznie (po 3h na serwis: Munja, Baila, Nine's).\n`;
   text += `• Niewykorzystane godziny rozwoju można wykorzystać do 6 miesięcy w przód od miesiąca, którego dotyczą.\n`;
-  text += `• W cenie: Dokumentacja wykonanych prac, problemów i spraw wymagających Waszej decyzji jest w cenie.\n`;
+  text += `• W cenie abonamentu: Dokumentacja wykonanych prac, problemów i spraw wymagających Waszej decyzji jest w cenie. Otrzymujecie pełną transparentność i jedną osobę do kontaktu technicznego dla całej grupy.\n`;
   text += `• Konsolidacja 5 domen w modelu hurtowym zdejmuje ryzyko corocznych skoków cen.\n`;
   text += `==============================================================\n`;
 

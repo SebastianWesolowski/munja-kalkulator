@@ -9,6 +9,7 @@ import { initHeader, updateHeaderTaxMode } from './components/header.js';
 import { initPresets, updateActivePresetIndicator } from './components/presets.js';
 import { initForm, getFormValues, applyPresetValues, updateFormUI } from './components/form.js';
 import { initSummary, renderSummary } from './components/summary.js';
+import { initMobileBar, updateMobileBar } from './components/mobile-bar.js';
 
 /**
  * Re-calculate and render the full application UI
@@ -29,6 +30,9 @@ export function updateApp() {
 
   // 4. Update preset pill active indicator
   updateActivePresetIndicator(values);
+
+  // 5. Update mobile bottom bar
+  updateMobileBar(calc, values, grossMode);
 }
 
 /**
@@ -54,7 +58,10 @@ export function initApp() {
   // 4. Initialize Summary actions (copy, print)
   initSummary();
 
-  // 5. Subscribe to state changes (Tax mode Netto / Brutto)
+  // 5. Initialize Mobile Bottom Bar
+  initMobileBar();
+
+  // 6. Subscribe to state changes (Tax mode Netto / Brutto)
   subscribe(() => {
     updateApp();
   });

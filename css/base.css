@@ -56,6 +56,10 @@ body {
   white-space: nowrap;
 }
 
+.hidden {
+  display: none !important;
+}
+
 .mb-0 {
   margin-block-end: 0 !important;
 }

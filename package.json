@@ -4,9 +4,11 @@
   "description": "Interaktywny kalkulator oferty i symulator kosztów opieki technicznej dla grupy restauracyjnej Munja, Baila Warsaw, NINE's",
   "type": "module",
   "scripts": {
-    "dev": "serve -l 8080 .",
-    "start": "serve -l 8080 .",
-    "serve": "serve -l 8080 .",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "serve": "serve -l 8080 dist",
+    "serve:dev": "serve -l 8080 .",
     "dev:python": "python3 -m http.server 8080"
   },
   "keywords": [
@@ -19,6 +21,9 @@
   "author": "Sebastian Wesołowski",
   "license": "ISC",
   "devDependencies": {
-    "serve": "^14.2.4"
+    "esbuild": "^0.28.2",
+    "serve": "^14.2.4",
+    "vite": "^8.3.5",
+    "vite-plugin-compression2": "^2.5.4"
   }
 }

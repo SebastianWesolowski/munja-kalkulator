@@ -196,7 +196,7 @@ export function createStep3Html() {
 }
 
 /**
- * Step 4: Przeniesienie i uruchomienie infrastruktury (od stycznia 2027)
+ * Step 4: Przeniesienie i uruchomienie infrastruktury (w styczniu 2027)
  * @returns {string}
  */
 export function createStep4Html() {
@@ -207,7 +207,7 @@ export function createStep4Html() {
         <div class="card-header-content">
           <div class="card-title-row">
             <h2 class="card-title">Krok 4: Przeniesienie i uruchomienie infrastruktury</h2>
-            <span class="status-pill status-pill-prep">Od stycznia 2027</span>
+            <span class="status-pill status-pill-prep">W styczniu 2027</span>
           </div>
           <p class="card-subtitle">Przygotowanie nowego serwera, migracja stron grupy, przejęcie domen i zabezpieczenie poczty</p>
         </div>
@@ -241,7 +241,7 @@ export function createStep4Html() {
             </ul>
             <div class="note-box">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-              <span>Przejęcie infrastruktury planuję najwcześniej od&nbsp;stycznia 2027&nbsp;r. Wstępny koszt tego osobnego etapu to <strong class="text-nowrap">jednorazowo <span data-amount-net="3000">3&nbsp;000&nbsp;zł</span></strong> (łączna kwota do&nbsp;doprecyzowania w&nbsp;kroku&nbsp;3).</span>
+              <span>Przejęcie infrastruktury planuję najwcześniej w&nbsp;styczniu 2027&nbsp;r. Wstępny koszt tego osobnego etapu to <strong class="text-nowrap">jednorazowo <span data-amount-net="3000">3&nbsp;000&nbsp;zł</span></strong> (łączna kwota do&nbsp;doprecyzowania w&nbsp;kroku&nbsp;3).</span>
             </div>
           </div>
         </label>
@@ -343,6 +343,11 @@ export function createStep5Html() {
               </div>
             </label>
           </div>
+
+          <div class="note-box note-box-included">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            <span><strong>W cenie abonamentu:</strong> Dokumentacja wykonanych prac, problemów i spraw wymagających Waszej decyzji jest w cenie. Otrzymujecie pełną transparentność i jedną osobę do kontaktu technicznego dla całej grupy.</span>
+          </div>
         </div>
 
         <!-- Sekcja B: Dalszy rozwój serwisów -->
@@ -404,38 +409,6 @@ export function createStep5Html() {
                 </p>
               </div>
             </label>
-          </div>
-
-          <!-- Dodatkowe godziny ad-hoc -->
-          <div class="extra-hours-card">
-            <div class="form-row-between">
-              <label for="extra-adhoc-hours" class="form-label mb-0">
-                Dodatkowe godziny doraźne ponad pakiet
-                <span class="label-info-tag text-nowrap" data-amount-net="200" data-suffix="/h">200&nbsp;zł/h</span>
-              </label>
-              <span class="range-live-val text-nowrap" id="extra-hours-display">0 godz. (0&nbsp;zł)</span>
-            </div>
-            <input 
-              type="range" 
-              id="extra-adhoc-hours" 
-              name="extra_adhoc_hours" 
-              class="form-range" 
-              min="0" 
-              max="20" 
-              value="0" 
-              step="1"
-              data-rate="200"
-            >
-            <div class="range-labels" aria-hidden="true">
-              <span>0 h</span>
-              <span>5 h</span>
-              <span>10 h</span>
-              <span>15 h</span>
-              <span>20 h</span>
-            </div>
-            <p class="form-hint">
-              Wyłącznie po wcześniejszym uzgodnieniu i akceptacji zapotrzebowania.
-            </p>
           </div>
         </div>
 

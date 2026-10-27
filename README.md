@@ -26,7 +26,7 @@ Kalkulator odwzorowuje strukturę 5 etapów i cennik ze szkicu współpracy z ma
    - **Koszt: 0 zł** (etap analityczny po pilotażu).
    - Wgląd w faktury i umowy (hosting, domeny, poczta), ustalenie priorytetów dla serwisów Baila i NINE’s oraz zatwierdzenie docelowego budżetu.
 
-4. **Krok 4: Przeniesienie i uruchomienie infrastruktury (od stycznia 2027 r.)**
+4. **Krok 4: Przeniesienie i uruchomienie infrastruktury (w styczniu 2027 r.)**
    - **Jednorazowy etap: 3 000 zł netto** (łączna kwota do doprecyzowania w kroku 3).
    - Przygotowanie dedykowanej instancji serwerowej, migracja 3 serwisów, konsolidacja 5 domen oraz zabezpieczenia poczty (SPF, DKIM, DMARC).
 
@@ -97,23 +97,30 @@ munja-kalkulator/
 │       ├── form.js               # Kontroler pól formularza, suwaków i etykiet cen
 │       ├── summary.js            # Komponent widoku i kontroler karty podsumowania (Symulator Oferty, akcje PDF/schowek)
 │       └── toast.js              # Wyświetlanie powiadomień
-├── package.json                  # Konfiguracja skryptów npm i serwera lokalnego
-├── netlify.toml                  # Konfiguracja wdrożenia statycznego i nagłówków bezpieczeństwa
+├── vite.config.js             # Konfiguracja bundlera Vite, minifikacji i kompresji Brotli/Gzip
+├── nginx.conf.example            # Wzorzec konfiguracji Nginx pod serwer VPS (gzip_static, brotli, caching)
+├── package.json                  # Skrypty npm (dev, build, preview, serve) i zależności
+├── netlify.toml                  # Konfiguracja wdrożenia statycznego, nagłówków bezpieczeństwa i cache
 ├── .gitignore
 └── README.md
 ```
 
 ---
 
-## 🚀 Uruchomienie lokalne
+## 🚀 Uruchomienie lokalne i budowanie produkcyjne
 
 ```bash
-# Uruchomienie serwera lokalnego przez npm
+# 1. Środowisko deweloperskie (szybki serwer z HMR na porcie 8080)
 npm run dev
-# lub npm start
 
-# Alternatywnie bezpośrednio przez Python
-python3 -m http.server 8080
+# 2. Budowanie produkcyjne (bundler Vite + kompresja Gzip i Brotli do folderu dist/)
+npm run build
+
+# 3. Podgląd wersji produkcyjnej (preview wygenerowanego folderu dist/)
+npm run preview
+
+# 4. Alternatywnie podgląd statyczny przez serwer serve
+npm run serve
 ```
 
 Otwórz w przeglądarce: `http://localhost:8080`

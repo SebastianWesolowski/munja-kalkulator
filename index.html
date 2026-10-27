@@ -138,7 +138,7 @@
                 </summary>
                 <div class="faq-body">
                   <p>
-                    Dokumentacja wykonanych prac, problemów i spraw wymagających Waszej decyzji jest <strong>w cenie oferty</strong>. Otrzymujecie pełną przejrzystość działań i jedną osobę do kontaktu technicznego dla całej grupy.
+                    <strong>W cenie abonamentu:</strong> Dokumentacja wykonanych prac, problemów i spraw wymagających Waszej decyzji jest w cenie. Otrzymujecie pełną transparentność i jedną osobę do kontaktu technicznego dla całej grupy.
                   </p>
                 </div>
               </details>
@@ -177,6 +177,21 @@
       </div>
     </footer>
   </div>
+
+  <!-- Sticky Mobile Bottom Bar (Najniższa cena miesięczna) -->
+  <aside class="mobile-bottom-bar" id="mobile-bottom-bar" aria-label="Bieżąca wycena oferty">
+    <div class="mobile-bar-inner">
+      <button type="button" class="mobile-bar-info-btn" id="mobile-bar-info" aria-label="Przewiń do pełnego podsumowania wyceny">
+        <!-- Dynamicznie generowane przez js/components/mobile-bar.js -->
+      </button>
+      <button type="button" class="mobile-bar-action-btn" id="mobile-bar-btn" aria-label="Przejdź do podsumowania oferty">
+        <span class="mobile-btn-text">Podsumowanie</span>
+        <svg class="mobile-btn-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
+    </div>
+  </aside>
 
   <!-- Toast Notification element -->
   <div id="toast" class="toast" role="status" aria-live="polite">
