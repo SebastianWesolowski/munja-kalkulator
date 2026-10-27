@@ -60,6 +60,13 @@ body {
   display: none !important;
 }
 
+/* Ukrycie automatycznego badge Netlify */
+#nl-badge-frame,
+.nl-badge-frame,
+iframe#nl-badge-frame {
+  display: none !important;
+}
+
 .mb-0 {
   margin-block-end: 0 !important;
 }
