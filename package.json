@@ -22,7 +22,9 @@
   "license": "ISC",
   "devDependencies": {
     "esbuild": "^0.28.2",
+    "html-minifier-terser": "^7.2.0",
     "serve": "^14.2.4",
+    "terser": "^5.51.2",
     "vite": "^8.3.5",
     "vite-plugin-compression2": "^2.5.4"
   }

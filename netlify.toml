@@ -1,5 +1,5 @@
 [build]
-  command = "npm run build"
+  command = "pnpm run build"
   publish = "dist"
 
 # 1. Canonical Redirect: Przekierowanie z subdomeny Netlify na domenę własną
@@ -9,19 +9,25 @@
   status = 301
   force = true
 
-# 2. Long-term immutable caching for static fonts
+# 2. Service Worker: Never cache to allow immediate updates
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# 3. Long-term immutable caching for static fonts
 [[headers]]
   for = "/fonts/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-# 3. Long-term immutable caching for content-hashed assets
+# 4. Long-term immutable caching for content-hashed assets
 [[headers]]
   for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-# 4. Revalidation, HSTS and security headers for HTML and root files
+# 5. Revalidation, HSTS, Early Hints and security headers for HTML and root files
 [[headers]]
   for = "/*"
   [headers.values]
@@ -30,5 +36,7 @@
     X-DNS-Prefetch-Control = "on"
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
+    Cross-Origin-Opener-Policy = "same-origin"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Link = "</fonts/plus-jakarta-sans-latin.woff2>; rel=preload; as=font; type=font/woff2; crossorigin, </fonts/plus-jakarta-sans-latin-ext.woff2>; rel=preload; as=font; type=font/woff2; crossorigin"

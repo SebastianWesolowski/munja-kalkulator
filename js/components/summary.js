@@ -3,7 +3,6 @@
  */
 
 import { formatMoney, escapeHtml, currencyFormatter } from '../config.js';
-import { generateOfferText, copyToClipboard } from '../services/clipboard.js';
 import { showToast } from './toast.js';
 
 let summaryTaxIndicator = null;
@@ -187,10 +186,15 @@ export function initSummary(container) {
   if (btnCopy) {
     btnCopy.addEventListener('click', async () => {
       if (!currentCalc) return;
-      const text = generateOfferText(currentCalc);
-      const ok = await copyToClipboard(text);
-      if (ok) {
-        showToast('Podsumowanie skopiowane do schowka!');
+      try {
+        const { generateOfferText, copyToClipboard } = await import('../services/clipboard.js');
+        const text = generateOfferText(currentCalc);
+        const ok = await copyToClipboard(text);
+        if (ok) {
+          showToast('Podsumowanie skopiowane do schowka!');
+        }
+      } catch (err) {
+        console.error('Błąd kopiowania do schowka:', err);
       }
     });
   }
