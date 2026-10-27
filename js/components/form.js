@@ -187,20 +187,10 @@ export function updateFormUI(values, calc, isGross) {
     workspaceAccountsDisplay.textContent = `${count} kont (${formatMoney(cost, isGross, { trimZero: true })}/mies.)`;
   }
 
-  // Setup Fee dynamic price and feature items state in Step 3
+  // Przeniesienie infrastruktury dynamic price in Step 4
   const setupFeeDisplay = document.getElementById('setup-fee-display');
   if (setupFeeDisplay) {
     const setupNet = values.setupFee ? (calc.setupNet || 0) : 0;
     setupFeeDisplay.textContent = formatMoney(setupNet, isGross, { trimZero: false });
-  }
-
-  const setupItemVps = document.getElementById('setup-item-vps');
-  if (setupItemVps) {
-    setupItemVps.classList.toggle('setup-item-inactive', !values.vps);
-  }
-
-  const setupItemDomains = document.getElementById('setup-item-domains');
-  if (setupItemDomains) {
-    setupItemDomains.classList.toggle('setup-item-inactive', !values.domains);
   }
 }

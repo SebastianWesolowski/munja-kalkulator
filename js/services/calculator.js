@@ -27,35 +27,18 @@ export function calculateOffer(values, isGross = false) {
     onetimeNet += OFFER_DATA.pilot.priceNet;
   }
 
-  // 2. Setup Fee (zależne od wybranych elementów bazy: VPS 2000 zł, Domeny 1000 zł)
+  // 2. Przeniesienie i uruchomienie infrastruktury (jednolita kwota 3 000 zł)
   let setupNet = 0;
-  const setupParts = [];
 
   if (values.setupFee) {
-    const hasVps = Boolean(values.vps);
-    const hasDomains = Boolean(values.domains);
-
-    if (hasVps) {
-      setupNet += OFFER_DATA.setup.vpsPriceNet;
-      setupParts.push(`Dedykowany VPS (${formatMoney(OFFER_DATA.setup.vpsPriceNet, isGross, { trimZero: true })})`);
-    }
-
-    if (hasDomains) {
-      setupNet += OFFER_DATA.setup.domainsPriceNet;
-      setupParts.push(`Pakiet domen (${formatMoney(OFFER_DATA.setup.domainsPriceNet, isGross, { trimZero: true })})`);
-    }
-
-    if (setupNet > 0) {
-      const partsText = setupParts.join(' + ');
-      onetimeItems.push({
-        id: OFFER_DATA.setup.id,
-        name: OFFER_DATA.setup.name,
-        sub: `Wdrożenie: ${partsText}`,
-        netPrice: setupNet,
-        setupParts
-      });
-      onetimeNet += setupNet;
-    }
+    setupNet = OFFER_DATA.setup.priceNet;
+    onetimeItems.push({
+      id: OFFER_DATA.setup.id,
+      name: OFFER_DATA.setup.name,
+      sub: OFFER_DATA.setup.sub,
+      netPrice: setupNet
+    });
+    onetimeNet += setupNet;
   }
 
   // 3. Monthly items
@@ -95,7 +78,7 @@ export function calculateOffer(values, isGross = false) {
     monthlyItems.push({
       id: 'dev_plan',
       name: devPlan.name,
-      sub: `${rateFormatted}/h ${taxLabel} · Niewykorzystane godziny przechodzą na kolejny miesiąc`,
+      sub: `${rateFormatted}/h ${taxLabel} · Niewykorzystane godziny rozwoju można wykorzystać do 6 miesięcy w przód od miesiąca, którego dotyczą`,
       netPrice: devPlan.priceNet,
       type: 'dev'
     });

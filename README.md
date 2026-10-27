@@ -11,32 +11,38 @@ Zbudowany w czystym **HTML5, CSS3 i Vanilla JavaScript** (bez zewnętrznych bibl
 
 ## 🧭 Założenia i model oferty (26.10.2026 r.)
 
-Kalkulator odwzorowuje strukturę etapów i cennik ze szkicu współpracy:
+Kalkulator odwzorowuje strukturę 5 etapów i cennik ze szkicu współpracy z maila:
 
-1. **Krok 1: Pilotaż Munji (XI / XII 2026 r.)**
-   - **Pakiet szybkich usprawnień za 4 000 zł netto** (bez zobowiązań abonamentowych).
+1. **Krok 1: Dostępy i przygotowanie Munji (Start organizacyjny)**
+   - **Koszt: 0 zł** (w ramach pilotażu).
+   - Przekazanie dostępów technicznych (WP, hosting, domeny, analityka) i wykonanie niezależnej kopii zapasowej.
+
+2. **Krok 2: Pilotaż Munji (listopad / grudzień 2026 r.)**
+   - **Pakiet szybkich usprawnień za 4 000 zł netto (~25 godzin pracy)** (bez zobowiązań abonamentowych).
    - Osobno zamawiany etap startowy przed decyzją o stałej umowie.
-   - Zakres: poprawka formularza rezerwacji na telefonach (utrata wpisanych danych), skrócenie czasu ładowania przez odciążenie multimediów (zostaje wideo z grillem), załatanie analityki pod kątem zgód cookie / RODO.
+   - Zakres: poprawka formularza rezerwacji na telefonach, odciążenie multimediów, załatanie analityki pod kątem zgód cookie / RODO.
 
-2. **Krok 2: Wdrożenie nowej infrastruktury i Setup Fee (od I 2027 r.)**
-   - **Setup Fee: zależny od bazy infrastruktury (do 3 000 zł jednorazowo netto)**:
-     - Dedykowany serwer VPS: 2 000 zł jednorazowo (uruchomienie 4 vCPU, 8 GB RAM, 100 GB NVMe i migracja 3 serwisów).
-     - Pakiet 5 domen: setup fee obniżony do 1 000 zł jednorazowo w pakiecie z ryczałtem domen (konsolidacja od 4 rejestratorów).
-   - Zabezpieczenia poczty (SPF, DKIM, DMARC chroniące zarząd przed CEO spoofingiem) konfigurowane są w ramach opieki nad pocztą (Krok 4C).
+3. **Krok 3: Rozpoznanie potrzeb i rzetelna kalkulacja współpracy**
+   - **Koszt: 0 zł** (etap analityczny po pilotażu).
+   - Wgląd w faktury i umowy (hosting, domeny, poczta), ustalenie priorytetów dla serwisów Baila i NINE’s oraz zatwierdzenie docelowego budżetu.
 
-3. **Krok 3: Stała obsługa miesięczna (od I 2027 r.)**
+4. **Krok 4: Przeniesienie i uruchomienie infrastruktury (od stycznia 2027 r.)**
+   - **Jednorazowy etap: 3 000 zł netto** (łączna kwota do doprecyzowania w kroku 3).
+   - Przygotowanie dedykowanej instancji serwerowej, migracja 3 serwisów, konsolidacja 5 domen oraz zabezpieczenia poczty (SPF, DKIM, DMARC).
+
+5. **Krok 5: Stała opieka i rozwój (abonament) (od stycznia 2027 r.)**
    - **Baza technologiczna grupy: 1 450 zł/mies. netto**:
-     - Nadzór techniczny, monitoring 24/7, kopie i SLA (750 zł/mies.)
-     - Publikacja treści w CMS do 9h łącznie (500 zł/mies.)
-     - Dedykowany serwer VPS (150 zł/mies.)
-     - Pakiet 5 domen (50 zł/mies.)
+     - Nadzór techniczny (9h miesięcznie, po 3h na serwis: Munja, Baila, Nine's): 750 zł/mies.
+     - Publikacja treści w CMS do 9h łącznie: 500 zł/mies.
+     - Dedykowany serwer VPS (zapas pod 5. lokal): 150 zł/mies.
+     - Pakiet 5 domen grupy (stały ryczałt): 50 zł/mies.
    - **Pula rozwoju serwisów grupy**:
-     - **Pakiet 20 godzin (Rekomendowany na start):** 3 200 zł/mies. (z przenoszeniem godzin)
-     - **Pakiet 10 godzin (Docelowy od 4. miesiąca):** 1 700 zł/mies.
+     - **Pakiet 20 godzin (Rekomendowany na start):** 3 200 zł/mies. (160 zł/h)
+     - **Pakiet 10 godzin (Docelowy od 4. miesiąca):** 1 700 zł/mies. (170 zł/h)
      - **Brak stałego pakietu (0h):** 0 zł/mies. (rozliczenia doraźne 200 zł/h)
-   - **Opcje dodatkowe**:
-     - Licencje pocztowe Google Workspace (np. 9 kont × 35 zł/konto/mies.)
-     - Dodatkowe godziny doraźne (200 zł/godz.)
+     - **Zasada przenoszenia godzin:** niewykorzystane godziny można wykorzystać do 6 miesięcy w przód od miesiąca, którego dotyczą!
+   - **W cenie:** Dokumentacja wykonanych prac, problemów i spraw wymagających Waszej decyzji jest w cenie abonamentu.
+   - **Opcje dodatkowe:** Licencje pocztowe Google Workspace, dodatkowe godziny doraźne (200 zł/h).
 
 ---
 

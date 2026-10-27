@@ -79,7 +79,7 @@ export function renderSummary(calc, values, isGross) {
   if (onetimeSubtext) {
     const parts = [];
     if (values.pilot) parts.push(`Pilotaż (${formatMoney(4000, isGross, { trimZero: true })})`);
-    if (values.setupFee && calc.setupNet > 0) parts.push(`Setup Fee (${formatMoney(calc.setupNet, isGross, { trimZero: true })})`);
+    if (values.setupFee && calc.setupNet > 0) parts.push(`Przeniesienie infrastruktury (${formatMoney(calc.setupNet, isGross, { trimZero: true })})`);
     onetimeSubtext.textContent = parts.length > 0 ? parts.join(' + ') : 'Brak opłat startowych';
   }
 
@@ -145,7 +145,7 @@ export function renderSummary(calc, values, isGross) {
     }
 
     if (calc.monthlyItems.length > 0) {
-      html += `<li class="breakdown-category">🔄 Stały abonament miesięczny (od 2027 r.)</li>`;
+      html += `<li class="breakdown-category">🔄 Stały abonament miesięczny (od stycznia 2027 r.)</li>`;
       calc.monthlyItems.forEach(item => {
         html += `
           <li class="breakdown-item">
@@ -174,7 +174,7 @@ export function renderSummary(calc, values, isGross) {
     if (calc.monthlyNet === 0) {
       tcoNote.textContent = `Obejmuje wyłącznie etap pilotażowy (${formatMoney(calc.onetimeNet, isGross, { trimZero: true })}). Bez zobowiązań do stałej obsługi.`;
     } else {
-      tcoNote.textContent = `Obejmuje: Start (${formatMoney(calc.onetimeNet, isGross, { trimZero: true })}) + 12 miesięcy stałej obsługi (${formatMoney(calc.monthlyNet * 12, isGross, { trimZero: true })}).`;
+      tcoNote.textContent = `Obejmuje: Pilotaż Munji (listopad / grudzień 2026) + Przeniesienie infrastruktury (styczeń 2027) + 12 miesięcy stałej obsługi (${formatMoney(calc.monthlyNet * 12, isGross, { trimZero: true })}).`;
     }
   }
 

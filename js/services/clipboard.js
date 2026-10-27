@@ -49,7 +49,7 @@ export function generateOfferText(calc) {
     if (devItem) {
       text += `   B. Pula godzin dalszego rozwoju:\n`;
       text += `      - ${devItem.name} (${currencyFormatter.format(devItem.netPrice)} netto/mies.)\n`;
-      text += `        (Niewykorzystane godziny przechodzą na kolejny miesiąc)\n`;
+      text += `        (Niewykorzystane godziny rozwoju można wykorzystać do 6 miesięcy w przód od miesiąca, którego dotyczą)\n`;
     }
 
     const adhocItem = calc.monthlyItems.find(i => i.type === 'adhoc');
@@ -81,9 +81,12 @@ export function generateOfferText(calc) {
 
   text += `==============================================================\n`;
   text += `GŁÓWNE ZASADY OFERTY:\n`;
-  text += `• Pilotaż Munji (4 000 zł) zamawiany jest jako niezależny etap startowy (szybkie usprawnienia: formularz, wideo, analityka/RODO).\n`;
-  text += `• Nadzór, CMS i koszty infrastruktury startują najwcześniej od stycznia 2027 r.\n`;
-  text += `• Po pilotażu zostanie przedstawiona wiążąca wycena końcowa i konsolidacja w ryczałt.\n`;
+  text += `• Pilotaż Munji (4 000 zł za ~25h) zamawiany jest jako niezależny etap startowy (szybkie usprawnienia: formularz, wideo, analityka/RODO).\n`;
+  text += `• Krok 3: Po pilotażu audyt faktur i umów oraz doprecyzowanie docelowego budżetu.\n`;
+  text += `• Krok 4: Przeniesienie i uruchomienie infrastruktury (3 000 zł jednorazowo) najwcześniej od stycznia 2027 r.\n`;
+  text += `• Krok 5: Nadzór techniczny (750 zł) z limitem 9h miesięcznie (po 3h na serwis: Munja, Baila, Nine's).\n`;
+  text += `• Niewykorzystane godziny rozwoju można wykorzystać do 6 miesięcy w przód od miesiąca, którego dotyczą.\n`;
+  text += `• W cenie: Dokumentacja wykonanych prac, problemów i spraw wymagających Waszej decyzji jest w cenie.\n`;
   text += `• Konsolidacja 5 domen w modelu hurtowym zdejmuje ryzyko corocznych skoków cen.\n`;
   text += `==============================================================\n`;
 

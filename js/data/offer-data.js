@@ -1,72 +1,68 @@
 /**
  * Business Offer Pricing & Preset Scenarios
- * Offer data as of 26.10.2026
+ * Offer data updated to reflect email offer ground truth
  */
 
 export const OFFER_DATA = {
-  // Step 1: Pilot
+  // Step 2: Pilot
   pilot: {
     id: 'pilot',
     priceNet: 4000,
-    name: 'Pilotaż Munji (XI/XII 2026)',
-    sub: 'Szybkie usprawnienia obecnej strony: formularz rezerwacji na telefonach, odciążenie multimediów, analityka / RODO'
+    name: 'Pilotaż Munji (listopad / grudzień 2026)',
+    sub: 'Szybkie usprawnienia obecnej strony (~25 godzin pracy): formularz rezerwacji na telefonach, odciążenie multimediów, analityka / RODO'
   },
 
-  // Step 2: Setup Fee (zależny od bazy infrastruktury: VPS 2 000 zł, Domeny 1 000 zł)
+  // Step 4: Przeniesienie i uruchomienie infrastruktury (łączna kwota 3 000 zł bez rozdzielania, bez sformułowania Setup Fee)
   setup: {
     id: 'setup',
-    vpsPriceNet: 2000,
-    domainsPriceNet: 1000,
     priceNet: 3000,
-    name: 'Wdrożenie infrastruktury (Setup Fee)',
-    sub: 'Jednorazowa konfiguracja dedykowanego VPS (2 000 zł) oraz konsolidacja 5 domen (1 000 zł w pakiecie)'
+    name: 'Przeniesienie i uruchomienie infrastruktury',
+    sub: 'Przygotowanie nowego serwera, migracja stron (Munja, Baila, Nine’s), przejęcie obsługi 5 domen i weryfikacja poczty (do doprecyzowania w kroku 3)'
   },
 
-  // Step 3A: Base items
+  // Step 5A: Base items
   baseItems: {
     supervision: {
       id: 'supervision',
       priceNet: 750,
-      name: 'Nadzór techniczny, monitoring 24/7 i kopie zapasowe',
-      sub: 'Bieżące aktualizacje WP i wtyczek · Czasy reakcji: P1 <= 4h, P2 <= 1d, P3 <= 3d'
+      name: 'Nadzór techniczny (9h miesięcznie)',
+      sub: '9 godzin łącznie, po 3 godziny na serwis (Munja, Baila, Nine’s): utrzymanie, zarządzanie infrastrukturą, aktualizacje, kopie, monitoring i reakcja w uzgodnionych godzinach wsparcia. Przegląd w nadzorze, zmiany kodu w rozwoju.'
     },
     cms: {
       id: 'cms',
       priceNet: 500,
       name: 'Publikacja treści w CMS (do 9h/miesięcznie)',
-      sub: 'Wprowadzanie gotowych, zatwierdzonych tekstów, aktualizacji menu i zdjęć dla lokali'
+      sub: 'Do 9 godzin łącznie dla trzech serwisów: uzgodnienia publikacji oraz wprowadzanie gotowych tekstów, menu i zdjęć'
     },
     vps: {
       id: 'vps',
       priceNet: 150,
-      setupPriceNet: 2000,
       name: 'Dedykowany serwer VPS',
-      sub: '4 vCPU, 8 GB RAM, 100 GB NVMe · Szybki TTFB, bez obcych projektów, z buforem pod 5. lokal · Setup: 2 000 zł'
+      sub: 'Dedykowana instancja serwerowa bez obcych projektów · Szybki czas odpowiedzi (TTFB) i bezpieczny zapas pod 5. lokal'
     },
     domains: {
       id: 'domains',
       priceNet: 50,
-      setupPriceNet: 1000,
       name: 'Pakiet 5 domen grupy (stały ryczałt)',
-      sub: 'Konsolidacja w modelu hurtowym: bez ryzyka wygaśnięcia · W pakiecie jednorazowy setup obniżony do 1 000 zł'
+      sub: 'Uporządkowanie odnowień w stałym ryczałcie (50 zł/mies. zamiast dotychczasowych ~81 zł) · Transfer, utrzymanie i pełna ochrona przed wygaśnięciem'
     }
   },
 
-  // Step 3B: Development Plans
+  // Step 5B: Development Plans
   devPlans: {
     '20': {
       hours: 20,
       priceNet: 3200,
       rateNet: 160,
       name: 'Dalszy rozwój: Pakiet 20 godzin',
-      sub: '160 zł/h netto · Niewykorzystane godziny przechodzą na kolejny miesiąc'
+      sub: '160 zł/h netto · Niewykorzystane godziny rozwoju można wykorzystać do 6 miesięcy w przód od miesiąca, którego dotyczą'
     },
     '10': {
       hours: 10,
       priceNet: 1700,
       rateNet: 170,
       name: 'Dalszy rozwój: Pakiet 10 godzin',
-      sub: '170 zł/h netto · Niewykorzystane godziny przechodzą na kolejny miesiąc'
+      sub: '170 zł/h netto · Niewykorzystane godziny rozwoju można wykorzystać do 6 miesięcy w przód od miesiąca, którego dotyczą'
     },
     '0': {
       hours: 0,
@@ -164,19 +160,19 @@ export const PRESET_CARDS = [
     steps: [
       {
         dot: '1',
-        html: '<strong>Start:</strong> Pilotaż Munji (<span data-amount-net="4000">4 000 zł</span>) — naprawa rezerwacji na telefonach, odciążenie wideo, RODO'
+        html: '<strong>Start:</strong> Pilotaż Munji (<span data-amount-net="4000">4 000 zł</span> za ~25h) — naprawa rezerwacji na telefonach, odciążenie wideo, RODO'
       },
       {
         dot: '2',
-        html: '<strong>Setup:</strong> Przejęcie infrastruktury (<span data-amount-net="3000">3 000 zł</span>) — nowy dedykowany serwer VPS i 5 domen (<span data-amount-net="200" data-suffix="/mies.">200 zł/mies.</span>)'
+        html: '<strong>Infrastruktura:</strong> Przeniesienie i uruchomienie (<span data-amount-net="3000">3 000 zł</span>) — nowy dedykowany serwer VPS i 5 domen (<span data-amount-net="200" data-suffix="/mies.">200 zł/mies.</span>)'
       },
       {
         dot: '3',
-        html: '<strong>Miesiące 1–3:</strong> 20h R&amp;D + Baza (Nadzór <span data-amount-net="750">750 zł</span> + Serwer/Domeny <span data-amount-net="200">200 zł</span> + CMS <span data-amount-net="500">500 zł</span>) = <span data-amount-net="4650" data-suffix="/mies.">4 650 zł/mies.</span>'
+        html: '<strong>Krok 5 (Miesiące 1–3):</strong> 20h rozwoju + Baza (Nadzór 9h <span data-amount-net="750">750 zł</span> + Serwer/Domeny <span data-amount-net="200">200 zł</span> + CMS <span data-amount-net="500">500 zł</span>) = <span data-amount-net="4650" data-suffix="/mies.">4 650 zł/mies.</span>'
       },
       {
         dot: '4',
-        html: '<strong>Od 4. miesiąca:</strong> Zmniejszenie puli do 10h R&amp;D + Baza = <span data-amount-net="3150" data-suffix="/mies.">3 150 zł/mies.</span>'
+        html: '<strong>Od 4. miesiąca:</strong> Zmniejszenie puli do 10h rozwoju + Baza = <span data-amount-net="3150" data-suffix="/mies.">3 150 zł/mies.</span>'
       }
     ]
   },
@@ -190,41 +186,41 @@ export const PRESET_CARDS = [
     priceNet: 3150,
     priceSuffix: '/mies.',
     priceEvolutionHtml: 'stały budżet od 1. dnia',
-    target: 'Dla zarządu oczekującego w 100% równego, przewidywalnego kosztu co miesiąc, ze stałą i bezpieczną pulą 10 godzin na bieżące ulepszenia (godziny przechodzą na kolejny miesiąc).',
+    target: 'Dla zarządu oczekującego w 100% równego, przewidywalnego kosztu co miesiąc, ze stałą i bezpieczną pulą 10 godzin na bieżące ulepszenia (godziny można zaplanować do 6 miesięcy w przód).',
     steps: [
       {
         dot: '1',
-        html: '<strong>Start:</strong> Pilotaż Munji (<span data-amount-net="4000">4 000 zł</span>) — szybkie usunięcie wąskich gardeł'
+        html: '<strong>Start:</strong> Pilotaż Munji (<span data-amount-net="4000">4 000 zł</span> za ~25h) — szybkie usunięcie wąskich gardeł'
       },
       {
         dot: '2',
-        html: '<strong>Setup:</strong> Setup Fee (<span data-amount-net="3000">3 000 zł</span>) — migracja na dedykowany serwer VPS i domeny'
+        html: '<strong>Infrastruktura:</strong> Przeniesienie i uruchomienie (<span data-amount-net="3000">3 000 zł</span>) — migracja na dedykowany serwer VPS i domeny'
       },
       {
         dot: '3',
-        html: '<strong>Stała obsługa (od 2027 r.):</strong> Baza (<span data-amount-net="1450">1 450 zł</span>) + 10h R&amp;D (<span data-amount-net="1700">1 700 zł</span>) = <span data-amount-net="3150" data-suffix="/mies.">3 150 zł/mies.</span>'
+        html: '<strong>Krok 5 (Stała obsługa od 2027 r.):</strong> Baza (<span data-amount-net="1450">1 450 zł</span>) + 10h rozwoju (<span data-amount-net="1700">1 700 zł</span>) = <span data-amount-net="3150" data-suffix="/mies.">3 150 zł/mies.</span>'
       }
     ]
   },
   {
     id: 'base',
-    title: 'Sama Baza (Bez R&D)',
+    title: 'Sama Baza (Bez stałego rozwoju)',
     badgeTag: 'Fundament Techniczny',
     badgeClass: '',
     highlighted: false,
     priceLabel: 'Stały ryczałt:',
     priceNet: 1450,
     priceSuffix: '/mies.',
-    priceEvolutionHtml: 'Nadzór + CMS + Serwer + Domeny',
+    priceEvolutionHtml: 'Nadzór 9h + CMS + Serwer + Domeny',
     target: 'Dla grupy skupionej wyłącznie na bezawaryjności, bezpieczeństwie serwerów i bieżących zmianach w menu/treściach, bez stałego miesięcznego abonamentu na programistę.',
     steps: [
       {
         dot: '1',
-        html: '<strong>Setup:</strong> Setup Fee (<span data-amount-net="3000">3 000 zł</span>) — uruchomienie dedykowanego serwera i transfer domen'
+        html: '<strong>Infrastruktura:</strong> Przeniesienie i uruchomienie (<span data-amount-net="3000">3 000 zł</span>) — uruchomienie dedykowanego serwera i transfer domen'
       },
       {
         dot: '2',
-        html: '<strong>Stała Baza:</strong> Nadzór 24/7 (<span data-amount-net="750">750 zł</span>) + CMS (<span data-amount-net="500">500 zł</span>) + Serwer i Domeny (<span data-amount-net="200">200 zł</span>) = <span data-amount-net="1450" data-suffix="/mies.">1 450 zł/mies.</span>'
+        html: '<strong>Krok 5 (Stała Baza):</strong> Nadzór 9h (<span data-amount-net="750">750 zł</span>) + CMS (<span data-amount-net="500">500 zł</span>) + Serwer i Domeny (<span data-amount-net="200">200 zł</span>) = <span data-amount-net="1450" data-suffix="/mies.">1 450 zł/mies.</span>'
       },
       {
         dot: '3',
@@ -246,11 +242,11 @@ export const PRESET_CARDS = [
     steps: [
       {
         dot: '1',
-        html: '<strong>Zakres prac:</strong> Naprawa formularza rezerwacji, odciążenie wideo, RODO / analityka'
+        html: '<strong>Zakres prac:</strong> Pilotaż Munji (<span data-amount-net="4000">4 000 zł</span> za ~25h) — naprawa rezerwacji, odciążenie wideo, RODO / analityka'
       },
       {
         dot: '2',
-        html: '<strong>Brak dalszych kosztów:</strong> Decyzja o stałej opiece dopiero po weryfikacji efektów'
+        html: '<strong>Brak dalszych kosztów:</strong> Decyzja o kolejnych krokach (Kroki 3–5) dopiero po weryfikacji efektów'
       }
     ]
   }
