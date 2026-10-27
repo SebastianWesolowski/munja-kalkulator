@@ -4,9 +4,12 @@
 
 import { formatMoney, getTaxLabel } from '../config.js';
 import { PRESETS } from '../data/offer-data.js';
+import { renderSteps, setFutureStepsCollapsed } from './steps.js';
+import { showToast } from './toast.js';
 
 let formElement = null;
 let btnReset = null;
+let btnUnlock = null;
 
 // Form inputs
 let optPilot = null;
@@ -30,7 +33,14 @@ let baseBundleTotal = null;
  */
 export function initForm(onFormChange) {
   formElement = document.getElementById('offer-calc-form');
+
+  // Render dynamic steps into form container
+  if (formElement) {
+    renderSteps(formElement);
+  }
+
   btnReset = document.getElementById('btn-reset');
+  btnUnlock = document.getElementById('btn-unlock-future-steps');
 
   optPilot = document.getElementById('opt-pilot');
   optSetupFee = document.getElementById('opt-setup-fee');
@@ -56,6 +66,16 @@ export function initForm(onFormChange) {
     btnReset.addEventListener('click', () => {
       applyPresetValues('recommended');
       onFormChange();
+      showToast('Przywrócono wariant rekomendowany');
+    });
+  }
+
+  if (btnUnlock) {
+    btnUnlock.addEventListener('click', () => {
+      setFutureStepsCollapsed(false);
+      applyPresetValues('balanced');
+      onFormChange();
+      showToast('Odblokowano opcje stałej obsługi od 2027 r.');
     });
   }
 }
@@ -94,6 +114,9 @@ export function getFormValues() {
 export function applyPresetValues(presetId) {
   const preset = PRESETS[presetId];
   if (!preset) return;
+
+  // Toggle collapsed state of 2027 steps
+  setFutureStepsCollapsed(presetId === 'pilot-only');
 
   if (optPilot) optPilot.checked = preset.pilot;
   if (optSetupFee) optSetupFee.checked = preset.setupFee;
@@ -162,5 +185,22 @@ export function updateFormUI(values, calc, isGross) {
     const count = parseInt(workspaceAccountsRange.value, 10);
     const cost = count * 35;
     workspaceAccountsDisplay.textContent = `${count} kont (${formatMoney(cost, isGross, { trimZero: true })}/mies.)`;
+  }
+
+  // Setup Fee dynamic price and feature items state in Step 3
+  const setupFeeDisplay = document.getElementById('setup-fee-display');
+  if (setupFeeDisplay) {
+    const setupNet = values.setupFee ? (calc.setupNet || 0) : 0;
+    setupFeeDisplay.textContent = formatMoney(setupNet, isGross, { trimZero: false });
+  }
+
+  const setupItemVps = document.getElementById('setup-item-vps');
+  if (setupItemVps) {
+    setupItemVps.classList.toggle('setup-item-inactive', !values.vps);
+  }
+
+  const setupItemDomains = document.getElementById('setup-item-domains');
+  if (setupItemDomains) {
+    setupItemDomains.classList.toggle('setup-item-inactive', !values.domains);
   }
 }

@@ -19,10 +19,10 @@ Kalkulator odwzorowuje strukturę etapów i cennik ze szkicu współpracy:
    - Zakres: poprawka formularza rezerwacji na telefonach (utrata wpisanych danych), skrócenie czasu ładowania przez odciążenie multimediów (zostaje wideo z grillem), załatanie analityki pod kątem zgód cookie / RODO.
 
 2. **Krok 2: Wdrożenie nowej infrastruktury i Setup Fee (od I 2027 r.)**
-   - **Setup Fee: 3 000 zł jednorazowo netto**.
-   - Dedykowany serwer VPS (4 vCPU, 8 GB RAM, 100 GB NVMe).
-   - Konsolidacja 5 domen od 4 rejestratorów w hurtowym modelu partnera technologicznego (model win-win bez skoków cen).
-   - Konfiguracja zabezpieczeń poczty: SPF, DKIM, DMARC (ochrona zarządu przed CEO spoofingiem).
+   - **Setup Fee: zależny od bazy infrastruktury (do 3 000 zł jednorazowo netto)**:
+     - Dedykowany serwer VPS: 2 000 zł jednorazowo (uruchomienie 4 vCPU, 8 GB RAM, 100 GB NVMe i migracja 3 serwisów).
+     - Pakiet 5 domen: setup fee obniżony do 1 000 zł jednorazowo w pakiecie z ryczałtem domen (konsolidacja od 4 rejestratorów).
+   - Zabezpieczenia poczty (SPF, DKIM, DMARC chroniące zarząd przed CEO spoofingiem) konfigurowane są w ramach opieki nad pocztą (Krok 4C).
 
 3. **Krok 3: Stała obsługa miesięczna (od I 2027 r.)**
    - **Baza technologiczna grupy: 1 450 zł/mies. netto**:

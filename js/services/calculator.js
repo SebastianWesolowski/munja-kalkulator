@@ -27,15 +27,35 @@ export function calculateOffer(values, isGross = false) {
     onetimeNet += OFFER_DATA.pilot.priceNet;
   }
 
-  // 2. Setup Fee
+  // 2. Setup Fee (zależne od wybranych elementów bazy: VPS 2000 zł, Domeny 1000 zł)
+  let setupNet = 0;
+  const setupParts = [];
+
   if (values.setupFee) {
-    onetimeItems.push({
-      id: OFFER_DATA.setup.id,
-      name: OFFER_DATA.setup.name,
-      sub: OFFER_DATA.setup.sub,
-      netPrice: OFFER_DATA.setup.priceNet
-    });
-    onetimeNet += OFFER_DATA.setup.priceNet;
+    const hasVps = Boolean(values.vps);
+    const hasDomains = Boolean(values.domains);
+
+    if (hasVps) {
+      setupNet += OFFER_DATA.setup.vpsPriceNet;
+      setupParts.push(`Dedykowany VPS (${formatMoney(OFFER_DATA.setup.vpsPriceNet, isGross, { trimZero: true })})`);
+    }
+
+    if (hasDomains) {
+      setupNet += OFFER_DATA.setup.domainsPriceNet;
+      setupParts.push(`Pakiet domen (${formatMoney(OFFER_DATA.setup.domainsPriceNet, isGross, { trimZero: true })})`);
+    }
+
+    if (setupNet > 0) {
+      const partsText = setupParts.join(' + ');
+      onetimeItems.push({
+        id: OFFER_DATA.setup.id,
+        name: OFFER_DATA.setup.name,
+        sub: `Wdrożenie: ${partsText}`,
+        netPrice: setupNet,
+        setupParts
+      });
+      onetimeNet += setupNet;
+    }
   }
 
   // 3. Monthly items
@@ -135,6 +155,7 @@ export function calculateOffer(values, isGross = false) {
     onetimeVat,
     onetimeGross,
     onetimeDisplay: isGross ? onetimeGross : onetimeNet,
+    setupNet,
 
     baseNet,
     monthlyItems,

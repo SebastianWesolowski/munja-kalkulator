@@ -12,12 +12,14 @@ export const OFFER_DATA = {
     sub: 'Szybkie usprawnienia obecnej strony: formularz rezerwacji na telefonach, odciążenie multimediów, analityka / RODO'
   },
 
-  // Step 2: Setup Fee
+  // Step 2: Setup Fee (zależny od bazy infrastruktury: VPS 2 000 zł, Domeny 1 000 zł)
   setup: {
     id: 'setup',
+    vpsPriceNet: 2000,
+    domainsPriceNet: 1000,
     priceNet: 3000,
     name: 'Wdrożenie infrastruktury (Setup Fee)',
-    sub: 'Jednorazowa konfiguracja dedykowanego VPS, migracja 3 serwisów, konsolidacja 5 domen, SPF/DKIM/DMARC'
+    sub: 'Jednorazowa konfiguracja dedykowanego VPS (2 000 zł) oraz konsolidacja 5 domen (1 000 zł w pakiecie)'
   },
 
   // Step 3A: Base items
@@ -37,14 +39,16 @@ export const OFFER_DATA = {
     vps: {
       id: 'vps',
       priceNet: 150,
+      setupPriceNet: 2000,
       name: 'Dedykowany serwer VPS',
-      sub: '4 vCPU, 8 GB RAM, 100 GB NVMe · Szybki TTFB, bez obcych projektów, z buforem pod 5. lokal'
+      sub: '4 vCPU, 8 GB RAM, 100 GB NVMe · Szybki TTFB, bez obcych projektów, z buforem pod 5. lokal · Setup: 2 000 zł'
     },
     domains: {
       id: 'domains',
       priceNet: 50,
+      setupPriceNet: 1000,
       name: 'Pakiet 5 domen grupy (stały ryczałt)',
-      sub: 'Konsolidacja w modelu hurtowym: bez ryzyka wygaśnięcia i bez skoków cenowych'
+      sub: 'Konsolidacja w modelu hurtowym: bez ryzyka wygaśnięcia · W pakiecie jednorazowy setup obniżony do 1 000 zł'
     }
   },
 

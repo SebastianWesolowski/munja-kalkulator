@@ -69,9 +69,15 @@ export function generateOfferText(calc) {
   }
 
   // 3. TCO
-  text += `3. SZACUNEK I ROKU WSPÓŁPRACY (TCO 2026/2027):\n`;
-  text += `   Razem szacunek: ${currencyFormatter.format(calc.tcoNet)} netto (${currencyFormatter.format(calc.tcoGross)} brutto)\n`;
-  text += `   (Obejmuje: Start [${currencyFormatter.format(calc.onetimeNet)} netto] + 12 miesięcy stałej opieki)\n\n`;
+  if (calc.monthlyNet > 0) {
+    text += `3. SZACUNEK I ROKU WSPÓŁPRACY (TCO 2026/2027):\n`;
+    text += `   Razem szacunek: ${currencyFormatter.format(calc.tcoNet)} netto (${currencyFormatter.format(calc.tcoGross)} brutto)\n`;
+    text += `   (Obejmuje: Start [${currencyFormatter.format(calc.onetimeNet)} netto] + 12 miesięcy stałej opieki)\n\n`;
+  } else {
+    text += `3. CAŁKOWITY KOSZT ETAPU PILOTAŻOWEGO:\n`;
+    text += `   Razem: ${currencyFormatter.format(calc.onetimeNet)} netto (${currencyFormatter.format(calc.onetimeGross)} brutto)\n`;
+    text += `   (Obejmuje wyłącznie etap pilotażowy bez zobowiązań do stałej obsługi)\n\n`;
+  }
 
   text += `==============================================================\n`;
   text += `GŁÓWNE ZASADY OFERTY:\n`;

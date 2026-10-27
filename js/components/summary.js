@@ -79,7 +79,7 @@ export function renderSummary(calc, values, isGross) {
   if (onetimeSubtext) {
     const parts = [];
     if (values.pilot) parts.push(`Pilotaż (${formatMoney(4000, isGross, { trimZero: true })})`);
-    if (values.setupFee) parts.push(`Setup Fee (${formatMoney(3000, isGross, { trimZero: true })})`);
+    if (values.setupFee && calc.setupNet > 0) parts.push(`Setup Fee (${formatMoney(calc.setupNet, isGross, { trimZero: true })})`);
     onetimeSubtext.textContent = parts.length > 0 ? parts.join(' + ') : 'Brak opłat startowych';
   }
 
@@ -171,7 +171,11 @@ export function renderSummary(calc, values, isGross) {
     tcoTotal.textContent = formatMoney(calc.tcoNet, isGross);
   }
   if (tcoNote) {
-    tcoNote.textContent = `Obejmuje: Start (${formatMoney(calc.onetimeNet, isGross, { trimZero: true })}) + 12 miesięcy stałej obsługi (${formatMoney(calc.monthlyNet * 12, isGross, { trimZero: true })}).`;
+    if (calc.monthlyNet === 0) {
+      tcoNote.textContent = `Obejmuje wyłącznie etap pilotażowy (${formatMoney(calc.onetimeNet, isGross, { trimZero: true })}). Bez zobowiązań do stałej obsługi.`;
+    } else {
+      tcoNote.textContent = `Obejmuje: Start (${formatMoney(calc.onetimeNet, isGross, { trimZero: true })}) + 12 miesięcy stałej obsługi (${formatMoney(calc.monthlyNet * 12, isGross, { trimZero: true })}).`;
+    }
   }
 
   // Legal note

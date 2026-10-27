@@ -487,3 +487,220 @@
   display: flex;
   justify-content: flex-end;
 }
+
+/* ==========================================================================
+   Step 1: Checklist & Onboarding Card
+   ========================================================================== */
+.onboarding-intro {
+  font-size: 0.9rem;
+  color: var(--color-text-main);
+  line-height: 1.55;
+  margin-block-end: 1rem;
+}
+
+.checklist-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.65rem;
+  margin-block-end: 1rem;
+}
+
+@media (min-width: 640px) {
+  .checklist-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  font-size: 0.85rem;
+  color: var(--color-text-main);
+  background: var(--color-surface-muted);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 0.85rem;
+  line-height: 1.4;
+}
+
+.checklist-item svg {
+  color: var(--color-success);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.checklist-item strong {
+  display: block;
+  color: var(--color-text-main);
+  margin-bottom: 0.15rem;
+  font-size: 0.85rem;
+}
+
+.checklist-item div div {
+  font-size: 0.775rem;
+  color: var(--color-text-muted);
+}
+
+.info-note-box {
+  padding: 0.75rem 1rem;
+  background-color: #eff6ff;
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--color-primary);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  font-size: 0.825rem;
+  color: #1e40af;
+  line-height: 1.45;
+}
+
+.info-note-box svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ==========================================================================
+   Future Steps Collapsible Section (od Stycznia 2027)
+   ========================================================================== */
+.future-steps-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.future-steps-banner {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border: 2px dashed #cbd5e1;
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.75rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  transition: all var(--transition-normal);
+}
+
+.future-steps-banner.hidden {
+  display: none !important;
+}
+
+.future-banner-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.future-banner-content {
+  flex: 1;
+}
+
+.future-banner-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.4rem;
+}
+
+.future-banner-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--color-text-main);
+  letter-spacing: -0.01em;
+}
+
+.future-banner-desc {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.btn-unlock-steps {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  background-color: var(--color-surface);
+  border: 1.5px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  color: var(--color-primary);
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-unlock-steps:hover {
+  background-color: var(--color-primary);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.future-steps-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  transition: opacity 0.25s ease;
+}
+
+.future-steps-content.collapsed {
+  display: none !important;
+}
+
+.status-pill-info {
+  background-color: #eff6ff;
+  color: var(--color-primary);
+  border: 1px solid rgba(37, 99, 235, 0.25);
+}
+
+.status-pill-optional {
+  background-color: #f1f5f9;
+  color: #64748b;
+  border: 1px solid #cbd5e1;
+}
+
+/* Setup fee feature item dynamic states */
+.setup-feature-item {
+  transition: opacity var(--transition-fast), color var(--transition-fast);
+}
+
+.setup-feature-item.setup-item-inactive {
+  opacity: 0.45;
+  color: var(--color-text-muted);
+}
+
+.setup-feature-item.setup-item-inactive svg {
+  color: var(--color-text-muted);
+}
+
+/* Security note box (Email / CEO Spoofing) */
+.security-note-box {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background-color: #f0fdf4;
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--color-success);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  font-size: 0.825rem;
+  color: #166534;
+  line-height: 1.45;
+}
+
+.security-note-box svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--color-success);
+}
