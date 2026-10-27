@@ -3,6 +3,8 @@
  */
 
 import { formatMoney, escapeHtml, currencyFormatter } from '../config.js';
+import { calculateOffer } from '../services/calculator.js';
+import { PRESETS } from '../data/offer-data.js';
 import { showToast } from './toast.js';
 
 let summaryTaxIndicator = null;
@@ -28,7 +30,237 @@ let currentCalc = null;
  * Generate semantic HTML markup for the Summary Card (Symulator Oferty)
  * @returns {string}
  */
+export function createMonthlyDynamicHtml(calc, isGross = false) {
+  if (calc.monthlyNet === 0) {
+    return `
+      <div class="summary-subcard monthly-zero-card">
+        <div class="subcard-header">
+          <span class="subcard-tag">Stały abonament</span>
+          <span class="badge-zero-pill">0 zł stałych opłat</span>
+        </div>
+        <div class="subcard-price-wrap">
+          <div class="block-price-val">0,00 zł<small>/mies.</small></div>
+        </div>
+        <p class="subcard-desc">
+          W wariancie pilotażowym nie ponosisz opłat abonamentowych ani kosztów infrastruktury. Decyzję o przejęciu serwerów i stałej opiece podejmujecie po sprawdzeniu rezultatów pilotażu.
+        </p>
+      </div>
+    `;
+  } else if (calc.hasTransition) {
+    const initialPriceFormatted = formatMoney(calc.monthlyNet, isGross);
+    const initialHourlyRateFormatted = formatMoney(Math.round(calc.hourlyRateDisplay), isGross, { trimZero: true });
+    const transitionPriceFormatted = formatMoney(calc.transitionMonthlyNet, isGross);
+    const transitionHourlyRateFormatted = formatMoney(Math.round(calc.transitionHourlyRateDisplay), isGross, { trimZero: true });
+    const savingsFormatted = formatMoney(calc.transitionSavingsDisplay, isGross, { trimZero: true });
+
+    return `
+      <div class="monthly-phases-container">
+        <!-- Faza 1: Miesiące 1–3 -->
+        <div class="summary-subcard monthly-phase-card phase-initial">
+          <div class="subcard-header">
+            <span class="subcard-tag phase-tag-start">Miesiące 1–3</span>
+            <span class="badge-rec-pill">Intensywne wdrożenia</span>
+          </div>
+          <div class="phase-title">Pakiet 20h rozwoju + Baza technologiczna</div>
+          <div class="phase-price-wrap">
+            <div class="hero-value accent-value">${initialPriceFormatted}<small>/mies.</small></div>
+          </div>
+
+          <!-- Godziny pracy i średnia stawka -->
+          <div class="work-metrics-box">
+            <div class="metric-item">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <div class="metric-col">
+                <span class="metric-label">Godziny pracy IT:</span>
+                <strong class="metric-value">${calc.totalMonthlyHours} h / mies.</strong>
+              </div>
+            </div>
+            <div class="metric-item">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                <line x1="7" y1="7" x2="7.01" y2="7"></line>
+              </svg>
+              <div class="metric-col">
+                <span class="metric-label">Średnia stawka za h:</span>
+                <strong class="metric-value">~${initialHourlyRateFormatted} / h</strong>
+              </div>
+            </div>
+          </div>
+
+          <p class="phase-subtext">
+            Nadzór (9h) + CMS (do 9h) + Rozwój (20h) + Dedykowany VPS i 5 domen grupy.
+          </p>
+        </div>
+
+        <!-- Przejście ze strzałką informacyjną -->
+        <div class="transition-banner">
+          <div class="transition-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="7 13 12 18 17 13"></polyline>
+              <polyline points="7 6 12 11 17 6"></polyline>
+            </svg>
+          </div>
+          <div class="transition-text">
+            <strong>Naturalne przejście po zrealizowaniu priorytetów:</strong>
+            <span>Po uporządkowaniu zaległości w pierwszych 3 miesiącach, następuje przejście na stały tryb 10h rozwoju:</span>
+          </div>
+        </div>
+
+        <!-- Faza 2: Od 4. miesiąca -->
+        <div class="summary-subcard monthly-phase-card phase-transitioned">
+          <div class="subcard-header">
+            <span class="subcard-tag phase-tag-target">Od 4. miesiąca</span>
+            <span class="badge-savings-pill">Niższa kwota (-${savingsFormatted}/mies.)</span>
+          </div>
+          <div class="phase-title">Docelowy stały rozwój (10h) + Baza</div>
+          <div class="phase-price-wrap">
+            <div class="hero-value text-success">${transitionPriceFormatted}<small>/mies.</small></div>
+          </div>
+
+          <!-- Godziny pracy i średnia stawka po przejściu -->
+          <div class="work-metrics-box">
+            <div class="metric-item">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <div class="metric-col">
+                <span class="metric-label">Godziny pracy IT:</span>
+                <strong class="metric-value">${calc.transitionHours} h / mies.</strong>
+              </div>
+            </div>
+            <div class="metric-item">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                <line x1="7" y1="7" x2="7.01" y2="7"></line>
+              </svg>
+              <div class="metric-col">
+                <span class="metric-label">Średnia stawka za h:</span>
+                <strong class="metric-value">~${transitionHourlyRateFormatted} / h</strong>
+              </div>
+            </div>
+          </div>
+
+          <p class="phase-subtext">
+            Nadzór (9h) + CMS (do 9h) + Rozwój (10h) + Dedykowany VPS i 5 domen grupy. Niewykorzystane godziny rozwoju przechodzą do 6 miesięcy w przód!
+          </p>
+        </div>
+      </div>
+    `;
+  } else {
+    // Single monthly configuration (e.g. 10h plan or 0h base)
+    const monthlyPriceFormatted = formatMoney(calc.monthlyNet, isGross);
+    const hourlyRateFormatted = formatMoney(Math.round(calc.hourlyRateDisplay), isGross, { trimZero: true });
+    const devItem = calc.monthlyItems.find(i => i.type === 'dev');
+    const devText = devItem ? ` + ${devItem.name}` : ' (tylko nadzór i CMS)';
+
+    return `
+      <div class="summary-subcard monthly-single-card">
+        <div class="subcard-header">
+          <span class="subcard-tag phase-tag-target">Stały abonament</span>
+          <span class="subcard-time-pill">Od 1. dnia stałej umowy</span>
+        </div>
+        <div class="phase-title">Baza technologiczna${escapeHtml(devText)}</div>
+        <div class="phase-price-wrap">
+          <div class="hero-value accent-value">${monthlyPriceFormatted}<small>/mies.</small></div>
+        </div>
+
+        <!-- Godziny pracy i średnia stawka -->
+        <div class="work-metrics-box">
+          <div class="metric-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <div class="metric-col">
+              <span class="metric-label">Godziny pracy IT:</span>
+              <strong class="metric-value">${calc.totalMonthlyHours} h / mies.</strong>
+            </div>
+          </div>
+          <div class="metric-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+              <line x1="7" y1="7" x2="7.01" y2="7"></line>
+            </svg>
+            <div class="metric-col">
+              <span class="metric-label">Średnia stawka za h:</span>
+              <strong class="metric-value">~${hourlyRateFormatted} / h</strong>
+            </div>
+          </div>
+        </div>
+
+        <p class="phase-subtext">
+          ${calc.devHours > 0
+            ? 'Przewidywalny, stały budżet od pierwszego miesiąca. Niewykorzystane godziny rozwoju przechodzą do 6 miesięcy w przód.'
+            : 'Opieka bazowa nad stabilnością i obsługa CMS. Zmiany programistyczne rozliczane wyłącznie doraźnie (200 zł/h).'}
+        </p>
+      </div>
+    `;
+  }
+}
+
+export function createBreakdownItemsHtml(calc, isGross = false) {
+  let html = '';
+
+  if (calc.onetimeItems.length > 0) {
+    html += `<li class="breakdown-category">🚀 Opłaty jednorazowe</li>`;
+    calc.onetimeItems.forEach(item => {
+      html += `
+        <li class="breakdown-item">
+          <div>
+            <div class="breakdown-item-name">${escapeHtml(item.name)}</div>
+            <div class="breakdown-item-sub">${escapeHtml(item.sub)}</div>
+          </div>
+          <div class="breakdown-item-price">${formatMoney(item.netPrice, isGross)}</div>
+        </li>
+      `;
+    });
+  }
+
+  if (calc.monthlyItems.length > 0) {
+    html += `<li class="breakdown-category">🔄 Stały abonament miesięczny (od stycznia 2027)</li>`;
+    calc.monthlyItems.forEach(item => {
+      html += `
+        <li class="breakdown-item">
+          <div>
+            <div class="breakdown-item-name">${escapeHtml(item.name)}</div>
+            <div class="breakdown-item-sub">${escapeHtml(item.sub)}</div>
+          </div>
+          <div class="breakdown-item-price">${formatMoney(item.netPrice, isGross)}/mies.</div>
+        </li>
+      `;
+    });
+
+    html += `
+      <li class="breakdown-item breakdown-included-item">
+        <div>
+          <div class="breakdown-item-name">W cenie abonamentu: Dokumentacja i dedykowany kontakt</div>
+          <div class="breakdown-item-sub">Dokumentacja wykonanych prac, problemów i spraw wymagających Waszej decyzji jest w cenie. Otrzymujecie pełną transparentność i jedną osobę do kontaktu technicznego dla całej grupy.</div>
+        </div>
+        <div class="breakdown-item-price"><span class="badge-included">W cenie</span></div>
+      </li>
+    `;
+  }
+
+  if (calc.onetimeItems.length === 0 && calc.monthlyItems.length === 0) {
+    html = `<li class="breakdown-empty">Brak zaznaczonych pozycji w wycenie.</li>`;
+  }
+
+  return html;
+}
+
+/**
+ * Generate semantic HTML markup for the Summary Card (Symulator Oferty)
+ * @returns {string}
+ */
 export function createSummaryCardHtml() {
+  const defaultCalc = calculateOffer(PRESETS.recommended, false);
+  const defaultMonthlyHtml = createMonthlyDynamicHtml(defaultCalc, false);
+  const defaultBreakdownHtml = createBreakdownItemsHtml(defaultCalc, false);
+
   return `
     <div class="card summary-card sticky-card">
       <div class="summary-header">
@@ -92,12 +324,12 @@ export function createSummaryCardHtml() {
         </div>
 
         <div class="monthly-dynamic-content" id="monthly-dynamic-content">
-          <!-- Renderowane dynamicznie przez renderSummary w summary.js -->
+          ${defaultMonthlyHtml}
         </div>
       </div>
 
       <!-- SEKCJA 3: PODSUMOWANIE PODATKU VAT -->
-      <div class="summary-tax-banner" id="tax-banner">
+      <div class="summary-tax-banner mode-net" id="tax-banner">
         <div class="tax-line">
           <span>Razem netto miesięcznie:</span>
           <strong id="summary-net-monthly">4 650,00 zł</strong>
@@ -116,7 +348,7 @@ export function createSummaryCardHtml() {
       <div class="breakdown-wrapper">
         <h3 class="breakdown-heading">Składniki wyceny</h3>
         <ul class="breakdown-list" id="breakdown-list">
-          <!-- Dynamicznie wypełniane przez JS -->
+          ${defaultBreakdownHtml}
         </ul>
       </div>
 
@@ -249,177 +481,7 @@ export function renderSummary(calc, values, isGross) {
 
   // 3. Monthly Blocks with Periods, Hours, and Average Hourly Rate
   if (monthlyDynamicContent) {
-    if (calc.monthlyNet === 0) {
-      // 0 zł monthly (Tylko Pilotaż)
-      monthlyDynamicContent.innerHTML = `
-        <div class="summary-subcard monthly-zero-card">
-          <div class="subcard-header">
-            <span class="subcard-tag">Stały abonament</span>
-            <span class="badge-zero-pill">0 zł stałych opłat</span>
-          </div>
-          <div class="subcard-price-wrap">
-            <div class="block-price-val">0,00 zł<small>/mies.</small></div>
-          </div>
-          <p class="subcard-desc">
-            W wariancie pilotażowym nie ponosisz opłat abonamentowych ani kosztów infrastruktury. Decyzję o przejęciu serwerów i stałej opiece podejmujecie po sprawdzeniu rezultatów pilotażu.
-          </p>
-        </div>
-      `;
-    } else if (calc.hasTransition) {
-      // 2-Phase Transition (Miesiące 1–3 -> Od 4. miesiąca)
-      const initialPriceFormatted = formatMoney(calc.monthlyNet, isGross);
-      const initialHourlyRateFormatted = formatMoney(Math.round(calc.hourlyRateDisplay), isGross, { trimZero: true });
-      const transitionPriceFormatted = formatMoney(calc.transitionMonthlyNet, isGross);
-      const transitionHourlyRateFormatted = formatMoney(Math.round(calc.transitionHourlyRateDisplay), isGross, { trimZero: true });
-      const savingsFormatted = formatMoney(calc.transitionSavingsDisplay, isGross, { trimZero: true });
-
-      monthlyDynamicContent.innerHTML = `
-        <div class="monthly-phases-container">
-          <!-- Faza 1: Miesiące 1–3 -->
-          <div class="summary-subcard monthly-phase-card phase-initial">
-            <div class="subcard-header">
-              <span class="subcard-tag phase-tag-start">Miesiące 1–3</span>
-              <span class="badge-rec-pill">Intensywne wdrożenia</span>
-            </div>
-            <div class="phase-title">Pakiet 20h rozwoju + Baza technologiczna</div>
-            <div class="phase-price-wrap">
-              <div class="hero-value accent-value">${initialPriceFormatted}<small>/mies.</small></div>
-            </div>
-
-            <!-- Godziny pracy i średnia stawka -->
-            <div class="work-metrics-box">
-              <div class="metric-item">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <polyline points="12 6 12 12 16 14"></polyline>
-                </svg>
-                <div class="metric-col">
-                  <span class="metric-label">Godziny pracy IT:</span>
-                  <strong class="metric-value">${calc.totalMonthlyHours} h / mies.</strong>
-                </div>
-              </div>
-              <div class="metric-item">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
-                  <line x1="7" y1="7" x2="7.01" y2="7"></line>
-                </svg>
-                <div class="metric-col">
-                  <span class="metric-label">Średnia stawka za h:</span>
-                  <strong class="metric-value">~${initialHourlyRateFormatted} / h</strong>
-                </div>
-              </div>
-            </div>
-
-            <p class="phase-subtext">
-              Nadzór (9h) + CMS (do 9h) + Rozwój (20h) + Dedykowany VPS i 5 domen grupy.
-            </p>
-          </div>
-
-          <!-- Przejście ze strzałką informacyjną -->
-          <div class="transition-banner">
-            <div class="transition-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="7 13 12 18 17 13"></polyline>
-                <polyline points="7 6 12 11 17 6"></polyline>
-              </svg>
-            </div>
-            <div class="transition-text">
-              <strong>Naturalne przejście po zrealizowaniu priorytetów:</strong>
-              <span>Po uporządkowaniu zaległości w pierwszych 3 miesiącach, następuje przejście na stały tryb 10h rozwoju:</span>
-            </div>
-          </div>
-
-          <!-- Faza 2: Od 4. miesiąca -->
-          <div class="summary-subcard monthly-phase-card phase-transitioned">
-            <div class="subcard-header">
-              <span class="subcard-tag phase-tag-target">Od 4. miesiąca</span>
-              <span class="badge-savings-pill">Niższa kwota (-${savingsFormatted}/mies.)</span>
-            </div>
-            <div class="phase-title">Docelowy stały rozwój (10h) + Baza</div>
-            <div class="phase-price-wrap">
-              <div class="hero-value text-success">${transitionPriceFormatted}<small>/mies.</small></div>
-            </div>
-
-            <!-- Godziny pracy i średnia stawka po przejściu -->
-            <div class="work-metrics-box">
-              <div class="metric-item">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <polyline points="12 6 12 12 16 14"></polyline>
-                </svg>
-                <div class="metric-col">
-                  <span class="metric-label">Godziny pracy IT:</span>
-                  <strong class="metric-value">${calc.transitionHours} h / mies.</strong>
-                </div>
-              </div>
-              <div class="metric-item">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
-                  <line x1="7" y1="7" x2="7.01" y2="7"></line>
-                </svg>
-                <div class="metric-col">
-                  <span class="metric-label">Średnia stawka za h:</span>
-                  <strong class="metric-value">~${transitionHourlyRateFormatted} / h</strong>
-                </div>
-              </div>
-            </div>
-
-            <p class="phase-subtext">
-              Nadzór (9h) + CMS (do 9h) + Rozwój (10h) + Dedykowany VPS i 5 domen grupy. Niewykorzystane godziny rozwoju przechodzą do 6 miesięcy w przód!
-            </p>
-          </div>
-        </div>
-      `;
-    } else {
-      // Single monthly configuration (e.g. 10h plan or 0h base)
-      const monthlyPriceFormatted = formatMoney(calc.monthlyNet, isGross);
-      const hourlyRateFormatted = formatMoney(Math.round(calc.hourlyRateDisplay), isGross, { trimZero: true });
-      const devItem = calc.monthlyItems.find(i => i.type === 'dev');
-      const devText = devItem ? ` + ${devItem.name}` : ' (tylko nadzór i CMS)';
-
-      monthlyDynamicContent.innerHTML = `
-        <div class="summary-subcard monthly-single-card">
-          <div class="subcard-header">
-            <span class="subcard-tag phase-tag-target">Stały abonament</span>
-            <span class="subcard-time-pill">Od 1. dnia stałej umowy</span>
-          </div>
-          <div class="phase-title">Baza technologiczna${escapeHtml(devText)}</div>
-          <div class="phase-price-wrap">
-            <div class="hero-value accent-value">${monthlyPriceFormatted}<small>/mies.</small></div>
-          </div>
-
-          <!-- Godziny pracy i średnia stawka -->
-          <div class="work-metrics-box">
-            <div class="metric-item">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"></circle>
-                <polyline points="12 6 12 12 16 14"></polyline>
-              </svg>
-              <div class="metric-col">
-                <span class="metric-label">Godziny pracy IT:</span>
-                <strong class="metric-value">${calc.totalMonthlyHours} h / mies.</strong>
-              </div>
-            </div>
-            <div class="metric-item">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
-                <line x1="7" y1="7" x2="7.01" y2="7"></line>
-              </svg>
-              <div class="metric-col">
-                <span class="metric-label">Średnia stawka za h:</span>
-                <strong class="metric-value">~${hourlyRateFormatted} / h</strong>
-              </div>
-            </div>
-          </div>
-
-          <p class="phase-subtext">
-            ${calc.devHours > 0
-              ? 'Przewidywalny, stały budżet od pierwszego miesiąca. Niewykorzystane godziny rozwoju przechodzą do 6 miesięcy w przód.'
-              : 'Opieka bazowa nad stabilnością i obsługa CMS. Zmiany programistyczne rozliczane wyłącznie doraźnie (200 zł/h).'}
-          </p>
-        </div>
-      `;
-    }
+    monthlyDynamicContent.innerHTML = createMonthlyDynamicHtml(calc, isGross);
   }
 
   // 4. Tax Table
@@ -440,53 +502,7 @@ export function renderSummary(calc, values, isGross) {
 
   // 5. Itemized Breakdown List
   if (breakdownList) {
-    let html = '';
-
-    if (calc.onetimeItems.length > 0) {
-      html += `<li class="breakdown-category">🚀 Opłaty jednorazowe</li>`;
-      calc.onetimeItems.forEach(item => {
-        html += `
-          <li class="breakdown-item">
-            <div>
-              <div class="breakdown-item-name">${escapeHtml(item.name)}</div>
-              <div class="breakdown-item-sub">${escapeHtml(item.sub)}</div>
-            </div>
-            <div class="breakdown-item-price">${formatMoney(item.netPrice, isGross)}</div>
-          </li>
-        `;
-      });
-    }
-
-    if (calc.monthlyItems.length > 0) {
-      html += `<li class="breakdown-category">🔄 Stały abonament miesięczny (od stycznia 2027)</li>`;
-      calc.monthlyItems.forEach(item => {
-        html += `
-          <li class="breakdown-item">
-            <div>
-              <div class="breakdown-item-name">${escapeHtml(item.name)}</div>
-              <div class="breakdown-item-sub">${escapeHtml(item.sub)}</div>
-            </div>
-            <div class="breakdown-item-price">${formatMoney(item.netPrice, isGross)}/mies.</div>
-          </li>
-        `;
-      });
-
-      html += `
-        <li class="breakdown-item breakdown-included-item">
-          <div>
-            <div class="breakdown-item-name">W cenie abonamentu: Dokumentacja i dedykowany kontakt</div>
-            <div class="breakdown-item-sub">Dokumentacja wykonanych prac, problemów i spraw wymagających Waszej decyzji jest w cenie. Otrzymujecie pełną transparentność i jedną osobę do kontaktu technicznego dla całej grupy.</div>
-          </div>
-          <div class="breakdown-item-price"><span class="badge-included">W cenie</span></div>
-        </li>
-      `;
-    }
-
-    if (calc.onetimeItems.length === 0 && calc.monthlyItems.length === 0) {
-      html = `<li class="breakdown-empty">Brak zaznaczonych pozycji w wycenie.</li>`;
-    }
-
-    breakdownList.innerHTML = html;
+    breakdownList.innerHTML = createBreakdownItemsHtml(calc, isGross);
   }
 
   // 6. Legal Note

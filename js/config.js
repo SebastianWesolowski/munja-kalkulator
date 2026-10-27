@@ -67,12 +67,16 @@ export function getTaxLabel(isGross) {
 
 
 /**
- * Escape string for safe HTML injection
+ * Escape string for safe HTML injection (Universal, zero DOM allocations)
  * @param {string} str - Raw string
  * @returns {string} Sanitized HTML string
  */
 export function escapeHtml(str) {
-  const div = document.createElement('div');
-  div.textContent = str;
-  return div.innerHTML;
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }

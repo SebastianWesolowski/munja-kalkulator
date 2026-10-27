@@ -29,15 +29,8 @@ function scrollToTarget() {
 /**
  * Check if the user has scrolled down into the summary section
  */
-function checkScrollPosition() {
+function updateButtonState(past) {
   if (!actionBtnText || !actionBtnIcon) return;
-  const summaryEl = document.getElementById('calc-summary-column');
-  if (!summaryEl) return;
-
-  const rect = summaryEl.getBoundingClientRect();
-  // Gdy nagłówek podsumowania znajduje się w górnej połowie ekranu (< 220px od góry)
-  const past = rect.top < 220;
-
   if (past !== isPastSummary) {
     isPastSummary = past;
     if (isPastSummary) {
@@ -78,23 +71,22 @@ export function initMobileBar() {
     });
   }
 
-  // Monitor scroll with requestAnimationFrame throttle
-  let ticking = false;
-  window.addEventListener(
-    'scroll',
-    () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          checkScrollPosition();
-          ticking = false;
-        });
-        ticking = true;
+  // High-performance IntersectionObserver (Zero forced reflow, 0 main-thread scroll overhead)
+  const summaryEl = document.getElementById('calc-summary-column');
+  if ('IntersectionObserver' in window && summaryEl) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        const past = entry.isIntersecting || entry.boundingClientRect.top < 220;
+        updateButtonState(past);
+      },
+      {
+        rootMargin: '-200px 0px 0px 0px',
+        threshold: [0, 0.1, 0.5]
       }
-    },
-    { passive: true }
-  );
-
-  checkScrollPosition();
+    );
+    observer.observe(summaryEl);
+  }
 }
 
 /**

@@ -96,7 +96,7 @@ export function renderPresets(container) {
  */
 export function initPresets(onSelectPreset, container) {
   const target = container || document.getElementById('presets-section');
-  if (target) {
+  if (target && !target.querySelector('.presets-cards-grid')) {
     renderPresets(target);
   }
 

@@ -34,8 +34,8 @@ let baseBundleTotal = null;
 export function initForm(onFormChange) {
   formElement = document.getElementById('offer-calc-form');
 
-  // Render dynamic steps into form container
-  if (formElement) {
+  // Render dynamic steps into form container if not already pre-rendered
+  if (formElement && !formElement.querySelector('#card-step-onboarding')) {
     renderSteps(formElement);
   }
 
