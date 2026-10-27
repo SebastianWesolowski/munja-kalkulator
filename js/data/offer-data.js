@@ -87,7 +87,7 @@ export const PRESETS = {
   recommended: {
     id: 'recommended',
     name: 'Rekomendowany (Pełna Transformacja)',
-    tag: '4 650 zł/mies. (od 4. m-ca: 3 150 zł)',
+    tag: '4\u00A0650\u00A0zł/mies. (od 4. m-ca: 3\u00A0150\u00A0zł)',
     pilot: true,
     setupFee: true,
     supervision: true,
@@ -101,7 +101,7 @@ export const PRESETS = {
   balanced: {
     id: 'balanced',
     name: 'Zrównoważony (Stałe Wsparcie: 10h)',
-    tag: '3 150 zł/mies.',
+    tag: '3\u00A0150\u00A0zł/mies.',
     pilot: true,
     setupFee: true,
     supervision: true,
@@ -115,7 +115,7 @@ export const PRESETS = {
   base: {
     id: 'base',
     name: 'Sama Baza (Nadzór + CMS + VPS + Domeny)',
-    tag: '1 450 zł/mies.',
+    tag: '1\u00A0450\u00A0zł/mies.',
     pilot: true,
     setupFee: true,
     supervision: true,
@@ -129,7 +129,7 @@ export const PRESETS = {
   'pilot-only': {
     id: 'pilot-only',
     name: 'Tylko Pilotaż Munji',
-    tag: '4 000 zł jednorazowo',
+    tag: '4\u00A0000\u00A0zł jednorazowo',
     pilot: true,
     setupFee: false,
     supervision: false,
@@ -155,24 +155,24 @@ export const PRESET_CARDS = [
     priceLabel: 'Miesiące 1–3:',
     priceNet: 4650,
     priceSuffix: '/mies.',
-    priceEvolutionHtml: 'od 4. m-ca: <span data-amount-net="3150" data-suffix="/mies.">3 150 zł/mies.</span>',
+    priceEvolutionHtml: 'od 4. m-ca: <span class="text-nowrap" data-amount-net="3150" data-suffix="/mies.">3&nbsp;150&nbsp;zł/mies.</span>',
     target: 'Dla grupy planującej szybki skok jakościowy w pierwszych 3 miesiącach, wdrożenie kluczowych zmian na wszystkich 3 stronach, a następnie obniżenie budżetu do stabilnego rozwoju.',
     steps: [
       {
         dot: '1',
-        html: '<strong>Start:</strong> Pilotaż Munji (<span data-amount-net="4000">4 000 zł</span> za ~25h) — naprawa rezerwacji na telefonach, odciążenie wideo, RODO'
+        html: '<strong>Start:</strong> Pilotaż Munji (<span class="text-nowrap" data-amount-net="4000">4&nbsp;000&nbsp;zł</span> za&nbsp;~25h) — naprawa rezerwacji na telefonach, odciążenie wideo, RODO'
       },
       {
         dot: '2',
-        html: '<strong>Infrastruktura:</strong> Przeniesienie i uruchomienie (<span data-amount-net="3000">3 000 zł</span>) — nowy dedykowany serwer VPS i 5 domen (<span data-amount-net="200" data-suffix="/mies.">200 zł/mies.</span>)'
+        html: '<strong>Infrastruktura:</strong> Przeniesienie i&nbsp;uruchomienie (<span class="text-nowrap" data-amount-net="3000">3&nbsp;000&nbsp;zł</span>) — nowy dedykowany serwer VPS i 5 domen (<span class="text-nowrap" data-amount-net="200" data-suffix="/mies.">200&nbsp;zł/mies.</span>)'
       },
       {
         dot: '3',
-        html: '<strong>Krok 5 (Miesiące 1–3):</strong> 20h rozwoju + Baza (Nadzór 9h <span data-amount-net="750">750 zł</span> + Serwer/Domeny <span data-amount-net="200">200 zł</span> + CMS <span data-amount-net="500">500 zł</span>) = <span data-amount-net="4650" data-suffix="/mies.">4 650 zł/mies.</span>'
+        html: '<strong>Krok 5 (Miesiące 1–3):</strong> 20h rozwoju + Baza (Nadzór 9h <span class="text-nowrap" data-amount-net="750">750&nbsp;zł</span> + Serwer/Domeny <span class="text-nowrap" data-amount-net="200">200&nbsp;zł</span> + CMS <span class="text-nowrap" data-amount-net="500">500&nbsp;zł</span>) = <span class="text-nowrap" data-amount-net="4650" data-suffix="/mies.">4&nbsp;650&nbsp;zł/mies.</span>'
       },
       {
         dot: '4',
-        html: '<strong>Od 4. miesiąca:</strong> Zmniejszenie puli do 10h rozwoju + Baza = <span data-amount-net="3150" data-suffix="/mies.">3 150 zł/mies.</span>'
+        html: '<strong>Od 4. miesiąca:</strong> Zmniejszenie puli do 10h rozwoju + Baza = <span class="text-nowrap" data-amount-net="3150" data-suffix="/mies.">3&nbsp;150&nbsp;zł/mies.</span>'
       }
     ]
   },
@@ -190,15 +190,15 @@ export const PRESET_CARDS = [
     steps: [
       {
         dot: '1',
-        html: '<strong>Start:</strong> Pilotaż Munji (<span data-amount-net="4000">4 000 zł</span> za ~25h) — szybkie usunięcie wąskich gardeł'
+        html: '<strong>Start:</strong> Pilotaż Munji (<span class="text-nowrap" data-amount-net="4000">4&nbsp;000&nbsp;zł</span> za&nbsp;~25h) — szybkie usunięcie wąskich gardeł'
       },
       {
         dot: '2',
-        html: '<strong>Infrastruktura:</strong> Przeniesienie i uruchomienie (<span data-amount-net="3000">3 000 zł</span>) — migracja na dedykowany serwer VPS i domeny'
+        html: '<strong>Infrastruktura:</strong> Przeniesienie i&nbsp;uruchomienie (<span class="text-nowrap" data-amount-net="3000">3&nbsp;000&nbsp;zł</span>) — migracja na dedykowany serwer VPS i domeny'
       },
       {
         dot: '3',
-        html: '<strong>Krok 5 (Stała obsługa od 2027 r.):</strong> Baza (<span data-amount-net="1450">1 450 zł</span>) + 10h rozwoju (<span data-amount-net="1700">1 700 zł</span>) = <span data-amount-net="3150" data-suffix="/mies.">3 150 zł/mies.</span>'
+        html: '<strong>Krok 5 (Stała obsługa od 2027 r.):</strong> Baza (<span class="text-nowrap" data-amount-net="1450">1&nbsp;450&nbsp;zł</span>) + 10h rozwoju (<span class="text-nowrap" data-amount-net="1700">1&nbsp;700&nbsp;zł</span>) = <span class="text-nowrap" data-amount-net="3150" data-suffix="/mies.">3&nbsp;150&nbsp;zł/mies.</span>'
       }
     ]
   },
@@ -216,15 +216,15 @@ export const PRESET_CARDS = [
     steps: [
       {
         dot: '1',
-        html: '<strong>Infrastruktura:</strong> Przeniesienie i uruchomienie (<span data-amount-net="3000">3 000 zł</span>) — uruchomienie dedykowanego serwera i transfer domen'
+        html: '<strong>Infrastruktura:</strong> Przeniesienie i&nbsp;uruchomienie (<span class="text-nowrap" data-amount-net="3000">3&nbsp;000&nbsp;zł</span>) — uruchomienie dedykowanego serwera i transfer domen'
       },
       {
         dot: '2',
-        html: '<strong>Krok 5 (Stała Baza):</strong> Nadzór 9h (<span data-amount-net="750">750 zł</span>) + CMS (<span data-amount-net="500">500 zł</span>) + Serwer i Domeny (<span data-amount-net="200">200 zł</span>) = <span data-amount-net="1450" data-suffix="/mies.">1 450 zł/mies.</span>'
+        html: '<strong>Krok 5 (Stała Baza):</strong> Nadzór 9h (<span class="text-nowrap" data-amount-net="750">750&nbsp;zł</span>) + CMS (<span class="text-nowrap" data-amount-net="500">500&nbsp;zł</span>) + Serwer i Domeny (<span class="text-nowrap" data-amount-net="200">200&nbsp;zł</span>) = <span class="text-nowrap" data-amount-net="1450" data-suffix="/mies.">1&nbsp;450&nbsp;zł/mies.</span>'
       },
       {
         dot: '3',
-        html: '<strong>Prace programistyczne:</strong> Tylko doraźne zlecenia w razie potrzeby (<span data-amount-net="200" data-suffix="/h">200 zł/h</span>)'
+        html: '<strong>Prace programistyczne:</strong> Tylko doraźne zlecenia w&nbsp;razie potrzeby (<span class="text-nowrap" data-amount-net="200" data-suffix="/h">200&nbsp;zł/h</span>)'
       }
     ]
   },
@@ -237,12 +237,12 @@ export const PRESET_CARDS = [
     priceLabel: 'Jednorazowo:',
     priceNet: 4000,
     priceSuffix: '',
-    priceEvolutionHtml: '<span data-amount-net="0" data-suffix=" stałego abonamentu">0 zł stałego abonamentu</span>',
+    priceEvolutionHtml: '<span class="text-nowrap" data-amount-net="0" data-suffix=" stałego abonamentu">0&nbsp;zł stałego abonamentu</span>',
     target: 'Szybki test jakości współpracy przed sezonem świątecznym. Natychmiastowe rozwiązanie problemu formularza mobilnego i multimediów bez wiązania się stałą umową.',
     steps: [
       {
         dot: '1',
-        html: '<strong>Zakres prac:</strong> Pilotaż Munji (<span data-amount-net="4000">4 000 zł</span> za ~25h) — naprawa rezerwacji, odciążenie wideo, RODO / analityka'
+        html: '<strong>Zakres prac:</strong> Pilotaż Munji (<span class="text-nowrap" data-amount-net="4000">4&nbsp;000&nbsp;zł</span> za&nbsp;~25h) — naprawa rezerwacji, odciążenie wideo, RODO / analityka'
       },
       {
         dot: '2',

@@ -21,50 +21,66 @@ export function generateOfferText(calc) {
 
   // 1. Onetime
   if (calc.onetimeItems.length > 0) {
-    text += `1. KOSZTY JEDNORAZOWE NA START:\n`;
-    calc.onetimeItems.forEach(item => {
-      const netStr = currencyFormatter.format(item.netPrice);
-      const grossStr = currencyFormatter.format(item.netPrice * (1 + CONFIG.vatRate));
-      text += `   • ${item.name}\n`;
+    text += `1. OPŁATY JEDNORAZOWE:\n`;
+    if (calc.hasPilot) {
+      const netStr = currencyFormatter.format(calc.pilotNet);
+      const grossStr = currencyFormatter.format(calc.pilotGross);
+      text += `   • Krok 2: Pilotaż Munji\n`;
       text += `     Wartość: ${netStr} netto (${grossStr} brutto)\n`;
-      text += `     Zakres: ${item.sub}\n\n`;
-    });
-    text += `   --> SUMA JEDNORAZOWO NA START: ${currencyFormatter.format(calc.onetimeNet)} netto (${currencyFormatter.format(calc.onetimeGross)} brutto)\n`;
+      text += `     Termin: Listopad / Grudzień 2026 r. (~25 godzin pracy)\n`;
+      text += `     Zakres: Szybkie usprawnienia (formularz rezerwacji na telefonach, odciążenie multimediów, zgody cookie / RODO)\n\n`;
+    }
+    if (calc.hasSetup) {
+      const netStr = currencyFormatter.format(calc.setupNet);
+      const grossStr = currencyFormatter.format(calc.setupGross);
+      text += `   • Krok 4: Nowa infrastruktura\n`;
+      text += `     Wartość: ${netStr} netto (${grossStr} brutto)\n`;
+      text += `     Termin: Od stycznia 2027 r. (po audycie w Kroku 3)\n`;
+      text += `     Zakres: Przygotowanie dedykowanego VPS, migracja 3 stron, transfer 5 domen i konfiguracja poczty\n\n`;
+    }
+    text += `   --> RAZEM OPŁATY JEDNORAZOWE: ${currencyFormatter.format(calc.onetimeNet)} netto (${currencyFormatter.format(calc.onetimeGross)} brutto)\n`;
     text += `--------------------------------------------------------------\n\n`;
   }
 
   // 2. Monthly
   if (calc.monthlyItems.length > 0) {
-    text += `2. STAŁA OBSŁUGA MIESIĘCZNA (od stycznia 2027 r.):\n`;
+    text += `2. STAŁY ABONAMENT MIESIĘCZNY (od stycznia 2027 r.):\n`;
     
+    if (calc.hasTransition) {
+      text += `   • ETAP 1 (Miesiące 1–3 — Intensywne wdrożenia i porządkowanie zaległości):\n`;
+      text += `     - Wartość: ${currencyFormatter.format(calc.monthlyNet)} netto/mies. (${currencyFormatter.format(calc.monthlyGross)} brutto/mies.)\n`;
+      text += `     - Czas pracy IT w miesiącu: ${calc.totalMonthlyHours} godzin (Nadzór 9h + CMS do 9h + Rozwój 20h)\n`;
+      text += `     - Średnia efektywna stawka za godzinę: ~${Math.round(calc.hourlyRateNet)} zł/h netto\n`;
+      text += `     - Skład: Baza technologiczna (1\u00A0450\u00A0zł) + Rozwój 20h (3\u00A0200\u00A0zł)\n\n`;
+
+      text += `   • ETAP 2 (Od 4. miesiąca — Naturalne przejście na stały stabilny rozwój):\n`;
+      text += `     - Wartość: ${currencyFormatter.format(calc.transitionMonthlyNet)} netto/mies. (${currencyFormatter.format(calc.transitionMonthlyGross)} brutto/mies.)\n`;
+      text += `     - Stała oszczędność: ${currencyFormatter.format(calc.transitionSavingsNet)} netto co miesiąc!\n`;
+      text += `     - Czas pracy IT w miesiącu: ${calc.transitionHours} godzin (Nadzór 9h + CMS do 9h + Rozwój 10h)\n`;
+      text += `     - Średnia efektywna stawka za godzinę: ~${Math.round(calc.transitionHourlyRateNet)} zł/h netto\n`;
+      text += `     - Zasada: Niewykorzystane godziny rozwoju można wykorzystać do 6 miesięcy w przód od miesiąca, którego dotyczą\n\n`;
+    } else {
+      text += `   • Stała opieka miesięczna:\n`;
+      text += `     - Wartość: ${currencyFormatter.format(calc.monthlyNet)} netto/mies. (${currencyFormatter.format(calc.monthlyGross)} brutto/mies.)\n`;
+      text += `     - Czas pracy IT w miesiącu: ${calc.totalMonthlyHours} godzin\n`;
+      text += `     - Średnia stawka za godzinę: ~${Math.round(calc.hourlyRateNet)} zł/h netto\n\n`;
+    }
+
     const baseItems = calc.monthlyItems.filter(i => i.type === 'base');
     if (baseItems.length > 0) {
-      text += `   A. Baza infrastrukturalno-techniczna (ryczałt: ${currencyFormatter.format(calc.baseNet)} netto/mies.):\n`;
+      text += `   Szczegóły Bazy technologicznej (ryczałt: ${currencyFormatter.format(calc.baseNet)} netto/mies.):\n`;
       baseItems.forEach(item => {
         text += `      - ${item.name} (${currencyFormatter.format(item.netPrice)} netto)\n`;
       });
     }
 
-    const devItem = calc.monthlyItems.find(i => i.type === 'dev');
-    if (devItem) {
-      text += `   B. Pula godzin dalszego rozwoju:\n`;
-      text += `      - ${devItem.name} (${currencyFormatter.format(devItem.netPrice)} netto/mies.)\n`;
-      text += `        (Niewykorzystane godziny rozwoju można wykorzystać do 6 miesięcy w przód od miesiąca, którego dotyczą)\n`;
-    }
-
-    const adhocItem = calc.monthlyItems.find(i => i.type === 'adhoc');
-    if (adhocItem) {
-      text += `   C. Zlecenia doraźne:\n`;
-      text += `      - ${adhocItem.name} (${currencyFormatter.format(adhocItem.netPrice)} netto/mies.)\n`;
-    }
-
     const wsItem = calc.monthlyItems.find(i => i.type === 'workspace');
     if (wsItem) {
-      text += `   D. Poczta Google Workspace:\n`;
+      text += `   Opcje dodatkowe:\n`;
       text += `      - ${wsItem.name} (${currencyFormatter.format(wsItem.netPrice)} netto/mies.)\n`;
     }
 
-    text += `\n   --> SUMA MIESIĘCZNIE: ${currencyFormatter.format(calc.monthlyNet)} netto/mies. (${currencyFormatter.format(calc.monthlyGross)} brutto/mies.)\n`;
+    text += `\n   --> BIEŻĄCA STAWKA MIESIĘCZNA: ${currencyFormatter.format(calc.monthlyNet)} netto/mies. (${currencyFormatter.format(calc.monthlyGross)} brutto/mies.)\n`;
     text += `--------------------------------------------------------------\n\n`;
   }
 
@@ -72,7 +88,11 @@ export function generateOfferText(calc) {
   if (calc.monthlyNet > 0) {
     text += `3. SZACUNEK I ROKU WSPÓŁPRACY (TCO 2026/2027):\n`;
     text += `   Razem szacunek: ${currencyFormatter.format(calc.tcoNet)} netto (${currencyFormatter.format(calc.tcoGross)} brutto)\n`;
-    text += `   (Obejmuje: Start [${currencyFormatter.format(calc.onetimeNet)} netto] + 12 miesięcy stałej opieki)\n\n`;
+    if (calc.hasTransition) {
+      text += `   (Obejmuje: Opłaty jednorazowe [${currencyFormatter.format(calc.onetimeNet)} netto] + 3 m-ce po ${currencyFormatter.format(calc.monthlyNet)} + 9 m-cy po ${currencyFormatter.format(calc.transitionMonthlyNet)})\n\n`;
+    } else {
+      text += `   (Obejmuje: Opłaty jednorazowe [${currencyFormatter.format(calc.onetimeNet)} netto] + 12 miesięcy stałej opieki)\n\n`;
+    }
   } else {
     text += `3. CAŁKOWITY KOSZT ETAPU PILOTAŻOWEGO:\n`;
     text += `   Razem: ${currencyFormatter.format(calc.onetimeNet)} netto (${currencyFormatter.format(calc.onetimeGross)} brutto)\n`;
@@ -81,10 +101,10 @@ export function generateOfferText(calc) {
 
   text += `==============================================================\n`;
   text += `GŁÓWNE ZASADY OFERTY:\n`;
-  text += `• Pilotaż Munji (4 000 zł za ~25h) zamawiany jest jako niezależny etap startowy (szybkie usprawnienia: formularz, wideo, analityka/RODO).\n`;
+  text += `• Pilotaż Munji (4\u00A0000\u00A0zł za ~25h) zamawiany jest jako niezależny etap startowy (szybkie usprawnienia: formularz, wideo, analityka/RODO).\n`;
   text += `• Krok 3: Po pilotażu audyt faktur i umów oraz doprecyzowanie docelowego budżetu.\n`;
-  text += `• Krok 4: Przeniesienie i uruchomienie infrastruktury (3 000 zł jednorazowo) najwcześniej od stycznia 2027 r.\n`;
-  text += `• Krok 5: Nadzór techniczny (750 zł) z limitem 9h miesięcznie (po 3h na serwis: Munja, Baila, Nine's).\n`;
+  text += `• Krok 4: Przeniesienie i uruchomienie infrastruktury (3\u00A0000\u00A0zł jednorazowo) najwcześniej od stycznia 2027 r.\n`;
+  text += `• Krok 5: Nadzór techniczny (750\u00A0zł) z limitem 9h miesięcznie (po 3h na serwis: Munja, Baila, Nine's).\n`;
   text += `• Niewykorzystane godziny rozwoju można wykorzystać do 6 miesięcy w przód od miesiąca, którego dotyczą.\n`;
   text += `• W cenie: Dokumentacja wykonanych prac, problemów i spraw wymagających Waszej decyzji jest w cenie.\n`;
   text += `• Konsolidacja 5 domen w modelu hurtowym zdejmuje ryzyko corocznych skoków cen.\n`;

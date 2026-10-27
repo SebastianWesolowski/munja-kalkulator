@@ -95,7 +95,7 @@ munja-kalkulator/
 │       ├── header.js             # Kontroler przełącznika cen Netto/Brutto
 │       ├── presets.js            # Komponent widoku i kontroler kart wariantów (Ścieżki rozwoju grupy)
 │       ├── form.js               # Kontroler pól formularza, suwaków i etykiet cen
-│       ├── summary.js            # Kontroler panelu podsumowania i akcji (PDF, schowek)
+│       ├── summary.js            # Komponent widoku i kontroler karty podsumowania (Symulator Oferty, akcje PDF/schowek)
 │       └── toast.js              # Wyświetlanie powiadomień
 ├── package.json                  # Konfiguracja skryptów npm i serwera lokalnego
 ├── netlify.toml                  # Konfiguracja wdrożenia statycznego i nagłówków bezpieczeństwa

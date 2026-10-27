@@ -15,11 +15,13 @@ const rawCurrencyFormatter = new Intl.NumberFormat(CONFIG.locale, {
   maximumFractionDigits: 2
 });
 
-// Standard currency formatter (with guaranteed thousand space)
+// Standard currency formatter (with guaranteed thousand space and non-breaking spaces)
 export const currencyFormatter = {
   format(amount) {
     const raw = rawCurrencyFormatter.format(amount);
-    return raw.replace(/(\d)(?=(\d{3})+(?:[,.]\d+)?(?:\s| )*(?:zł|PLN))/g, '$1\u00A0');
+    return raw
+      .replace(/(\d)(?=(\d{3})+(?:[,.]\d+)?(?:\s| )*(?:zł|PLN))/g, '$1\u00A0')
+      .replace(/[\s\u202F]+/g, '\u00A0');
   }
 };
 
@@ -49,8 +51,9 @@ export function formatMoney(amount, isGross = false, options = {}) {
     formatted = currencyFormatter.format(rounded);
   }
 
-  // Ensure non-breaking space (\u00A0) for thousand groups (e.g. 4650 -> 4 650 zł)
-  return formatted.replace(/(\d)(?=(\d{3})+(?:[,.]\d+)?(?:\s| )*(?:zł|PLN))/g, '$1\u00A0');
+  // Ensure thousand separator space exists if missing and all spaces are non-breaking (\u00A0)
+  formatted = formatted.replace(/(\d)(?=(\d{3})+(?:[,.]\d+)?(?:\s| )*(?:zł|PLN))/g, '$1\u00A0');
+  return formatted.replace(/[\s\u202F]+/g, '\u00A0');
 }
 
 /**

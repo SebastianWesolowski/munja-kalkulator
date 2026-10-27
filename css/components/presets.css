@@ -177,6 +177,7 @@
   color: var(--color-text-main);
   font-variant-numeric: tabular-nums;
   line-height: 1.2;
+  white-space: nowrap;
 }
 
 .preset-card.highlighted-preset .preset-card-price strong {
@@ -188,6 +189,7 @@
   font-size: 0.7rem;
   font-weight: 600;
   color: var(--color-primary);
+  white-space: nowrap;
 }
 
 .preset-card-body {

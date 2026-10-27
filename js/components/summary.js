@@ -1,5 +1,5 @@
 /**
- * Component: Summary Card & Cost Breakdown Controller
+ * Component: Summary Card & Cost Breakdown Controller (Symulator Oferty)
  */
 
 import { formatMoney, escapeHtml, currencyFormatter } from '../config.js';
@@ -7,38 +7,198 @@ import { generateOfferText, copyToClipboard } from '../services/clipboard.js';
 import { showToast } from './toast.js';
 
 let summaryTaxIndicator = null;
-let totalOnetimeDisplay = null;
-let onetimeSubtext = null;
-let totalMonthlyDisplay = null;
-let monthlySubtext = null;
+let blockPilot = null;
+let pilotPriceDisplay = null;
+let blockSetup = null;
+let setupPriceDisplay = null;
+let blockOnetimeEmpty = null;
+let onetimeTotalBadge = null;
+let monthlyDynamicContent = null;
 let summaryNetMonthly = null;
 let summaryVatMonthly = null;
 let summaryGrossMonthly = null;
+let taxBanner = null;
 let breakdownList = null;
 let tcoTotal = null;
 let tcoNote = null;
 let btnCopy = null;
 let btnPrint = null;
+let summaryLegal = null;
 
 let currentCalc = null;
 
 /**
- * Initialize summary card action buttons
+ * Generate semantic HTML markup for the Summary Card (Symulator Oferty)
+ * @returns {string}
  */
-export function initSummary() {
+export function createSummaryCardHtml() {
+  return `
+    <div class="card summary-card sticky-card">
+      <div class="summary-header">
+        <div class="summary-header-top">
+          <span class="summary-eyebrow">Symulator Oferty</span>
+          <span class="badge-mode-indicator" id="summary-tax-indicator">NETTO</span>
+        </div>
+        <h2 class="summary-title">Podsumowanie Kosztów</h2>
+      </div>
+
+      <!-- SEKCJA 1: OPŁATY JEDNORAZOWE (ODDZIELNE KLOCUSZKI) -->
+      <div class="summary-section onetime-section" id="onetime-section">
+        <div class="section-title-row">
+          <span class="section-eyebrow">Opłaty jednorazowe</span>
+          <span class="section-badge" id="onetime-total-badge">Razem: 7 000,00 zł</span>
+        </div>
+
+        <div class="onetime-blocks-grid" id="onetime-blocks-grid">
+          <!-- Klocuszek 1: Pilotaż Munji -->
+          <div class="summary-block onetime-block block-pilot" id="block-pilot">
+            <div class="block-top">
+              <span class="block-tag badge-tag-pilot">Opłata jednorazowa</span>
+              <span class="block-timing">Listopad / Grudzień 2026</span>
+            </div>
+            <h3 class="block-title">Krok 2: Pilotaż Munji</h3>
+            <div class="block-price-val" id="pilot-price-display">4 000,00 zł</div>
+            <div class="block-chips">
+              <span class="chip-item">~25h pracy</span>
+              <span class="chip-item">Szybkie usprawnienia</span>
+            </div>
+            <p class="block-subtext">Formularz rezerwacji na telefonach, odciążenie multimediów, zgody cookie / RODO.</p>
+          </div>
+
+          <!-- Klocuszek 2: Nowa infrastruktura -->
+          <div class="summary-block onetime-block block-setup" id="block-setup">
+            <div class="block-top">
+              <span class="block-tag badge-tag-setup">Opłata jednorazowa</span>
+              <span class="block-timing">Od stycznia 2027 r.</span>
+            </div>
+            <h3 class="block-title">Krok 4: Nowa infrastruktura</h3>
+            <div class="block-price-val" id="setup-price-display">3 000,00 zł</div>
+            <div class="block-chips">
+              <span class="chip-item">Migracja 3 stron</span>
+              <span class="chip-item">5 domen grupy</span>
+            </div>
+            <p class="block-subtext">Dedykowany serwer VPS, transfer domen, zabezpieczenia poczty (po audycie w Kroku 3).</p>
+          </div>
+
+          <!-- Komunikat gdy brak opłat jednorazowych -->
+          <div class="onetime-empty-card hidden" id="block-onetime-empty">
+            Brak opłat jednorazowych w wybranej konfiguracji.
+          </div>
+        </div>
+      </div>
+
+      <!-- SEKCJA 2: STAŁY ABONAMENT MIESIĘCZNY -->
+      <div class="summary-section monthly-section" id="monthly-section">
+        <div class="section-title-row">
+          <span class="section-eyebrow">Stały abonament miesięczny</span>
+          <span class="section-timing-badge">od stycznia 2027 r.</span>
+        </div>
+
+        <div class="monthly-dynamic-content" id="monthly-dynamic-content">
+          <!-- Renderowane dynamicznie przez renderSummary w summary.js -->
+        </div>
+      </div>
+
+      <!-- SEKCJA 3: PODSUMOWANIE PODATKU VAT -->
+      <div class="summary-tax-banner" id="tax-banner">
+        <div class="tax-line">
+          <span>Razem netto miesięcznie:</span>
+          <strong id="summary-net-monthly">4 650,00 zł</strong>
+        </div>
+        <div class="tax-line">
+          <span>Podatek VAT (23%):</span>
+          <span id="summary-vat-monthly">1 069,50 zł</span>
+        </div>
+        <div class="tax-line total-line">
+          <span>Razem brutto miesięcznie:</span>
+          <strong id="summary-gross-monthly">5 719,50 zł</strong>
+        </div>
+      </div>
+
+      <!-- SEKCJA 4: SKŁADNIKI WYCENY -->
+      <div class="breakdown-wrapper">
+        <h3 class="breakdown-heading">Składniki wyceny</h3>
+        <ul class="breakdown-list" id="breakdown-list">
+          <!-- Dynamicznie wypełniane przez JS -->
+        </ul>
+      </div>
+
+      <!-- SEKCJA 5: SZACUNEK I ROKU WSPÓŁPRACY (TCO) -->
+      <div class="tco-box" id="tco-container">
+        <div class="tco-header">
+          <span class="tco-title">Szacunek I roku współpracy (2026/2027)</span>
+          <span class="tco-badge">TCO</span>
+        </div>
+        <div class="tco-amount" id="tco-total">49 300,00 zł</div>
+        <p class="tco-note" id="tco-note">
+          Obejmuje: Pilotaż Munji (listopad / grudzień 2026) + Przeniesienie infrastruktury (styczeń 2027) + 3 m-ce po 4 650 zł (20h rozwoju) + 9 m-cy po 3 150 zł (10h rozwoju).
+        </p>
+      </div>
+
+      <!-- SEKCJA 6: PRZYCISKI AKCJI -->
+      <div class="summary-actions">
+        <button type="button" id="btn-copy-summary" class="btn btn-primary btn-block">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span>Kopiuj wycenę do maila</span>
+        </button>
+
+        <button type="button" id="btn-print-summary" class="btn btn-outline btn-block">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 6 2 18 2 18 9"></polyline>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+            <rect x="6" y="14" width="12" height="8"></rect>
+          </svg>
+          <span>Drukuj / Zapisz jako PDF</span>
+        </button>
+      </div>
+
+      <p class="summary-legal" id="summary-legal-note">
+        Wszystkie ceny w ofercie są kwotami netto (+23% VAT). Pilotaż zamawiany jest osobno. Docelowe stawki stałej opieki doprecyzujemy po pilotażu i zbadaniu zaplecza.
+      </p>
+    </div>
+  `;
+}
+
+/**
+ * Render the summary card HTML markup into target container
+ * @param {HTMLElement} container
+ */
+export function renderSummaryCard(container) {
+  if (!container) return;
+  container.innerHTML = createSummaryCardHtml();
+}
+
+/**
+ * Initialize summary card action buttons and render component if needed
+ * @param {HTMLElement|null} [container]
+ */
+export function initSummary(container) {
+  const targetContainer = container || document.getElementById('calc-summary-column');
+  if (targetContainer && !targetContainer.querySelector('.summary-card')) {
+    renderSummaryCard(targetContainer);
+  }
+
   summaryTaxIndicator = document.getElementById('summary-tax-indicator');
-  totalOnetimeDisplay = document.getElementById('total-onetime-display');
-  onetimeSubtext = document.getElementById('onetime-subtext');
-  totalMonthlyDisplay = document.getElementById('total-monthly-display');
-  monthlySubtext = document.getElementById('monthly-subtext');
+  blockPilot = document.getElementById('block-pilot');
+  pilotPriceDisplay = document.getElementById('pilot-price-display');
+  blockSetup = document.getElementById('block-setup');
+  setupPriceDisplay = document.getElementById('setup-price-display');
+  blockOnetimeEmpty = document.getElementById('block-onetime-empty');
+  onetimeTotalBadge = document.getElementById('onetime-total-badge');
+  monthlyDynamicContent = document.getElementById('monthly-dynamic-content');
   summaryNetMonthly = document.getElementById('summary-net-monthly');
   summaryVatMonthly = document.getElementById('summary-vat-monthly');
   summaryGrossMonthly = document.getElementById('summary-gross-monthly');
+  taxBanner = document.getElementById('tax-banner');
   breakdownList = document.getElementById('breakdown-list');
   tcoTotal = document.getElementById('tco-total');
   tcoNote = document.getElementById('tco-note');
   btnCopy = document.getElementById('btn-copy-summary');
   btnPrint = document.getElementById('btn-print-summary');
+  summaryLegal = document.getElementById('summary-legal-note');
 
   if (btnCopy) {
     btnCopy.addEventListener('click', async () => {
@@ -67,48 +227,214 @@ export function initSummary() {
 export function renderSummary(calc, values, isGross) {
   currentCalc = calc;
 
-  // Mode badge
+  // 1. Mode badge
   if (summaryTaxIndicator) {
     summaryTaxIndicator.textContent = isGross ? 'BRUTTO (+23% VAT)' : 'NETTO';
   }
 
-  // Hero: Onetime
-  if (totalOnetimeDisplay) {
-    totalOnetimeDisplay.textContent = formatMoney(calc.onetimeNet, isGross);
-  }
-  if (onetimeSubtext) {
-    const parts = [];
-    if (values.pilot) parts.push(`Pilotaż (${formatMoney(4000, isGross, { trimZero: true })})`);
-    if (values.setupFee && calc.setupNet > 0) parts.push(`Przeniesienie infrastruktury (${formatMoney(calc.setupNet, isGross, { trimZero: true })})`);
-    onetimeSubtext.textContent = parts.length > 0 ? parts.join(' + ') : 'Brak opłat startowych';
+  // 2. Onetime Blocks (Pilotaż Munji & Nowa infrastruktura)
+  if (blockPilot && pilotPriceDisplay) {
+    blockPilot.classList.toggle('hidden', !calc.hasPilot);
+    pilotPriceDisplay.textContent = formatMoney(calc.pilotNet, isGross);
   }
 
-  // Hero: Monthly
-  if (totalMonthlyDisplay) {
-    totalMonthlyDisplay.innerHTML = `${formatMoney(calc.monthlyNet, isGross)}<small>/mies.</small>`;
+  if (blockSetup && setupPriceDisplay) {
+    blockSetup.classList.toggle('hidden', !calc.hasSetup);
+    setupPriceDisplay.textContent = formatMoney(calc.setupNet, isGross);
   }
-  if (monthlySubtext) {
-    const baseFormatted = formatMoney(calc.baseNet, isGross, { trimZero: true });
-    const parts = [`Baza (${baseFormatted})`];
 
-    if (values.devPlan && values.devPlan !== '0') {
+  if (blockOnetimeEmpty) {
+    blockOnetimeEmpty.classList.toggle('hidden', calc.hasPilot || calc.hasSetup);
+  }
+
+  if (onetimeTotalBadge) {
+    if (calc.hasPilot && calc.hasSetup) {
+      onetimeTotalBadge.textContent = `Razem opłaty jednorazowe: ${formatMoney(calc.onetimeNet, isGross)}`;
+    } else if (calc.hasPilot) {
+      onetimeTotalBadge.textContent = `Pilotaż: ${formatMoney(calc.pilotNet, isGross)}`;
+    } else if (calc.hasSetup) {
+      onetimeTotalBadge.textContent = `Infrastruktura: ${formatMoney(calc.setupNet, isGross)}`;
+    } else {
+      onetimeTotalBadge.textContent = '0 zł opłat jednorazowych';
+    }
+  }
+
+  // 3. Monthly Blocks with Periods, Hours, and Average Hourly Rate
+  if (monthlyDynamicContent) {
+    if (calc.monthlyNet === 0) {
+      // 0 zł monthly (Tylko Pilotaż)
+      monthlyDynamicContent.innerHTML = `
+        <div class="summary-subcard monthly-zero-card">
+          <div class="subcard-header">
+            <span class="subcard-tag">Stały abonament</span>
+            <span class="badge-zero-pill">0 zł stałych opłat</span>
+          </div>
+          <div class="subcard-price-wrap">
+            <div class="block-price-val">0,00 zł<small>/mies.</small></div>
+          </div>
+          <p class="subcard-desc">
+            W wariancie pilotażowym nie ponosisz opłat abonamentowych ani kosztów infrastruktury. Decyzję o przejęciu serwerów i stałej opiece podejmujecie po sprawdzeniu rezultatów pilotażu.
+          </p>
+        </div>
+      `;
+    } else if (calc.hasTransition) {
+      // 2-Phase Transition (Miesiące 1–3 -> Od 4. miesiąca)
+      const initialPriceFormatted = formatMoney(calc.monthlyNet, isGross);
+      const initialHourlyRateFormatted = formatMoney(Math.round(calc.hourlyRateDisplay), isGross, { trimZero: true });
+      const transitionPriceFormatted = formatMoney(calc.transitionMonthlyNet, isGross);
+      const transitionHourlyRateFormatted = formatMoney(Math.round(calc.transitionHourlyRateDisplay), isGross, { trimZero: true });
+      const savingsFormatted = formatMoney(calc.transitionSavingsDisplay, isGross, { trimZero: true });
+
+      monthlyDynamicContent.innerHTML = `
+        <div class="monthly-phases-container">
+          <!-- Faza 1: Miesiące 1–3 -->
+          <div class="summary-subcard monthly-phase-card phase-initial">
+            <div class="subcard-header">
+              <span class="subcard-tag phase-tag-start">Miesiące 1–3</span>
+              <span class="badge-rec-pill">Intensywne wdrożenia</span>
+            </div>
+            <div class="phase-title">Pakiet 20h rozwoju + Baza technologiczna</div>
+            <div class="phase-price-wrap">
+              <div class="hero-value accent-value">${initialPriceFormatted}<small>/mies.</small></div>
+            </div>
+
+            <!-- Godziny pracy i średnia stawka -->
+            <div class="work-metrics-box">
+              <div class="metric-item">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <div class="metric-col">
+                  <span class="metric-label">Godziny pracy IT:</span>
+                  <strong class="metric-value">${calc.totalMonthlyHours} h / mies.</strong>
+                </div>
+              </div>
+              <div class="metric-item">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="1" x2="12" y2="23"></line>
+                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                </svg>
+                <div class="metric-col">
+                  <span class="metric-label">Średnia stawka za h:</span>
+                  <strong class="metric-value">~${initialHourlyRateFormatted} / h</strong>
+                </div>
+              </div>
+            </div>
+
+            <p class="phase-subtext">
+              Nadzór (9h) + CMS (do 9h) + Rozwój (20h) + Dedykowany VPS i 5 domen grupy.
+            </p>
+          </div>
+
+          <!-- Przejście ze strzałką informacyjną -->
+          <div class="transition-banner">
+            <div class="transition-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="7 13 12 18 17 13"></polyline>
+                <polyline points="7 6 12 11 17 6"></polyline>
+              </svg>
+            </div>
+            <div class="transition-text">
+              <strong>Naturalne przejście po zrealizowaniu priorytetów:</strong>
+              <span>Po uporządkowaniu zaległości w pierwszych 3 miesiącach, następuje przejście na stały tryb 10h rozwoju:</span>
+            </div>
+          </div>
+
+          <!-- Faza 2: Od 4. miesiąca -->
+          <div class="summary-subcard monthly-phase-card phase-transitioned">
+            <div class="subcard-header">
+              <span class="subcard-tag phase-tag-target">Od 4. miesiąca</span>
+              <span class="badge-savings-pill">Niższa kwota (-${savingsFormatted}/mies.)</span>
+            </div>
+            <div class="phase-title">Docelowy stały rozwój (10h) + Baza</div>
+            <div class="phase-price-wrap">
+              <div class="hero-value text-success">${transitionPriceFormatted}<small>/mies.</small></div>
+            </div>
+
+            <!-- Godziny pracy i średnia stawka po przejściu -->
+            <div class="work-metrics-box">
+              <div class="metric-item">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <div class="metric-col">
+                  <span class="metric-label">Godziny pracy IT:</span>
+                  <strong class="metric-value">${calc.transitionHours} h / mies.</strong>
+                </div>
+              </div>
+              <div class="metric-item">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="1" x2="12" y2="23"></line>
+                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                </svg>
+                <div class="metric-col">
+                  <span class="metric-label">Średnia stawka za h:</span>
+                  <strong class="metric-value">~${transitionHourlyRateFormatted} / h</strong>
+                </div>
+              </div>
+            </div>
+
+            <p class="phase-subtext">
+              Nadzór (9h) + CMS (do 9h) + Rozwój (10h) + Dedykowany VPS i 5 domen grupy. Niewykorzystane godziny rozwoju przechodzą do 6 miesięcy w przód!
+            </p>
+          </div>
+        </div>
+      `;
+    } else {
+      // Single monthly configuration (e.g. 10h plan or 0h base)
+      const monthlyPriceFormatted = formatMoney(calc.monthlyNet, isGross);
+      const hourlyRateFormatted = formatMoney(Math.round(calc.hourlyRateDisplay), isGross, { trimZero: true });
       const devItem = calc.monthlyItems.find(i => i.type === 'dev');
-      const devFormatted = devItem ? ` (${formatMoney(devItem.netPrice, isGross, { trimZero: true })})` : '';
-      parts.push(`Rozwój ${values.devPlan}h${devFormatted}`);
+      const devText = devItem ? ` + ${devItem.name}` : ' (tylko nadzór i CMS)';
+
+      monthlyDynamicContent.innerHTML = `
+        <div class="summary-subcard monthly-single-card">
+          <div class="subcard-header">
+            <span class="subcard-tag phase-tag-target">Stały abonament</span>
+            <span class="subcard-time-pill">Od 1. dnia stałej umowy</span>
+          </div>
+          <div class="phase-title">Baza technologiczna${escapeHtml(devText)}</div>
+          <div class="phase-price-wrap">
+            <div class="hero-value accent-value">${monthlyPriceFormatted}<small>/mies.</small></div>
+          </div>
+
+          <!-- Godziny pracy i średnia stawka -->
+          <div class="work-metrics-box">
+            <div class="metric-item">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <div class="metric-col">
+                <span class="metric-label">Godziny pracy IT:</span>
+                <strong class="metric-value">${calc.totalMonthlyHours} h / mies.</strong>
+              </div>
+            </div>
+            <div class="metric-item">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="1" x2="12" y2="23"></line>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+              </svg>
+              <div class="metric-col">
+                <span class="metric-label">Średnia stawka za h:</span>
+                <strong class="metric-value">~${hourlyRateFormatted} / h</strong>
+              </div>
+            </div>
+          </div>
+
+          <p class="phase-subtext">
+            ${calc.devHours > 0 
+              ? 'Przewidywalny, stały budżet od pierwszego miesiąca. Niewykorzystane godziny rozwoju przechodzą do 6 miesięcy w przód.' 
+              : 'Opieka bazowa nad stabilnością i obsługa CMS. Zmiany programistyczne rozliczane wyłącznie doraźnie (200 zł/h).'}
+          </p>
+        </div>
+      `;
     }
-    if (calc.adhocHours > 0) {
-      const adhocFormatted = formatMoney(calc.adhocNet || (calc.adhocHours * 200), isGross, { trimZero: true });
-      parts.push(`+${calc.adhocHours}h (${adhocFormatted})`);
-    }
-    if (values.workspace) {
-      const wsAccounts = calc.workspaceAccounts || 9;
-      const wsFormatted = formatMoney(calc.workspaceNet || (wsAccounts * 35), isGross, { trimZero: true });
-      parts.push(`Poczta (${wsFormatted})`);
-    }
-    monthlySubtext.textContent = calc.monthlyNet > 0 ? parts.join(' + ') : 'Brak stałego abonamentu';
   }
 
-  // Tax Table
+  // 4. Tax Table
   if (summaryNetMonthly) {
     summaryNetMonthly.textContent = currencyFormatter.format(calc.monthlyNet);
   }
@@ -119,18 +445,17 @@ export function renderSummary(calc, values, isGross) {
     summaryGrossMonthly.textContent = currencyFormatter.format(calc.monthlyGross);
   }
 
-  const taxBanner = document.getElementById('tax-banner');
   if (taxBanner) {
     taxBanner.classList.toggle('mode-gross', isGross);
     taxBanner.classList.toggle('mode-net', !isGross);
   }
 
-  // Itemized breakdown list
+  // 5. Itemized Breakdown List
   if (breakdownList) {
     let html = '';
 
     if (calc.onetimeItems.length > 0) {
-      html += `<li class="breakdown-category">🚀 Koszty jednorazowe na start</li>`;
+      html += `<li class="breakdown-category">🚀 Opłaty jednorazowe</li>`;
       calc.onetimeItems.forEach(item => {
         html += `
           <li class="breakdown-item">
@@ -166,20 +491,23 @@ export function renderSummary(calc, values, isGross) {
     breakdownList.innerHTML = html;
   }
 
-  // TCO Box
+  // 6. TCO Box
   if (tcoTotal) {
     tcoTotal.textContent = formatMoney(calc.tcoNet, isGross);
   }
   if (tcoNote) {
     if (calc.monthlyNet === 0) {
       tcoNote.textContent = `Obejmuje wyłącznie etap pilotażowy (${formatMoney(calc.onetimeNet, isGross, { trimZero: true })}). Bez zobowiązań do stałej obsługi.`;
+    } else if (calc.hasTransition) {
+      const p1Str = formatMoney(calc.monthlyNet, isGross, { trimZero: true });
+      const p2Str = formatMoney(calc.transitionMonthlyNet, isGross, { trimZero: true });
+      tcoNote.textContent = `Obejmuje: ${calc.hasPilot ? 'Pilotaż Munji + ' : ''}${calc.hasSetup ? 'Nowa infrastruktura + ' : ''}3 miesiące wdrożeń po ${p1Str} (20h rozwoju) + 9 miesięcy stałej opieki po ${p2Str} (10h rozwoju).`;
     } else {
-      tcoNote.textContent = `Obejmuje: Pilotaż Munji (listopad / grudzień 2026) + Przeniesienie infrastruktury (styczeń 2027) + 12 miesięcy stałej obsługi (${formatMoney(calc.monthlyNet * 12, isGross, { trimZero: true })}).`;
+      tcoNote.textContent = `Obejmuje: ${calc.hasPilot ? 'Pilotaż Munji + ' : ''}${calc.hasSetup ? 'Nowa infrastruktura + ' : ''}12 miesięcy stałej obsługi (${formatMoney(calc.monthlyNet * 12, isGross, { trimZero: true })}).`;
     }
   }
 
-  // Legal note
-  const summaryLegal = document.getElementById('summary-legal-note');
+  // 7. Legal Note
   if (summaryLegal) {
     summaryLegal.textContent = isGross
       ? 'Wszystkie kwoty w wycenie są wartościami brutto (zawierają 23% VAT). Pilotaż zamawiany jest osobno. Docelowe stawki stałej opieki doprecyzujemy po pilotażu i zbadaniu zaplecza.'

@@ -54,33 +54,277 @@
   color: var(--color-text-main);
 }
 
-/* Dual Hero Highlights */
-.summary-hero-dual {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+/* Summary Sections Layout */
+.summary-section {
+  padding: 1.15rem 1.35rem;
   border-bottom: 1px solid var(--color-border);
 }
 
-.hero-subcard {
-  padding: 1.25rem 1.15rem;
-  text-align: center;
+.section-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
-.hero-subcard-start {
-  border-right: 1px solid var(--color-border);
+.section-eyebrow {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--color-primary);
+}
+
+.section-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  background: #f1f5f9;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+  font-variant-numeric: tabular-nums;
+}
+
+.section-timing-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #475569;
+  background: #e2e8f0;
+  padding: 0.18rem 0.55rem;
+  border-radius: var(--radius-full);
+}
+
+/* Onetime Blocks Grid */
+.onetime-section {
+  background: #ffffff;
+}
+
+.onetime-blocks-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.summary-block {
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--color-border);
+  background: #fafbfc;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.onetime-block {
   background: linear-gradient(180deg, #fefdfa 0%, #ffffff 100%);
 }
 
-.hero-subcard-monthly {
-  background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+.block-pilot {
+  border-left: 3px solid var(--color-accent-amber);
 }
 
-.hero-label {
-  font-size: 0.75rem;
-  font-weight: 700;
+.block-setup {
+  border-left: 3px solid #3b82f6;
+}
+
+.block-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.3rem;
+  gap: 0.5rem;
+}
+
+.block-tag {
+  font-size: 0.68rem;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.04em;
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--radius-sm);
+}
+
+.badge-tag-pilot {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.badge-tag-setup {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.block-timing {
+  font-size: 0.7rem;
+  font-weight: 600;
   color: var(--color-text-muted);
+}
+
+.block-title {
+  font-size: 0.925rem;
+  font-weight: 800;
+  color: var(--color-text-main);
+  margin-bottom: 0.15rem;
+}
+
+.block-price-val {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--color-text-main);
+  font-variant-numeric: tabular-nums;
+  margin-block: 0.2rem 0.35rem;
+  line-height: 1.15;
+}
+
+.block-price-val small {
+  font-size: 0.825rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.block-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-bottom: 0.4rem;
+}
+
+.chip-item {
+  font-size: 0.68rem;
+  font-weight: 700;
+  background: #f1f5f9;
+  color: #334155;
+  padding: 0.12rem 0.45rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid #e2e8f0;
+}
+
+.block-subtext {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  line-height: 1.35;
+  margin: 0;
+}
+
+.onetime-empty-card {
+  background: #f8fafc;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 0.85rem;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+/* Monthly Section & Transition Breakdown */
+.monthly-section {
+  background: #f8fafc;
+}
+
+.monthly-phases-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.summary-subcard {
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 0.95rem 1.05rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.phase-initial {
+  border-left: 3px solid var(--color-primary);
+}
+
+.phase-transitioned {
+  border-left: 3px solid #10b981;
+  background: linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%);
+}
+
+.monthly-single-card {
+  border-left: 3px solid var(--color-primary);
+}
+
+.monthly-zero-card {
+  border-left: 3px solid var(--color-border);
+  background: #f8fafc;
+}
+
+.subcard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.35rem;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.subcard-tag {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--radius-sm);
+}
+
+.phase-tag-start {
+  background: #0f172a;
+  color: #ffffff;
+}
+
+.phase-tag-target {
+  background: #047857;
+  color: #ffffff;
+}
+
+.subcard-time-pill {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.badge-rec-pill {
+  font-size: 0.68rem;
+  font-weight: 700;
+  background: #eff6ff;
+  color: #1d4ed8;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+}
+
+.badge-savings-pill {
+  font-size: 0.68rem;
+  font-weight: 800;
+  background: #dcfce7;
+  color: #15803d;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+  border: 1px solid #bbf7d0;
+}
+
+.badge-zero-pill {
+  font-size: 0.68rem;
+  font-weight: 700;
+  background: #e2e8f0;
+  color: #475569;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+}
+
+.phase-title {
+  font-size: 0.925rem;
+  font-weight: 800;
+  color: var(--color-text-main);
+  margin-bottom: 0.2rem;
+}
+
+.phase-price-wrap {
+  margin-block: 0.15rem 0.45rem;
 }
 
 .hero-value {
@@ -88,25 +332,106 @@
   font-weight: 800;
   letter-spacing: -0.02em;
   color: var(--color-text-main);
-  line-height: 1.2;
-  margin-block: 0.35rem 0.25rem;
+  line-height: 1.15;
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .accent-value {
   color: var(--color-primary);
 }
 
-.accent-value small {
-  font-size: 0.85rem;
+.text-success {
+  color: #047857;
+}
+
+.hero-value small {
+  font-size: 0.825rem;
   font-weight: 600;
   color: var(--color-text-muted);
 }
 
-.hero-subtext {
-  font-size: 0.725rem;
+/* Work metrics box: hours & average rate */
+.work-metrics-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  background: #f8fafc;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.65rem;
+  margin-bottom: 0.45rem;
+}
+
+.metric-item {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.metric-item svg {
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.phase-transitioned .metric-item svg {
+  color: #047857;
+}
+
+.metric-col {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.metric-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.03em;
   color: var(--color-text-muted);
-  line-height: 1.3;
+}
+
+.metric-value {
+  font-size: 0.825rem;
+  font-weight: 800;
+  color: var(--color-text-main);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Transition banner connector */
+.transition-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  background: #f0fdf4;
+  border: 1px dashed #86efac;
+  border-radius: var(--radius-md);
+  padding: 0.55rem 0.75rem;
+  font-size: 0.725rem;
+  color: #166534;
+}
+
+.transition-icon {
+  color: #15803d;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.transition-text {
+  line-height: 1.35;
+}
+
+.transition-text strong {
+  display: block;
+  margin-bottom: 0.1rem;
+}
+
+.phase-subtext {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  line-height: 1.35;
+  margin: 0;
 }
 
 /* Tax Banner Table */
@@ -129,6 +454,7 @@
 .tax-line strong,
 .tax-line span {
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .total-line {
@@ -256,6 +582,7 @@
   color: var(--color-text-main);
   margin-block: 0.25rem 0.35rem;
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .tco-note {

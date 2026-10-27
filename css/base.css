@@ -60,6 +60,13 @@ body {
   margin-block-end: 0 !important;
 }
 
+/* Non-breaking text & amounts */
+.text-nowrap,
+.nowrap,
+[data-amount-net] {
+  white-space: nowrap;
+}
+
 /* ==========================================================================
    Calculator Grid Layout
    ========================================================================== */

@@ -122,24 +122,71 @@ export function calculateOffer(values, isGross = false) {
   const monthlyVat = monthlyNet * CONFIG.vatRate;
   const monthlyGross = monthlyNet + monthlyVat;
 
+  // Work hours calculation
+  const supervisionHours = values.supervision ? 9 : 0;
+  const cmsHours = values.cms ? 9 : 0;
+  const devHours = devPlan ? devPlan.hours : 0;
+  const totalMonthlyHours = supervisionHours + cmsHours + devHours + adhocHours;
+
+  const hourlyRateNet = totalMonthlyHours > 0 ? (monthlyNet / totalMonthlyHours) : 0;
+  const hourlyRateGross = totalMonthlyHours > 0 ? (monthlyGross / totalMonthlyHours) : 0;
+
+  // Transition to 10h development after initial 2-3 months (if 20h plan selected)
+  const hasTransition = values.devPlan === '20';
+  let transitionMonthlyNet = 0;
+  let transitionMonthlyVat = 0;
+  let transitionMonthlyGross = 0;
+  let transitionHours = 0;
+  let transitionHourlyRateNet = 0;
+  let transitionHourlyRateGross = 0;
+  let transitionSavingsNet = 0;
+  let transitionSavingsGross = 0;
+
+  if (hasTransition) {
+    const devPlan10 = OFFER_DATA.devPlans['10'];
+    transitionMonthlyNet = baseNet + devPlan10.priceNet + extraHoursNet + workspaceNet;
+    transitionMonthlyVat = transitionMonthlyNet * CONFIG.vatRate;
+    transitionMonthlyGross = transitionMonthlyNet + transitionMonthlyVat;
+    transitionHours = supervisionHours + cmsHours + 10 + adhocHours;
+    transitionHourlyRateNet = transitionHours > 0 ? (transitionMonthlyNet / transitionHours) : 0;
+    transitionHourlyRateGross = transitionHours > 0 ? (transitionMonthlyGross / transitionHours) : 0;
+    transitionSavingsNet = monthlyNet - transitionMonthlyNet;
+    transitionSavingsGross = monthlyGross - transitionMonthlyGross;
+  }
+
   // Onetime totals
   const onetimeVat = onetimeNet * CONFIG.vatRate;
   const onetimeGross = onetimeNet + onetimeVat;
+  const pilotNet = values.pilot ? OFFER_DATA.pilot.priceNet : 0;
 
-  // First Year TCO estimate: Start + (12 * monthly)
-  const tcoNet = onetimeNet + (12 * monthlyNet);
+  // First Year TCO estimate:
+  // If transition active: Onetime + 3 months initial + 9 months transitioned
+  // Else: Onetime + 12 * monthly
+  const tcoNet = hasTransition
+    ? (onetimeNet + (3 * monthlyNet) + (9 * transitionMonthlyNet))
+    : (onetimeNet + (12 * monthlyNet));
   const tcoVat = tcoNet * CONFIG.vatRate;
   const tcoGross = tcoNet + tcoVat;
 
   return {
     isGross,
+
+    // Onetime blocks
+    hasPilot: !!values.pilot,
+    hasSetup: !!values.setupFee,
+    pilotNet,
+    pilotVat: pilotNet * CONFIG.vatRate,
+    pilotGross: pilotNet * (1 + CONFIG.vatRate),
+    setupNet,
+    setupVat: setupNet * CONFIG.vatRate,
+    setupGross: setupNet * (1 + CONFIG.vatRate),
     onetimeItems,
     onetimeNet,
     onetimeVat,
     onetimeGross,
     onetimeDisplay: isGross ? onetimeGross : onetimeNet,
-    setupNet,
 
+    // Monthly
     baseNet,
     monthlyItems,
     monthlyNet,
@@ -147,10 +194,35 @@ export function calculateOffer(values, isGross = false) {
     monthlyGross,
     monthlyDisplay: isGross ? monthlyGross : monthlyNet,
 
+    // Hours & Rates
+    supervisionHours,
+    cmsHours,
+    devHours,
     adhocHours,
+    totalMonthlyHours,
+    hourlyRateNet,
+    hourlyRateGross,
+    hourlyRateDisplay: isGross ? hourlyRateGross : hourlyRateNet,
+
+    // Transition (Miesiące 1–3 vs Od 4. miesiąca)
+    hasTransition,
+    transitionMonthlyNet,
+    transitionMonthlyVat,
+    transitionMonthlyGross,
+    transitionMonthlyDisplay: isGross ? transitionMonthlyGross : transitionMonthlyNet,
+    transitionHours,
+    transitionHourlyRateNet,
+    transitionHourlyRateGross,
+    transitionHourlyRateDisplay: isGross ? transitionHourlyRateGross : transitionHourlyRateNet,
+    transitionSavingsNet,
+    transitionSavingsGross,
+    transitionSavingsDisplay: isGross ? transitionSavingsGross : transitionSavingsNet,
+
     adhocNet: extraHoursNet,
     workspaceNet,
     workspaceAccounts: accountsCount,
+
+    // TCO
     tcoNet,
     tcoVat,
     tcoGross,

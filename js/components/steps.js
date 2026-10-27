@@ -63,7 +63,7 @@ export function createStep1Html() {
 
         <div class="info-note-box">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-          <span><strong>Koszt etapu: 0 zł</strong> (w ramach pilotażu). Przed wykonaniem jakichkolwiek poprawek tworzę niezależną kopię zapasową serwisu. Prace nie wpływają na bieżące działanie strony dla gości.</span>
+          <span><strong class="text-nowrap">Koszt etapu: 0&nbsp;zł</strong> (w&nbsp;ramach pilotażu). Przed wykonaniem jakichkolwiek poprawek tworzę niezależną kopię zapasową serwisu. Prace nie wpływają na&nbsp;bieżące działanie strony dla gości.</span>
         </div>
       </div>
     </div>
@@ -95,10 +95,10 @@ export function createStep2Html() {
           <div class="toggle-card-content">
             <div class="toggle-header-row">
               <span class="toggle-title">Pilotaż Munji — pakiet szybkich usprawnień (~25h pracy)</span>
-              <span class="toggle-price" data-amount-net="4000" data-period="jednorazowo" data-trim-zero="false">4 000,00 zł</span>
+              <span class="toggle-price text-nowrap" data-amount-net="4000" data-period="jednorazowo" data-trim-zero="false">4&nbsp;000,00&nbsp;zł</span>
             </div>
             <p class="toggle-desc">
-              W pakiecie <strong data-amount-net="4000">4 000 zł</strong> za około 25 godzin pracy skupię się na szybkich usprawnieniach obecnej strony:
+              W&nbsp;pakiecie <strong class="text-nowrap" data-amount-net="4000">4&nbsp;000&nbsp;zł</strong> za&nbsp;około 25&nbsp;godzin pracy skupię się na&nbsp;szybkich usprawnieniach obecnej strony:
             </p>
             <ul class="feature-pills-list">
               <li>
@@ -120,7 +120,7 @@ export function createStep2Html() {
             </ul>
             <div class="note-box">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-              <span>Pilotaż zamawiany jest jako <strong>osobny etap</strong> (4 000 zł za około 25 godzin pracy). Nie uruchamia automatycznie opłat za nadzór ani serwery.</span>
+              <span>Pilotaż zamawiany jest jako <strong>osobny etap</strong> (<span class="text-nowrap" data-amount-net="4000">4&nbsp;000&nbsp;zł</span> za&nbsp;około 25&nbsp;godzin pracy). Nie&nbsp;uruchamia automatycznie opłat za&nbsp;nadzór ani&nbsp;serwery.</span>
             </div>
           </div>
         </label>
@@ -188,7 +188,7 @@ export function createStep3Html() {
 
         <div class="info-note-box">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-          <span><strong>Koszt etapu: 0 zł</strong> (krok uzgodnieniowy po pilotażu). Kwoty w kolejnych krokach są wstępnymi szacunkami — po audycie w tym kroku wspólnie potwierdzimy ostateczny budżet.</span>
+          <span><strong class="text-nowrap">Koszt etapu: 0&nbsp;zł</strong> (krok uzgodnieniowy po&nbsp;pilotażu). Kwoty w&nbsp;kolejnych krokach są&nbsp;wstępnymi szacunkami — po&nbsp;audycie w&nbsp;tym kroku wspólnie potwierdzimy ostateczny budżet.</span>
         </div>
       </div>
     </div>
@@ -220,7 +220,7 @@ export function createStep4Html() {
           <div class="toggle-card-content">
             <div class="toggle-header-row">
               <span class="toggle-title">Przeniesienie i uruchomienie infrastruktury</span>
-              <span class="toggle-price" id="setup-fee-display" data-amount-net="3000" data-period="jednorazowo" data-trim-zero="false">3 000,00 zł</span>
+              <span class="toggle-price text-nowrap" id="setup-fee-display" data-amount-net="3000" data-period="jednorazowo" data-trim-zero="false">3&nbsp;000,00&nbsp;zł</span>
             </div>
             <p class="toggle-desc">
               Po uzgodnieniu zakresu i budżetu w Kroku 3 przygotuję serwer, przeniosę strony i przejmę obsługę domen. Sprawdzę też usługi pocztowe i uporządkuję konfigurację nadawców oraz zabezpieczenia SPF, DKIM i DMARC:
@@ -232,7 +232,7 @@ export function createStep4Html() {
               </li>
               <li>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span><strong>Przejęcie obsługi 5 domen grupy:</strong> Konsolidacja u jednego rejestratora w stałym ryczałcie (50 zł/mies. z odnowieniami)</span>
+                <span><strong>Przejęcie obsługi 5 domen grupy:</strong> Konsolidacja u&nbsp;jednego rejestratora w&nbsp;stałym ryczałcie (<span class="text-nowrap" data-amount-net="50" data-suffix="/mies.">50&nbsp;zł/mies.</span> z&nbsp;odnowieniami)</span>
               </li>
               <li>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -241,7 +241,7 @@ export function createStep4Html() {
             </ul>
             <div class="note-box">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-              <span>Przejęcie infrastruktury planuję najwcześniej od stycznia 2027 r. Wstępny koszt tego osobnego etapu to <strong>jednorazowo 3 000 zł</strong> (łączna kwota do doprecyzowania w kroku 3).</span>
+              <span>Przejęcie infrastruktury planuję najwcześniej od&nbsp;stycznia 2027&nbsp;r. Wstępny koszt tego osobnego etapu to <strong class="text-nowrap">jednorazowo <span data-amount-net="3000">3&nbsp;000&nbsp;zł</span></strong> (łączna kwota do&nbsp;doprecyzowania w&nbsp;kroku&nbsp;3).</span>
             </div>
           </div>
         </label>
@@ -278,7 +278,7 @@ export function createStep5Html() {
             </div>
             <div class="base-bundle-badge">
               <span>Baza pakietu:</span>
-              <strong id="base-bundle-total">1 450 zł/mies.</strong>
+              <strong id="base-bundle-total" class="text-nowrap">1&nbsp;450&nbsp;zł/mies.</strong>
             </div>
           </div>
 
@@ -290,7 +290,7 @@ export function createStep5Html() {
               <div class="checkbox-content">
                 <div class="checkbox-title-row">
                   <span class="checkbox-title">Nadzór techniczny (9h miesięcznie)</span>
-                  <span class="checkbox-item-price" data-amount-net="750" data-suffix="/mies.">750 zł/mies.</span>
+                  <span class="checkbox-item-price text-nowrap" data-amount-net="750" data-suffix="/mies.">750&nbsp;zł/mies.</span>
                 </div>
                 <p class="checkbox-desc">
                   9 godzin łącznie, po 3 godziny na serwis (Munja, Baila, Nine's): utrzymanie, zarządzanie infrastrukturą, aktualizacje, kopie zapasowe, monitoring i reakcja w uzgodnionych godzinach wsparcia. Przegląd i podstawowa obsługa należą do nadzoru, a zmiany kodu do puli rozwoju.
@@ -305,7 +305,7 @@ export function createStep5Html() {
               <div class="checkbox-content">
                 <div class="checkbox-title-row">
                   <span class="checkbox-title">Publikacja treści w CMS (do 9h/mies.)</span>
-                  <span class="checkbox-item-price" data-amount-net="500" data-suffix="/mies.">500 zł/mies.</span>
+                  <span class="checkbox-item-price text-nowrap" data-amount-net="500" data-suffix="/mies.">500&nbsp;zł/mies.</span>
                 </div>
                 <p class="checkbox-desc">
                   Do 9 godzin łącznie dla trzech serwisów: uzgodnienia publikacji oraz wprowadzanie dostarczonych, gotowych tekstów, menu i zdjęć w panelach administracyjnych.
@@ -320,7 +320,7 @@ export function createStep5Html() {
               <div class="checkbox-content">
                 <div class="checkbox-title-row">
                   <span class="checkbox-title">Dedykowany serwer VPS</span>
-                  <span class="checkbox-item-price" data-amount-net="150" data-suffix="/mies.">150 zł/mies.</span>
+                  <span class="checkbox-item-price text-nowrap" data-amount-net="150" data-suffix="/mies.">150&nbsp;zł/mies.</span>
                 </div>
                 <p class="checkbox-desc">
                   Dedykowana instancja serwerowa bez obcych projektów · Szybki czas odpowiedzi (TTFB) i bezpieczny zapas pod 5. lokal.
@@ -335,10 +335,10 @@ export function createStep5Html() {
               <div class="checkbox-content">
                 <div class="checkbox-title-row">
                   <span class="checkbox-title">Pakiet 5 domen (stały ryczałt)</span>
-                  <span class="checkbox-item-price" data-amount-net="50" data-suffix="/mies.">50 zł/mies.</span>
+                  <span class="checkbox-item-price text-nowrap" data-amount-net="50" data-suffix="/mies.">50&nbsp;zł/mies.</span>
                 </div>
                 <p class="checkbox-desc">
-                  Uporządkowanie odnowień w stałym ryczałcie (50 zł/mies. zamiast dotychczasowych ~81 zł) · Transfer, utrzymanie i ochrona przed wygaśnięciem domen.
+                  Uporządkowanie odnowień w&nbsp;stałym ryczałcie (<span class="text-nowrap" data-amount-net="50" data-suffix="/mies.">50&nbsp;zł/mies.</span> zamiast dotychczasowych <span class="text-nowrap">~81&nbsp;zł</span>) · Transfer, utrzymanie i&nbsp;ochrona przed wygaśnięciem domen.
                 </p>
               </div>
             </label>
@@ -365,10 +365,10 @@ export function createStep5Html() {
                     <span class="radio-title">Dalszy rozwój: Pakiet 20 godzin</span>
                     <span class="badge-rec">Rekomendowany na pierwsze 3 miesiące</span>
                   </div>
-                  <span class="radio-price" data-amount-net="3200" data-suffix="/mies.">3 200 zł/mies.</span>
+                  <span class="radio-price text-nowrap" data-amount-net="3200" data-suffix="/mies.">3&nbsp;200&nbsp;zł/mies.</span>
                 </div>
                 <p class="radio-desc">
-                  Stawka <strong data-amount-net="160" data-format="{price}/godz. {tax}">160 zł/godz. netto</strong>. Wspólna pula dla Munji, Baila i Nine’s, aby uporządkować najważniejsze zaległości. 
+                  Stawka <strong class="text-nowrap" data-amount-net="160" data-format="{price}/godz. {tax}">160&nbsp;zł/godz. netto</strong>. Wspólna pula dla Munji, Baila i Nine’s, aby uporządkować najważniejsze zaległości. 
                   <strong>Niewykorzystane godziny rozwoju można wykorzystać do 6 miesięcy w przód od miesiąca, którego dotyczą!</strong>
                 </p>
               </div>
@@ -381,10 +381,10 @@ export function createStep5Html() {
               <div class="radio-card-content">
                 <div class="radio-header-row">
                   <span class="radio-title">Dalszy rozwój: Pakiet 10 godzin</span>
-                  <span class="radio-price" data-amount-net="1700" data-suffix="/mies.">1 700 zł/mies.</span>
+                  <span class="radio-price text-nowrap" data-amount-net="1700" data-suffix="/mies.">1&nbsp;700&nbsp;zł/mies.</span>
                 </div>
                 <p class="radio-desc">
-                  Stawka <strong data-amount-net="170" data-format="{price}/godz. {tax}">170 zł/godz. netto</strong>. Docelowa mniejsza pula po uporządkowaniu zaległości (po pierwszych 2–3 miesiącach).
+                  Stawka <strong class="text-nowrap" data-amount-net="170" data-format="{price}/godz. {tax}">170&nbsp;zł/godz. netto</strong>. Docelowa mniejsza pula po uporządkowaniu zaległości (po pierwszych 2–3 miesiącach).
                   <strong>Niewykorzystane godziny rozwoju można wykorzystać do 6 miesięcy w przód od miesiąca, którego dotyczą!</strong>
                 </p>
               </div>
@@ -397,10 +397,10 @@ export function createStep5Html() {
               <div class="radio-card-content">
                 <div class="radio-header-row">
                   <span class="radio-title">Brak stałego pakietu rozwoju (0 godzin)</span>
-                  <span class="radio-price" data-amount-net="0" data-suffix="/mies.">0 zł/mies.</span>
+                  <span class="radio-price text-nowrap" data-amount-net="0" data-suffix="/mies.">0&nbsp;zł/mies.</span>
                 </div>
                 <p class="radio-desc">
-                  Tylko opieka bazowa nad stabilnością. Zmiany programistyczne rozliczane wyłącznie jako zlecenia dodatkowe (<span data-amount-net="200" data-suffix="/h">200 zł/h</span>).
+                  Tylko opieka bazowa nad stabilnością. Zmiany programistyczne rozliczane wyłącznie jako zlecenia dodatkowe (<span class="text-nowrap" data-amount-net="200" data-suffix="/h">200&nbsp;zł/h</span>).
                 </p>
               </div>
             </label>
@@ -411,9 +411,9 @@ export function createStep5Html() {
             <div class="form-row-between">
               <label for="extra-adhoc-hours" class="form-label mb-0">
                 Dodatkowe godziny doraźne ponad pakiet
-                <span class="label-info-tag" data-amount-net="200" data-suffix="/h">200 zł/h</span>
+                <span class="label-info-tag text-nowrap" data-amount-net="200" data-suffix="/h">200&nbsp;zł/h</span>
               </label>
-              <span class="range-live-val" id="extra-hours-display">0 godz. (0 zł)</span>
+              <span class="range-live-val text-nowrap" id="extra-hours-display">0 godz. (0&nbsp;zł)</span>
             </div>
             <input 
               type="range" 
@@ -444,7 +444,7 @@ export function createStep5Html() {
           <div class="subsection-header">
             <div>
               <h3 class="subsection-title">C. Poczta firmowa (Google Workspace)</h3>
-              <p class="subsection-desc">Orientacyjny koszt licencji skrzynek pocztowych (przedział <span data-amount-net="30">30 zł</span>–<span data-amount-net="40" data-format="{price}/konto/mies. {tax}">40 zł/konto/mies. netto</span>)</p>
+              <p class="subsection-desc">Orientacyjny koszt licencji skrzynek pocztowych (<span class="text-nowrap">przedział <span data-amount-net="30">30&nbsp;zł</span>–<span data-amount-net="40" data-format="{price}/konto/mies. {tax}">40&nbsp;zł/konto/mies. netto</span></span>)</p>
             </div>
           </div>
 
@@ -464,7 +464,7 @@ export function createStep5Html() {
               <label for="workspace-accounts-range" class="form-label mb-0">
                 Liczba płatnych kont pocztowych:
               </label>
-              <span class="range-live-val" id="workspace-accounts-display">9 kont (315 zł/mies.)</span>
+              <span class="range-live-val text-nowrap" id="workspace-accounts-display">9 kont (315&nbsp;zł/mies.)</span>
             </div>
             <input 
               type="range" 
@@ -483,7 +483,7 @@ export function createStep5Html() {
               <span>20 kont</span>
             </div>
             <p class="form-hint">
-              Przyjęto średnią stawkę <strong data-amount-net="35" data-format="{price}/konto/mies. {tax}">35 zł/konto/mies. netto</strong>. W materiałach rozpoznano 9 adresów e-mail; faktyczną liczbę płatnych licencji (względem bezpłatnych aliasów) zweryfikujemy w konsoli administracyjnej w Kroku 3.
+              Przyjęto średnią stawkę <strong class="text-nowrap" data-amount-net="35" data-format="{price}/konto/mies. {tax}">35&nbsp;zł/konto/mies. netto</strong>. W materiałach rozpoznano 9 adresów e-mail; faktyczną liczbę płatnych licencji (względem bezpłatnych aliasów) zweryfikujemy w konsoli administracyjnej w Kroku 3.
             </p>
             <div class="security-note-box">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>

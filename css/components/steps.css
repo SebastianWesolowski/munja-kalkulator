@@ -63,6 +63,7 @@
   color: var(--color-text-main);
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.01em;
+  white-space: nowrap;
 }
 
 .feature-toggle-card.highlighted-card .toggle-price {
@@ -219,6 +220,7 @@
 .base-bundle-badge strong {
   font-size: 0.95rem;
   font-weight: 800;
+  white-space: nowrap;
 }
 
 /* Sub-checkboxes grid (Supervision, CMS, VPS, Domains) */
@@ -381,6 +383,7 @@
   font-weight: 800;
   color: var(--color-text-main);
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .badge-rec {
@@ -416,6 +419,7 @@
   padding: 0.15rem 0.45rem;
   border-radius: var(--radius-sm);
   margin-left: 0.4rem;
+  white-space: nowrap;
 }
 
 .form-row-between {
@@ -440,6 +444,7 @@
   padding: 0.25rem 0.65rem;
   border-radius: var(--radius-sm);
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .form-range {

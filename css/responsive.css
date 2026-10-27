@@ -386,32 +386,23 @@
     font-size: 1.2rem;
   }
 
-  .summary-hero-dual {
-    grid-template-columns: 1fr;
-  }
-
-  .hero-subcard {
+  .summary-section {
     padding: 0.95rem 1rem;
-    text-align: center;
   }
 
-  .hero-subcard-start {
-    border-right: none;
-    border-bottom: 1px solid var(--color-border);
+  .summary-block,
+  .summary-subcard {
+    padding: 0.85rem 0.9rem;
   }
 
-  .hero-label {
-    font-size: 0.72rem;
-  }
-
+  .block-price-val,
   .hero-value {
-    font-size: 1.55rem;
-    white-space: nowrap;
-    margin-block: 0.25rem 0.15rem;
+    font-size: 1.4rem;
   }
 
-  .hero-subtext {
-    font-size: 0.72rem;
+  .work-metrics-box {
+    gap: 0.35rem;
+    padding: 0.45rem 0.55rem;
   }
 
   .summary-tax-banner {
