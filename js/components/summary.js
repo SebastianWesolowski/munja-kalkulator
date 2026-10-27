@@ -454,7 +454,7 @@ export function renderSummary(calc, values, isGross) {
     }
 
     if (calc.monthlyItems.length > 0) {
-      html += `<li class="breakdown-category">🔄 Stały abonament miesięczny (od stycznia 2027 r.)</li>`;
+      html += `<li class="breakdown-category">🔄 Stały abonament miesięczny (od stycznia 2027)</li>`;
       calc.monthlyItems.forEach(item => {
         html += `
           <li class="breakdown-item">

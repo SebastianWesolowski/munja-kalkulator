@@ -4,6 +4,7 @@
    ========================================================================== */
 
 /* 1. Tokens & Base Foundation */
+@import './fonts.css';
 @import './variables.css';
 @import './base.css';
 

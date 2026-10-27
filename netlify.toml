@@ -2,17 +2,32 @@
   command = "npm run build"
   publish = "dist"
 
-# 1. Long-term immutable caching for content-hashed assets
+# 1. Canonical Redirect: Przekierowanie z subdomeny Netlify na domenę własną
+[[redirects]]
+  from = "https://munja-kalkulator.netlify.app/*"
+  to = "https://munja-kalkulator.wesolowski.dev/:splat"
+  status = 301
+  force = true
+
+# 2. Long-term immutable caching for static fonts
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# 3. Long-term immutable caching for content-hashed assets
 [[headers]]
   for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-# 2. Revalidation and security headers for HTML and root files
+# 4. Revalidation, HSTS and security headers for HTML and root files
 [[headers]]
   for = "/*"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    X-DNS-Prefetch-Control = "on"
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"

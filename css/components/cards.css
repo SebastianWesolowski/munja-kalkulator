@@ -101,3 +101,11 @@
   color: var(--color-success-dark);
   border: 1px solid rgba(4, 120, 87, 0.25);
 }
+
+/* Performance: Defer layout and painting for below-the-fold elements */
+.calc-form .card:nth-of-type(n+3),
+.info-faq-card,
+.site-footer {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 400px;
+}

@@ -65,8 +65,11 @@ Kalkulator odwzorowuje strukturę 5 etapów i cennik ze szkicu współpracy z ma
 ```text
 munja-kalkulator/
 ├── index.html                    # Semantyczny szkielet aplikacji z podziałem na obszary
+├── public/
+│   └── fonts/                    # Samodzielnie hostowane fonty Plus Jakarta Sans (Variable woff2)
 ├── css/
 │   ├── style.css                 # Główny arkusz importujący moduły komponentów
+│   ├── fonts.css                 # Deklaracje @font-face dla lokalnego fontu
 │   ├── variables.css             # Tokeny stylów (kolory, typografia, cienie, promienie)
 │   ├── base.css                  # Reset, layout siatki (.calculator-layout), przyciski
 │   ├── responsive.css            # Adaptacje mobilne (< 768px, < 460px, < 360px)
